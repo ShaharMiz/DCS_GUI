@@ -8,7 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
-using OpenJigWare;
+/////////////////////////////////////
+//           Joistick !!!          //
+/////////////////////////////////////
+//using OpenJigWare;
+/////////////////////////////////////
+
+
+
+
+////// Usefully things
+///
+///// Right things to text box
+/// richTextBox_textReceiver.Text += msg_checksum.ToString() + " Checksum correct!" + "\n";
+///
+///// Use this to show somthing
+/// message_error_label.Text = message_error_counter.ToString();
+
+
+
+
+
+
 
 
 
@@ -27,12 +48,16 @@ namespace Pneumatic_Control
         private byte[] serialDataHeader;
         MSG_TYPE msg_type = MSG_TYPE.WAIT;
         char startChar = '0';
-        
-        // Joistick
-        float x1 = 115;
+
+        /////////////////////////////////////
+        //           Joistick !!!          //
+        /////////////////////////////////////
+/*        float x1 = 115;
         float y1 = 115;
         float x2 = 115;
-        float y2 = 115;
+        float y2 = 115;*/
+        /////////////////////////////////////
+
 
         private enum MSG_TYPE : byte
         {
@@ -108,15 +133,19 @@ namespace Pneumatic_Control
             label_status.Text = "DISCONNECTED";
             label_status.ForeColor = Color.Red;
 
-            comboBox_baudRate.Text = "115200";
+            comboBox_baudRate.Text = "9600";
             string[] portLists = SerialPort.GetPortNames();
             comboBox_comPort.Items.AddRange(portLists);
             comboBox_comPort.SelectedIndex = comboBox_comPort.Items.Count-1;
 
-            // Joistick !!!
-            Ojw.CMessage.Init(txtMessage);
+            /////////////////////////////////////
+            //           Joistick !!!          //
+            /////////////////////////////////////
+/*            Ojw.CMessage.Init(txtMessage);
             panel1.Controls.Add(radioButton1);
-            radioButton1.Location = new Point((int)x1, (int)y1);
+            radioButton1.Location = new Point((int)x1, (int)y1);*/
+            /////////////////////////////////////
+
 
         }
 
@@ -179,6 +208,12 @@ namespace Pneumatic_Control
             }
         }
 
+
+
+
+        ////////////////////////////////////////
+        ///       RECEIVER - interupt        ///
+        ////////////////////////////////////////
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //serialDataIn = serialPort1.ReadExisting();
@@ -207,21 +242,21 @@ namespace Pneumatic_Control
             }
 
         }
-
+        ////////////////////////////////////////
+        ///            ShowData             ///
+        ////////////////////////////////////////
         private void ShowData(object sender, EventArgs e)
         {
             byte[] msg_array = serialDataIn;
 
-            byte msg_checksum=0;
+            //byte msg_checksum=0;
             uint m_timestamp = 0;
-            uint m_vin = 0;
+            uint m_SMcounter = 0;
             uint m_vscap = 0;
             int m_current = 0;
             bool CRC_status = false;
             int index = 0;
-            byte[] module_status = { 0, 0, 0, 0, 0, 0, 0 };
-            short[] weight = { 0, 0, 0, 0 ,0 ,0 ,0};
-            short[] position = { 0, 0, 0, 0 ,0 , 0, 0};
+
 
             richTextBox_textReceiver.Text += "------New data ------" + "\n";
             richTextBox_textReceiver.Text += startChar.ToString() + "\t|" + Enum.GetName(typeof(MSG_TYPE), msg_type) + " message\n";
@@ -236,66 +271,54 @@ namespace Pneumatic_Control
 
             if (startChar == '#')
             {
-                //CRC calculation
-                msg_checksum = 0;
-                for (int i = 1; i < MSG_LENGTH; i++)
-                {
-                    msg_checksum ^= msg_array[i];
-                }
+                CRC_status = true;
+                message_received_counter++;
+                message_recieved_label.Text = message_received_counter.ToString();
 
-                if (msg_checksum == msg_array[0])
-                {
-                    CRC_status = true;
-                    message_received_counter++;
-                    message_recieved_label.Text = message_received_counter.ToString();
-                    richTextBox_textReceiver.Text += msg_checksum.ToString() + " Checksum correct!" + "\n";
-                }
-                else
-                {
-                    MSG_Status.Text = "Checksum error";
-                    message_error_counter++;
-                    message_error_label.Text = message_error_counter.ToString();
-                    richTextBox_textReceiver.Text += msg_checksum.ToString() + " Checksum error" + "\n";
-                }
 
                 index=1;
                 if (CRC_status)
                 {
-                    MSG_Status.Text = Enum.GetName(typeof(SC_MSG_STATUS), msg_array[index]);
+    /*                    MSG_Status.Text = Enum.GetName(typeof(SC_MSG_STATUS), msg_array[index]);
                     index++;
                     modeLabel.Text = Enum.GetName(typeof(SC_MSG_MODES), msg_array[index]);
                     index++;
                     m_timestamp = BitConverter.ToUInt32(new byte[4] { msg_array[index], msg_array[index+1], msg_array[index+2], msg_array[index+3] }, 0);
                     index+=4;
-                    m_vin = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                    //m_vin = BitConverter.ToUInt16( msg_array, index);
+                    m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
+                    //m_SMcounter = BitConverter.ToUInt16( msg_array, index);
                     index += 2;
                     m_vscap = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
                     index += 2;
                     m_current = BitConverter.ToInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                    index += 2;
+                    index += 2;*/
+                    
+/*                    // Read buffer
+                    m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
+                    //
                     timestamp_label.Text = Convert.ToString(m_timestamp / 3600000) + "h " + Convert.ToString((m_timestamp / 60000) % 60) + "m " + Convert.ToString((m_timestamp / 1000) % 60) + 's';
-                    vinLabel.Text = m_vin.ToString() + "mV";
-                    vscapLabel.Text = m_vscap.ToString() + "mV"; 
-                    currentLabel.Text = m_current.ToString() + "mV";
+                    SM_countre_Label.Text = m_SMcounter.ToString() + "mV";*/
+/*                    vscapLabel.Text = m_vscap.ToString() + "mV"; 
+                    currentLabel.Text = m_current.ToString() + "mV";*/
 
-                    if (m_vin >= VinBar.Minimum && m_vin <= VinBar.Maximum) VinBar.Value =  (int)m_vin;
+/*                    if (m_SMcounter >= VinBar.Minimum && m_SMcounter <= VinBar.Maximum) VinBar.Value =  (int)m_SMcounter;
                     if (m_vscap >= VscapBar.Minimum && m_vscap <= VscapBar.Maximum) VscapBar.Value = (int)m_vscap;
                     if (m_current >= currentBar.Minimum && m_current <= currentBar.Maximum) currentBar.Value = (int)m_current;
-
-                    MainChart.Series["Vin"].Points.AddXY(m_timestamp.ToString(), m_vin.ToString());
+*/
+/*                    MainChart.Series["Vin"].Points.AddXY(m_timestamp.ToString(), m_SMcounter.ToString());
                     MainChart.Series["Vcap"].Points.AddXY(m_timestamp.ToString(), m_vscap.ToString());
-                    MainChart.Series["Current"].Points.AddXY(m_timestamp.ToString(), m_current.ToString());
+                    MainChart.Series["Current"].Points.AddXY(m_timestamp.ToString(), m_current.ToString());*/
 
-                    // joistick
-                    radioButton1.Location = new Point((int)(x1 * 1.8 * m_CJoy.dX0), (int)(y1 * 1.8 * m_CJoy.dY0)); 
-
+                    /////////////////////////////////////
+                    //           Joistick !!!          //
+                    /////////////////////////////////////
+                    //radioButton1.Location = new Point((int)(x1 * 1.8 * m_CJoy.dX0), (int)(y1 * 1.8 * m_CJoy.dY0));
+                    /////////////////////////////////////
                 }
             }
             else
             {
-                message_error_counter++;
-                message_error_label.Text = message_error_counter.ToString();
+
             }
             startChar = '0';
             msg_type = MSG_TYPE.WAIT;
@@ -312,17 +335,15 @@ namespace Pneumatic_Control
         {
             richTextBox_textReceiver.Clear();
         }
-
+        /////////////////////////////////////
+        //           STATUS button         //
+        /////////////////////////////////////
         private void PingButton_Click(object sender, EventArgs e)
         {
             try
             {
-                byte[] Checksum = { 0 };
-                Byte[] msg = { 1, 0 ,0, 0, 0};
-                for (int i = 0; i < msg.Length; i++)
-                    Checksum[0] ^= msg[i];
+                Byte[] msg = { 0, 0 ,0, 0, 0};
                 serialPort1.Write("#");
-                serialPort1.Write(Checksum, 0, 1);
                 serialPort1.Write(msg, 0, 5);
                 message_sent_label.Text = (++message_sent_counter).ToString();
             }
@@ -586,6 +607,54 @@ namespace Pneumatic_Control
         private void MainChart_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void message_error_label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MSG_Status_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_textSent_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_status_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void vinLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void moveMotorTest_Click(object sender, EventArgs e)
+        {
+            Byte[] msg = { 10, 0, 0, 0, 0 };
+            serialPort1.Write("!");
+            serialPort1.Write(msg, 0, 5);
+            message_sent_label.Text = (++message_sent_counter).ToString();
         }
     }
 
