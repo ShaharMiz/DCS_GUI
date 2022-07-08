@@ -1,0 +1,10 @@
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\bin\Release\Elevator_R2_Tester.exe.config
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\bin\Release\Elevator_R2_Tester.exe
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\bin\Release\Elevator_R2_Tester.pdb
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\obj\Release\Elevator Control.csprojAssemblyReference.cache
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\obj\Release\Pneumatic_Control.elevator_control.resources
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\obj\Release\Elevator_R2_Tester.Properties.Resources.resources
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\obj\Release\Elevator Control.csproj.GenerateResource.cache
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\obj\Release\Elevator Control.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\obj\Release\Elevator_R2_Tester.exe
+C:\Users\user\Documents\GitHub\Elevator_Control_GUI\obj\Release\Elevator_R2_Tester.pdb
