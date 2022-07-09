@@ -38,7 +38,7 @@ namespace Pneumatic_Control
 {
     public partial class elevator_control : Form //partial
     {
-        const int MSG_LENGTH = 13; // 
+        const int MSG_LENGTH = 2; // 
         const int ID_MSG_LENGTH = 70;
         const int stringSize = 16;
         byte[] serialDataIn;
@@ -279,25 +279,25 @@ namespace Pneumatic_Control
                 index=1;
                 if (CRC_status)
                 {
-    /*                    MSG_Status.Text = Enum.GetName(typeof(SC_MSG_STATUS), msg_array[index]);
-                    index++;
-                    modeLabel.Text = Enum.GetName(typeof(SC_MSG_MODES), msg_array[index]);
-                    index++;
-                    m_timestamp = BitConverter.ToUInt32(new byte[4] { msg_array[index], msg_array[index+1], msg_array[index+2], msg_array[index+3] }, 0);
-                    index+=4;
-                    m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                    //m_SMcounter = BitConverter.ToUInt16( msg_array, index);
-                    index += 2;
-                    m_vscap = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                    index += 2;
-                    m_current = BitConverter.ToInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                    index += 2;*/
-                    
-/*                    // Read buffer
+/*                    MSG_Status.Text = Enum.GetName(typeof(SC_MSG_STATUS), msg_array[index]);
+                index++;
+                modeLabel.Text = Enum.GetName(typeof(SC_MSG_MODES), msg_array[index]);
+                index++;
+                m_timestamp = BitConverter.ToUInt32(new byte[4] { msg_array[index], msg_array[index+1], msg_array[index+2], msg_array[index+3] }, 0);
+                index+=4;
+                m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
+                //m_SMcounter = BitConverter.ToUInt16( msg_array, index);
+                index += 2;
+                m_vscap = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
+                index += 2;
+                m_current = BitConverter.ToInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
+                index += 2;*/
+
+                    // Read buffer
                     m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
                     //
-                    timestamp_label.Text = Convert.ToString(m_timestamp / 3600000) + "h " + Convert.ToString((m_timestamp / 60000) % 60) + "m " + Convert.ToString((m_timestamp / 1000) % 60) + 's';
-                    SM_countre_Label.Text = m_SMcounter.ToString() + "mV";*/
+                    //timestamp_label.Text = Convert.ToString(m_timestamp / 3600000) + "h " + Convert.ToString((m_timestamp / 60000) % 60) + "m " + Convert.ToString((m_timestamp / 1000) % 60) + 's';
+                    SM_countre_Label.Text = m_SMcounter.ToString() + "mV";
 /*                    vscapLabel.Text = m_vscap.ToString() + "mV"; 
                     currentLabel.Text = m_current.ToString() + "mV";*/
 
