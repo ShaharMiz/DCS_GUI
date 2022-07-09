@@ -560,7 +560,7 @@ namespace Pneumatic_Control
 
         private void calibButton_Click(object sender, EventArgs e)
         {
-            float calib_voltage=0;
+            float calib_voltage = 0;
             calib_voltage = float.Parse(calibTextBox.Text);
             byte[] calibOut = BitConverter.GetBytes(calib_voltage);
 
@@ -651,10 +651,18 @@ namespace Pneumatic_Control
 
         private void moveMotorTest_Click(object sender, EventArgs e)
         {
-            Byte[] msg = { 10, 0, 0, 0, 0 };
-            serialPort1.Write("!");
-            serialPort1.Write(msg, 0, 5);
-            message_sent_label.Text = (++message_sent_counter).ToString();
+            Byte num_one = 1;
+            try
+            {
+                Byte[] msg = { num_one, num_one };
+                serialPort1.Write("!");
+                serialPort1.Write(msg, 0, 2);
+                message_sent_label.Text = (++message_sent_counter).ToString();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
         }
     }
 
