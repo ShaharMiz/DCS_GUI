@@ -57,12 +57,15 @@
             this.clearChartButton = new System.Windows.Forms.Button();
             this.MainChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.stopStepMotor = new System.Windows.Forms.Button();
+            this.counterClockwise = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.currentLabel = new System.Windows.Forms.Label();
+            this.clockwise = new System.Windows.Forms.Button();
+            this.step_angle_Label = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.SM_countre_Label = new System.Windows.Forms.Label();
-            this.vscapLabel = new System.Windows.Forms.Label();
+            this.current_angle_Label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.MSG_Status = new System.Windows.Forms.Label();
             this.PingButton = new System.Windows.Forms.Button();
@@ -89,9 +92,6 @@
             this.openModeButton = new System.Windows.Forms.RadioButton();
             this.closeModeButton = new System.Windows.Forms.RadioButton();
             this.autoModeButton = new System.Windows.Forms.RadioButton();
-            this.counterClockwise = new System.Windows.Forms.Button();
-            this.clockwise = new System.Windows.Forms.Button();
-            this.stopStepMotor = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -350,11 +350,11 @@
             this.groupBox3.Controls.Add(this.counterClockwise);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.clockwise);
-            this.groupBox3.Controls.Add(this.currentLabel);
+            this.groupBox3.Controls.Add(this.step_angle_Label);
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.Controls.Add(this.SM_countre_Label);
-            this.groupBox3.Controls.Add(this.vscapLabel);
+            this.groupBox3.Controls.Add(this.current_angle_Label);
             this.groupBox3.Location = new System.Drawing.Point(14, 118);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(210, 217);
@@ -362,6 +362,26 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Step Motor status";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // stopStepMotor
+            // 
+            this.stopStepMotor.Location = new System.Drawing.Point(10, 169);
+            this.stopStepMotor.Name = "stopStepMotor";
+            this.stopStepMotor.Size = new System.Drawing.Size(165, 29);
+            this.stopStepMotor.TabIndex = 134;
+            this.stopStepMotor.Text = "stop";
+            this.stopStepMotor.UseVisualStyleBackColor = true;
+            this.stopStepMotor.Click += new System.EventHandler(this.stopStepMotor_Click);
+            // 
+            // counterClockwise
+            // 
+            this.counterClockwise.Location = new System.Drawing.Point(10, 134);
+            this.counterClockwise.Name = "counterClockwise";
+            this.counterClockwise.Size = new System.Drawing.Size(165, 29);
+            this.counterClockwise.TabIndex = 119;
+            this.counterClockwise.Text = "counter clockwise";
+            this.counterClockwise.UseVisualStyleBackColor = true;
+            this.counterClockwise.Click += new System.EventHandler(this.counterClockwise_Click);
             // 
             // label2
             // 
@@ -373,15 +393,25 @@
             this.label2.Text = "step angle";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // currentLabel
+            // clockwise
             // 
-            this.currentLabel.AutoSize = true;
-            this.currentLabel.Location = new System.Drawing.Point(156, 29);
-            this.currentLabel.Name = "currentLabel";
-            this.currentLabel.Size = new System.Drawing.Size(19, 23);
-            this.currentLabel.TabIndex = 133;
-            this.currentLabel.Text = "0";
-            this.currentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.clockwise.Location = new System.Drawing.Point(10, 102);
+            this.clockwise.Name = "clockwise";
+            this.clockwise.Size = new System.Drawing.Size(165, 29);
+            this.clockwise.TabIndex = 118;
+            this.clockwise.Text = "clockwise";
+            this.clockwise.UseVisualStyleBackColor = true;
+            this.clockwise.Click += new System.EventHandler(this.clockwise_Click);
+            // 
+            // step_angle_Label
+            // 
+            this.step_angle_Label.AutoSize = true;
+            this.step_angle_Label.Location = new System.Drawing.Point(156, 76);
+            this.step_angle_Label.Name = "step_angle_Label";
+            this.step_angle_Label.Size = new System.Drawing.Size(19, 23);
+            this.step_angle_Label.TabIndex = 133;
+            this.step_angle_Label.Text = "0";
+            this.step_angle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label20
             // 
@@ -407,22 +437,22 @@
             // SM_countre_Label
             // 
             this.SM_countre_Label.AutoSize = true;
-            this.SM_countre_Label.Location = new System.Drawing.Point(156, 76);
+            this.SM_countre_Label.Location = new System.Drawing.Point(156, 27);
             this.SM_countre_Label.Name = "SM_countre_Label";
             this.SM_countre_Label.Size = new System.Drawing.Size(19, 23);
             this.SM_countre_Label.TabIndex = 128;
             this.SM_countre_Label.Text = "0";
             this.SM_countre_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // vscapLabel
+            // current_angle_Label
             // 
-            this.vscapLabel.AutoSize = true;
-            this.vscapLabel.Location = new System.Drawing.Point(156, 53);
-            this.vscapLabel.Name = "vscapLabel";
-            this.vscapLabel.Size = new System.Drawing.Size(19, 23);
-            this.vscapLabel.TabIndex = 130;
-            this.vscapLabel.Text = "0";
-            this.vscapLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.current_angle_Label.AutoSize = true;
+            this.current_angle_Label.Location = new System.Drawing.Point(156, 53);
+            this.current_angle_Label.Name = "current_angle_Label";
+            this.current_angle_Label.Size = new System.Drawing.Size(19, 23);
+            this.current_angle_Label.TabIndex = 130;
+            this.current_angle_Label.Text = "0";
+            this.current_angle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -695,36 +725,6 @@
             this.autoModeButton.UseVisualStyleBackColor = true;
             this.autoModeButton.CheckedChanged += new System.EventHandler(this.autoModeButton_CheckedChanged);
             // 
-            // counterClockwise
-            // 
-            this.counterClockwise.Location = new System.Drawing.Point(10, 134);
-            this.counterClockwise.Name = "counterClockwise";
-            this.counterClockwise.Size = new System.Drawing.Size(165, 29);
-            this.counterClockwise.TabIndex = 119;
-            this.counterClockwise.Text = "counter clockwise";
-            this.counterClockwise.UseVisualStyleBackColor = true;
-            this.counterClockwise.Click += new System.EventHandler(this.counterClockwise_Click);
-            // 
-            // clockwise
-            // 
-            this.clockwise.Location = new System.Drawing.Point(10, 102);
-            this.clockwise.Name = "clockwise";
-            this.clockwise.Size = new System.Drawing.Size(165, 29);
-            this.clockwise.TabIndex = 118;
-            this.clockwise.Text = "clockwise";
-            this.clockwise.UseVisualStyleBackColor = true;
-            this.clockwise.Click += new System.EventHandler(this.clockwise_Click);
-            // 
-            // stopStepMotor
-            // 
-            this.stopStepMotor.Location = new System.Drawing.Point(10, 169);
-            this.stopStepMotor.Name = "stopStepMotor";
-            this.stopStepMotor.Size = new System.Drawing.Size(165, 29);
-            this.stopStepMotor.TabIndex = 134;
-            this.stopStepMotor.Text = "stop";
-            this.stopStepMotor.UseVisualStyleBackColor = true;
-            this.stopStepMotor.Click += new System.EventHandler(this.stopStepMotor_Click);
-            // 
             // elevator_control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -799,7 +799,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart MainChart;
         private System.Windows.Forms.Button clearChartButton;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label vscapLabel;
+        private System.Windows.Forms.Label current_angle_Label;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label SM_countre_Label;
         private System.Windows.Forms.GroupBox groupBox11;
@@ -808,7 +808,7 @@
         private System.Windows.Forms.RadioButton closeModeButton;
         private System.Windows.Forms.RadioButton autoModeButton;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label currentLabel;
+        private System.Windows.Forms.Label step_angle_Label;
         private System.Windows.Forms.Button calibVoltageButton;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox calibTextBox;
