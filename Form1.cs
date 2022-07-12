@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.IO;
 /////////////////////////////////////
 //           Joistick !!!          //
 /////////////////////////////////////
@@ -46,18 +47,24 @@ namespace Pneumatic_Control
         int message_received_counter = 0;
         int message_error_counter = 0;
         private byte[] serialDataHeader;
+        private byte[] numberOfReceivdByts;
         MSG_TYPE msg_type = MSG_TYPE.WAIT;
         char startChar = '0';
         const byte ASCII_TO_INT = 48;
-
+        string MSG_LENGTH_string = "";
         /////////////////////////////////////
         //           Joistick !!!          //
         /////////////////////////////////////
-        /*        float x1 = 115;
-                float y1 = 115;
-                float x2 = 115;
-                float y2 = 115;*/
+        uint m_current_x = 30;
+        uint m_current_y = 30;
+        uint previous_x = 103;
+        uint previous_y = 103;
+        uint m_joistic_mode = 103;
+        JOISTICK_MODES joistick_modes = JOISTICK_MODES.NUTRAL;
         /////////////////////////////////////
+
+
+
 
 
         private enum MSG_TYPE : byte
@@ -119,16 +126,41 @@ namespace Pneumatic_Control
             CHARGING,
             NOT_CHARGING
         }
-
-/*        private enum state : byte
+        private enum JOISTICK_MODES : byte
         {
-            UNKNOWN_MODE = 0,
-            AUTOMAT_MODE,
-            RELAY_OPEND,
-            RELAY_CLOSED,
-            CHARGING,
-            NOT_CHARGING
-        }*/
+            NUTRAL = 0,
+            DRAW,
+            ERASER
+        }
+        private enum STATE : byte
+        {
+            SLEEP = 0,
+            MOTOR_POINTER,
+            JOISTICK_DRAW,
+            CALIBRATION,
+            SCRIPT_MODE,
+            MOTOR_COMMAND
+        }
+        private enum CALIBRATION_STATE : byte
+        {
+            UNKNOWN_STATE = 0,
+            START_CALIB = 1,
+            STOP_CALIB = 3
+        }
+        private enum SCRIPT_MODE_STATE : byte
+        {
+            UNKNOWN_STATE = 0,
+            SCRIPT1,
+            SCRIPT2,
+            SCRIPT3
+        }
+        private enum MOTOR_COMMAND_STATE : byte
+        {
+            UNKNOWN_STATE = 0,
+            CLOCKWISE,
+            COUNTER_CLOCKWISE,
+            STOP_MOTOR
+        }
 
         public elevator_control()
         {
@@ -152,9 +184,11 @@ namespace Pneumatic_Control
             /////////////////////////////////////
             //           Joistick !!!          //
             /////////////////////////////////////
-/*            Ojw.CMessage.Init(txtMessage);
+            //Ojw.CMessage.Init(txtMessage);
+            
             panel1.Controls.Add(radioButton1);
-            radioButton1.Location = new Point((int)x1, (int)y1);*/
+            radioButton1.Location = new Point((int)m_current_x, (int)m_current_y);
+
             /////////////////////////////////////
 
 
@@ -222,33 +256,49 @@ namespace Pneumatic_Control
 
 
 
-        ////////////////////////////////////////
-        ///       RECEIVER - interupt        ///
-        ////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        ///                           RECEIVER - interupt                            ///
+        ////////////////////////////////////////////////////////////////////////////////
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //serialDataIn = serialPort1.ReadExisting();
             int bytes = serialPort1.BytesToRead;
             if (serialPort1.BytesToRead > 0 && msg_type == MSG_TYPE.WAIT)
             {
-                while (bytes > 0)
+                while (bytes > 10)
                 {
                     serialDataHeader = new byte[1];
                     serialPort1.Read(serialDataHeader, 0, 1);
                     bytes--;
                     if (serialDataHeader[0] == '#')
                     {
-                        startChar = '#';
-                        msg_type = MSG_TYPE.SATUS;
-                        break;
+                        try
+                        {
+                            startChar = '#';
+                            msg_type = MSG_TYPE.SATUS;
+                            numberOfReceivdByts = new byte[2];
+                            serialPort1.Read(numberOfReceivdByts, 0, 2);
+                            bytes -= 2;
+                            MSG_LENGTH_string = "";
+                            for (int i = 0; i < numberOfReceivdByts.Length; i++)
+                            {
+                                MSG_LENGTH_string += numberOfReceivdByts[i] - ASCII_TO_INT;
+                            }
+                            MSG_LENGTH = int.Parse(MSG_LENGTH_string);
+                            break;
+                        }
+                        catch (Exception error)
+                        {
+                        }
+
                     }
                     else startChar = '0';
                 }
             }
-            if (msg_type == MSG_TYPE.SATUS)
+            if (msg_type == MSG_TYPE.SATUS && bytes >= (MSG_LENGTH-3))
             {
                 serialDataIn = new byte[bytes];
-                serialPort1.Read(serialDataIn, 0, bytes);
+                serialPort1.Read(serialDataIn, 0, MSG_LENGTH-3);
                 this.Invoke(new EventHandler(ShowData));
             }
 
@@ -261,9 +311,13 @@ namespace Pneumatic_Control
             byte[] msg_array = serialDataIn;
 
             //byte msg_checksum=0;
-            uint m_SMcounter = 0;
             uint m_stepAngle = 0;
             uint m_currentAngle = 0;
+            uint m_SMcounter = 0;
+/*            uint m_current_x = 103;
+            uint m_current_y = 103;
+            uint m_joistic_mode = 103;*/
+
             bool CRC_status = false;
             uint m_timestamp = 0;
             int index = 0;
@@ -272,13 +326,17 @@ namespace Pneumatic_Control
 
             richTextBox_textReceiver.Text += "------New data ------" + "\n";
             richTextBox_textReceiver.Text += startChar.ToString() + "\t|" + Enum.GetName(typeof(MSG_TYPE), msg_type) + " message\n";
+            richTextBox_textReceiver.Text += MSG_LENGTH_string + "\t|" +  " number of bytes received\n";
             for (int i = 0; i < msg_array.Length; i++)
             {
-                richTextBox_textReceiver.Text += (i+1).ToString() + ") " + msg_array[i].ToString();
-                if(msg_array[i]>31 && msg_array[i]<127) richTextBox_textReceiver.Text += "\t| " + (char)msg_array[i] + " \n";
-                else richTextBox_textReceiver.Text += "\n";
+                if (msg_array[i] == 0) richTextBox_textReceiver.Text += (i + 1).ToString() + ") " + "48" + "\t| " + "0" + " \n";
+                else
+                {
+                    richTextBox_textReceiver.Text += (i + 1).ToString() + ") " + msg_array[i].ToString();
+                    if (msg_array[i] > 31 && msg_array[i] < 127) richTextBox_textReceiver.Text += "\t| " + (char)msg_array[i] + " \n";
+                    else richTextBox_textReceiver.Text += "\n";
+                }
             }
-
             richTextBox_textReceiver.Text += "---------------------" + "\n";
 
             if (startChar == '#')
@@ -297,8 +355,12 @@ namespace Pneumatic_Control
                 for (int i = 1; i < values.Length; i++)
                 {
                     values[i] = values[i].Remove(0, 1);
+                    if (values[i].Length == 0) 
+                    {
+                        values[i] = "0";
+                    }
                 }
-                MSG_LENGTH = values.Length - 1;
+                
                 index =0;
                 if (CRC_status)
                 {
@@ -318,26 +380,41 @@ namespace Pneumatic_Control
 
                     // Read buffer
                     //m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index + 1], msg_array[index] }, 0);
-                    m_stepAngle = uint.Parse(values[0]);
-                    m_currentAngle = uint.Parse(values[1]);
-                    m_SMcounter = uint.Parse(values[2]);
-                    //
-                    step_angle_Label.Text = m_stepAngle.ToString() + "deg";
-                    current_angle_Label.Text = m_currentAngle.ToString() + "deg";
-                    SM_countre_Label.Text = m_SMcounter.ToString();
-/*                    vscapLabel.Text = m_vscap.ToString() + "mV"; 
-                    currentLabel.Text = m_current.ToString() + "mV";*/
+                    try
+                    {
+                        m_stepAngle      = uint.Parse(values[0]);
+                        m_currentAngle   = uint.Parse(values[1]);
+                        m_SMcounter      = uint.Parse(values[2]);
+                        m_current_x      = uint.Parse(values[3]);
+                        m_current_y      = uint.Parse(values[4]);
+                        m_joistic_mode   = uint.Parse(values[5]);
+                        //
+                        step_angle_Label.Text = m_stepAngle.ToString() + " deg";
+                        current_angle_Label.Text = m_currentAngle.ToString() + " deg";
+                        SM_countre_Label.Text = m_SMcounter.ToString();
 
-/*                    MainChart.Series["Vin"].Points.AddXY(m_timestamp.ToString(), m_SMcounter.ToString());
-                    MainChart.Series["Vcap"].Points.AddXY(m_timestamp.ToString(), m_vscap.ToString());
-                    MainChart.Series["Current"].Points.AddXY(m_timestamp.ToString(), m_current.ToString());*/
+                        // JOISTICK
+                        if (m_joistic_mode == 0) joistick_modes = JOISTICK_MODES.NUTRAL;
+                        else if (m_joistic_mode == 1) joistick_modes = JOISTICK_MODES.DRAW;
+                        else joistick_modes = JOISTICK_MODES.ERASER;
+                        panel1_Paint(sender, e);
 
-                    /////////////////////////////////////
-                    //           Joistick !!!          //
-                    /////////////////////////////////////
-                    //radioButton1.Location = new Point((int)(x1 * 1.8 * m_CJoy.dX0), (int)(y1 * 1.8 * m_CJoy.dY0));
-                    /////////////////////////////////////
-                }
+                    }
+                    catch (Exception error)
+                    {
+                    }
+
+
+                        /*                    MainChart.Series["Vin"].Points.AddXY(m_timestamp.ToString(), m_SMcounter.ToString());
+                                            MainChart.Series["Vcap"].Points.AddXY(m_timestamp.ToString(), m_vscap.ToString());
+                                            MainChart.Series["Current"].Points.AddXY(m_timestamp.ToString(), m_current.ToString());*/
+
+                        /////////////////////////////////////
+                        //           Joistick !!!          //
+                        /////////////////////////////////////
+                        //radioButton1.Location = new Point((int)(current_x * 1.8 * m_CJoy.dX0), (int)(current_y * 1.8 * m_CJoy.dY0));
+                        /////////////////////////////////////
+                    }
             }
             else
             {
@@ -347,6 +424,8 @@ namespace Pneumatic_Control
             msg_type = MSG_TYPE.WAIT;
 
         }
+
+        
 
         private void richTextBox_textReceiver_TextChanged(object sender, EventArgs e)
         {
@@ -433,6 +512,7 @@ namespace Pneumatic_Control
             MainChart.Series["Vin"].Points.Clear();
             MainChart.Series["Vcap"].Points.Clear();
             MainChart.Series["Current"].Points.Clear();
+ 
         }
 
         private void ChartcomboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -517,7 +597,7 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-
+        
         private void calibButton_Click(object sender, EventArgs e)
         {
             float calib_voltage = 0;
@@ -589,10 +669,6 @@ namespace Pneumatic_Control
 
         }
 
-        private void label_status_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void groupBox3_Enter(object sender, EventArgs e)
         {
@@ -605,14 +681,14 @@ namespace Pneumatic_Control
         }
 
 
- 
+        ///------------------------------------------------------------------///
+        ///                    STATE 3 - Calibration                         ///
+        ///------------------------------------------------------------------///
         private void startCalib_Click(object sender, EventArgs e)
         {
-            Byte num_1 = 1;
-            Byte num_3 = 3;
             try
             {
-                Byte[] msg = { num_3, num_1 };
+                Byte[] msg = { (byte)STATE.CALIBRATION , (byte)CALIBRATION_STATE.START_CALIB };
                 serialPort1.Write("!");
                 serialPort1.Write(msg, 0, 2);
                 message_sent_label.Text = (++message_sent_counter).ToString();
@@ -622,14 +698,11 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-
         private void stopCalib_Click(object sender, EventArgs e)
         {
-           
-            Byte num_3 = 3;
             try
             {
-                Byte[] msg = { num_3, num_3 };
+                Byte[] msg = { (byte)STATE.CALIBRATION, (byte)CALIBRATION_STATE.STOP_CALIB };
                 serialPort1.Write("!");
                 serialPort1.Write(msg, 0, 2);
                 message_sent_label.Text = (++message_sent_counter).ToString();
@@ -639,15 +712,67 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
+        ///------------------------------------------------------------------///
+        ///                       STATE 4 - Script                           ///
+        ///------------------------------------------------------------------///
+        private void script1_button_Click(object sender, EventArgs e)
+        {
+            const string Path = @"scripts \ script1.txt";
+            try
+            {
+                byte[] writeBuffer = File.ReadAllBytes(Path);
+                Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
+                serialPort1.Write("!");
+                serialPort1.Write(msg, 0, 2);
+                serialPort1.Write(writeBuffer, 0, writeBuffer.Length);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
 
+        private void script2_button_Click(object sender, EventArgs e)
+        {
+            const string Path = @"scripts \ script2.txt";
+            try
+            {
+                byte[] writeBuffer = File.ReadAllBytes(Path);
+                Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT2 };
+                serialPort1.Write("!");
+                serialPort1.Write(msg, 0, 2);
+                serialPort1.Write(writeBuffer, 0, writeBuffer.Length);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
 
+        private void script3_button_Click(object sender, EventArgs e)
+        {
+            const string Path = @"scripts \ script3.txt";
+            try
+            {
+                byte[] writeBuffer = File.ReadAllBytes(Path);
+                Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT3 };
+                serialPort1.Write("!");
+                serialPort1.Write(msg, 0, 2);
+                serialPort1.Write(writeBuffer, 0, writeBuffer.Length);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        ///------------------------------------------------------------------///
+        ///                    STATE 5 - Motor commands                      ///
+        ///------------------------------------------------------------------///
         private void clockwise_Click(object sender, EventArgs e)
         {
-            Byte num_1 = 1;
-            Byte num_5 = 5;
             try
             {
-                Byte[] msg = { num_5, num_1 };
+                Byte[] msg = { (byte)STATE.MOTOR_COMMAND, (byte)MOTOR_COMMAND_STATE.CLOCKWISE }; 
                 serialPort1.Write("!");
                 serialPort1.Write(msg, 0, 2);
                 message_sent_label.Text = (++message_sent_counter).ToString();
@@ -657,14 +782,11 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-
         private void counterClockwise_Click(object sender, EventArgs e)
         {
-            Byte num_2 = 2;
-            Byte num_5 = 5;
             try
             {
-                Byte[] msg = { num_5, num_2 };
+                Byte[] msg = { (byte)STATE.MOTOR_COMMAND, (byte)MOTOR_COMMAND_STATE.COUNTER_CLOCKWISE };
                 serialPort1.Write("!");
                 serialPort1.Write(msg, 0, 2);
                 message_sent_label.Text = (++message_sent_counter).ToString();
@@ -674,14 +796,11 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-
         private void stopStepMotor_Click(object sender, EventArgs e)
         {
-            Byte num_3 = 3;
-            Byte num_5 = 5;
             try
             {
-                Byte[] msg = { num_5, num_3 };
+                Byte[] msg = { (byte)STATE.MOTOR_COMMAND, (byte)MOTOR_COMMAND_STATE.STOP_MOTOR };
                 serialPort1.Write("!");
                 serialPort1.Write(msg, 0, 2);
                 message_sent_label.Text = (++message_sent_counter).ToString();
@@ -691,6 +810,42 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-    }
+        ///------------------------------------------------------------------///
+        ///                          PANEL                                   ///
+        ///------------------------------------------------------------------///
+        private void panel1_Paint(object sender, EventArgs e)
+        {
+            Graphics panelObject = panel1.CreateGraphics();
+            Brush black = new SolidBrush(Color.Black);
+            Pen blackPen = new Pen(black, 3);
+            Brush white = new SolidBrush(Color.White);
+            Pen whitePen = new Pen(white, 5);
+            // Draw
+            if (joistick_modes == JOISTICK_MODES.DRAW)
+            {
+                panelObject.DrawLine(blackPen, m_current_x, m_current_y, previous_x, previous_y);
+            }
+            else if (joistick_modes == JOISTICK_MODES.ERASER)
+            {
+                panelObject.DrawLine(whitePen, m_current_x, m_current_y, previous_x, previous_y);
+            }
+            // Pointer update
+            radioButton1.Location = new Point((int)m_current_x, (int)m_current_y);
+            // Previous point update
+            previous_x = m_current_x;
+            previous_y = m_current_y;
+        }
+        private void clearPanel1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                panel1.Refresh();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
 
+    }
 }

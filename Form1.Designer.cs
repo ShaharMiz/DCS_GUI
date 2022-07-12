@@ -92,6 +92,12 @@
             this.openModeButton = new System.Windows.Forms.RadioButton();
             this.closeModeButton = new System.Windows.Forms.RadioButton();
             this.autoModeButton = new System.Windows.Forms.RadioButton();
+            this.clearPanel1 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.script2_button = new System.Windows.Forms.Button();
+            this.script1_button = new System.Windows.Forms.Button();
+            this.script3_button = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -100,6 +106,7 @@
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox11.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_open
@@ -124,7 +131,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(10, 86);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 23);
+            this.label4.Size = new System.Drawing.Size(58, 17);
             this.label4.TabIndex = 5;
             this.label4.Text = "STATUS :";
             // 
@@ -140,7 +147,7 @@
             "1000000"});
             this.comboBox_baudRate.Location = new System.Drawing.Point(122, 55);
             this.comboBox_baudRate.Name = "comboBox_baudRate";
-            this.comboBox_baudRate.Size = new System.Drawing.Size(77, 29);
+            this.comboBox_baudRate.Size = new System.Drawing.Size(77, 25);
             this.comboBox_baudRate.TabIndex = 4;
             // 
             // label3
@@ -148,7 +155,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(1, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 23);
+            this.label3.Size = new System.Drawing.Size(81, 17);
             this.label3.TabIndex = 3;
             this.label3.Text = "BAUD RATE :";
             // 
@@ -158,11 +165,10 @@
             this.label_status.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_status.Location = new System.Drawing.Point(14, 118);
             this.label_status.Name = "label_status";
-            this.label_status.Size = new System.Drawing.Size(118, 20);
+            this.label_status.Size = new System.Drawing.Size(93, 15);
             this.label_status.TabIndex = 2;
             this.label_status.Text = "DISCONNECTED";
             this.label_status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label_status.Click += new System.EventHandler(this.label_status_Click);
             // 
             // comboBox_comPort
             // 
@@ -170,7 +176,7 @@
             this.comboBox_comPort.FormattingEnabled = true;
             this.comboBox_comPort.Location = new System.Drawing.Point(122, 22);
             this.comboBox_comPort.Name = "comboBox_comPort";
-            this.comboBox_comPort.Size = new System.Drawing.Size(77, 29);
+            this.comboBox_comPort.Size = new System.Drawing.Size(77, 25);
             this.comboBox_comPort.TabIndex = 1;
             this.comboBox_comPort.Click += new System.EventHandler(this.comboBox_comPort_Click);
             // 
@@ -179,7 +185,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 23);
+            this.label1.Size = new System.Drawing.Size(80, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "COM PORT :";
             // 
@@ -187,7 +193,7 @@
             // 
             this.textBox_textSent.Location = new System.Drawing.Point(3, 491);
             this.textBox_textSent.Name = "textBox_textSent";
-            this.textBox_textSent.Size = new System.Drawing.Size(171, 29);
+            this.textBox_textSent.Size = new System.Drawing.Size(171, 25);
             this.textBox_textSent.TabIndex = 1;
             this.textBox_textSent.TextChanged += new System.EventHandler(this.textBox_textSent_TextChanged);
             // 
@@ -221,7 +227,7 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(0, 143);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 25);
+            this.label7.Size = new System.Drawing.Size(106, 20);
             this.label7.TabIndex = 15;
             this.label7.Text = "Received data:";
             // 
@@ -259,6 +265,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.clearPanel1);
             this.groupBox2.Controls.Add(this.panel1);
             this.groupBox2.Controls.Add(this.ChartcomboBox);
             this.groupBox2.Controls.Add(this.clearChartButton);
@@ -275,9 +282,10 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Location = new System.Drawing.Point(476, 86);
+            this.panel1.Location = new System.Drawing.Point(477, 86);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(220, 220);
@@ -289,7 +297,7 @@
             this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(103, 103);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(17, 16);
+            this.radioButton1.Size = new System.Drawing.Size(14, 13);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
             this.radioButton1.UseVisualStyleBackColor = true;
@@ -301,7 +309,7 @@
             "All"});
             this.ChartcomboBox.Location = new System.Drawing.Point(741, 295);
             this.ChartcomboBox.Name = "ChartcomboBox";
-            this.ChartcomboBox.Size = new System.Drawing.Size(95, 29);
+            this.ChartcomboBox.Size = new System.Drawing.Size(95, 25);
             this.ChartcomboBox.TabIndex = 115;
             this.ChartcomboBox.Text = "No select";
             this.ChartcomboBox.SelectedIndexChanged += new System.EventHandler(this.ChartcomboBox_SelectedIndexChanged);
@@ -357,7 +365,7 @@
             this.groupBox3.Controls.Add(this.current_angle_Label);
             this.groupBox3.Location = new System.Drawing.Point(14, 118);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(210, 217);
+            this.groupBox3.Size = new System.Drawing.Size(233, 217);
             this.groupBox3.TabIndex = 101;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Step Motor status";
@@ -388,7 +396,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 76);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 23);
+            this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 132;
             this.label2.Text = "step angle";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -408,7 +416,7 @@
             this.step_angle_Label.AutoSize = true;
             this.step_angle_Label.Location = new System.Drawing.Point(156, 76);
             this.step_angle_Label.Name = "step_angle_Label";
-            this.step_angle_Label.Size = new System.Drawing.Size(19, 23);
+            this.step_angle_Label.Size = new System.Drawing.Size(15, 17);
             this.step_angle_Label.TabIndex = 133;
             this.step_angle_Label.Text = "0";
             this.step_angle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -418,7 +426,7 @@
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(6, 29);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(98, 23);
+            this.label20.Size = new System.Drawing.Size(75, 17);
             this.label20.TabIndex = 127;
             this.label20.Text = "SM counter";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -429,7 +437,7 @@
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(6, 52);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(112, 23);
+            this.label25.Size = new System.Drawing.Size(85, 17);
             this.label25.TabIndex = 129;
             this.label25.Text = "current angle";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -439,7 +447,7 @@
             this.SM_countre_Label.AutoSize = true;
             this.SM_countre_Label.Location = new System.Drawing.Point(156, 27);
             this.SM_countre_Label.Name = "SM_countre_Label";
-            this.SM_countre_Label.Size = new System.Drawing.Size(19, 23);
+            this.SM_countre_Label.Size = new System.Drawing.Size(15, 17);
             this.SM_countre_Label.TabIndex = 128;
             this.SM_countre_Label.Text = "0";
             this.SM_countre_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -449,7 +457,7 @@
             this.current_angle_Label.AutoSize = true;
             this.current_angle_Label.Location = new System.Drawing.Point(156, 53);
             this.current_angle_Label.Name = "current_angle_Label";
-            this.current_angle_Label.Size = new System.Drawing.Size(19, 23);
+            this.current_angle_Label.Size = new System.Drawing.Size(15, 17);
             this.current_angle_Label.TabIndex = 130;
             this.current_angle_Label.Text = "0";
             this.current_angle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -459,7 +467,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(25, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 23);
+            this.label5.Size = new System.Drawing.Size(46, 17);
             this.label5.TabIndex = 34;
             this.label5.Text = "Status:";
             // 
@@ -468,7 +476,7 @@
             this.MSG_Status.AutoSize = true;
             this.MSG_Status.Location = new System.Drawing.Point(86, 25);
             this.MSG_Status.Name = "MSG_Status";
-            this.MSG_Status.Size = new System.Drawing.Size(80, 23);
+            this.MSG_Status.Size = new System.Drawing.Size(59, 17);
             this.MSG_Status.TabIndex = 33;
             this.MSG_Status.Text = "WAITING";
             this.MSG_Status.Click += new System.EventHandler(this.MSG_Status_Click);
@@ -504,7 +512,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(10, 94);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 23);
+            this.label8.Size = new System.Drawing.Size(36, 17);
             this.label8.TabIndex = 44;
             this.label8.Text = "Sent:";
             // 
@@ -513,7 +521,7 @@
             this.message_sent_label.AutoSize = true;
             this.message_sent_label.Location = new System.Drawing.Point(108, 94);
             this.message_sent_label.Name = "message_sent_label";
-            this.message_sent_label.Size = new System.Drawing.Size(19, 23);
+            this.message_sent_label.Size = new System.Drawing.Size(15, 17);
             this.message_sent_label.TabIndex = 46;
             this.message_sent_label.Text = "0";
             // 
@@ -522,7 +530,7 @@
             this.message_recieved_label.AutoSize = true;
             this.message_recieved_label.Location = new System.Drawing.Point(108, 117);
             this.message_recieved_label.Name = "message_recieved_label";
-            this.message_recieved_label.Size = new System.Drawing.Size(19, 23);
+            this.message_recieved_label.Size = new System.Drawing.Size(15, 17);
             this.message_recieved_label.TabIndex = 48;
             this.message_recieved_label.Text = "0";
             // 
@@ -531,7 +539,7 @@
             this.message_error_label.AutoSize = true;
             this.message_error_label.Location = new System.Drawing.Point(108, 143);
             this.message_error_label.Name = "message_error_label";
-            this.message_error_label.Size = new System.Drawing.Size(19, 23);
+            this.message_error_label.Size = new System.Drawing.Size(15, 17);
             this.message_error_label.TabIndex = 50;
             this.message_error_label.Text = "0";
             this.message_error_label.Click += new System.EventHandler(this.message_error_label_Click);
@@ -551,7 +559,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(10, 117);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(81, 23);
+            this.label14.Size = new System.Drawing.Size(63, 17);
             this.label14.TabIndex = 52;
             this.label14.Text = "Received:";
             // 
@@ -560,7 +568,7 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(7, 137);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(51, 23);
+            this.label15.Size = new System.Drawing.Size(41, 17);
             this.label15.TabIndex = 53;
             this.label15.Text = "Error:";
             this.label15.Click += new System.EventHandler(this.label15_Click);
@@ -635,9 +643,9 @@
             this.groupBox11.Controls.Add(this.openModeButton);
             this.groupBox11.Controls.Add(this.closeModeButton);
             this.groupBox11.Controls.Add(this.autoModeButton);
-            this.groupBox11.Location = new System.Drawing.Point(765, 397);
+            this.groupBox11.Location = new System.Drawing.Point(967, 394);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(263, 187);
+            this.groupBox11.Size = new System.Drawing.Size(178, 187);
             this.groupBox11.TabIndex = 114;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Command panel";
@@ -648,7 +656,7 @@
             this.label13.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(121, 35);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(93, 23);
+            this.label13.Size = new System.Drawing.Size(71, 17);
             this.label13.TabIndex = 119;
             this.label13.Text = "Calibration";
             // 
@@ -678,7 +686,7 @@
             this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(6, 40);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 23);
+            this.label12.Size = new System.Drawing.Size(76, 17);
             this.label12.TabIndex = 107;
             this.label12.Text = "Work mode";
             // 
@@ -686,7 +694,7 @@
             // 
             this.calibTextBox.Location = new System.Drawing.Point(122, 64);
             this.calibTextBox.Name = "calibTextBox";
-            this.calibTextBox.Size = new System.Drawing.Size(92, 29);
+            this.calibTextBox.Size = new System.Drawing.Size(92, 25);
             this.calibTextBox.TabIndex = 115;
             // 
             // openModeButton
@@ -694,9 +702,8 @@
             this.openModeButton.AutoSize = true;
             this.openModeButton.Location = new System.Drawing.Point(6, 81);
             this.openModeButton.Name = "openModeButton";
-            this.openModeButton.Size = new System.Drawing.Size(114, 27);
+            this.openModeButton.Size = new System.Drawing.Size(90, 21);
             this.openModeButton.TabIndex = 106;
-            this.openModeButton.TabStop = true;
             this.openModeButton.Text = "Open relay";
             this.openModeButton.UseVisualStyleBackColor = true;
             this.openModeButton.CheckedChanged += new System.EventHandler(this.openModeButton_CheckedChanged);
@@ -706,9 +713,8 @@
             this.closeModeButton.AutoSize = true;
             this.closeModeButton.Location = new System.Drawing.Point(6, 102);
             this.closeModeButton.Name = "closeModeButton";
-            this.closeModeButton.Size = new System.Drawing.Size(113, 27);
+            this.closeModeButton.Size = new System.Drawing.Size(90, 21);
             this.closeModeButton.TabIndex = 105;
-            this.closeModeButton.TabStop = true;
             this.closeModeButton.Text = "Close relay";
             this.closeModeButton.UseVisualStyleBackColor = true;
             this.closeModeButton.CheckedChanged += new System.EventHandler(this.closeModeButton_CheckedChanged);
@@ -718,19 +724,81 @@
             this.autoModeButton.AutoSize = true;
             this.autoModeButton.Location = new System.Drawing.Point(6, 60);
             this.autoModeButton.Name = "autoModeButton";
-            this.autoModeButton.Size = new System.Drawing.Size(117, 27);
+            this.autoModeButton.Size = new System.Drawing.Size(91, 21);
             this.autoModeButton.TabIndex = 104;
-            this.autoModeButton.TabStop = true;
             this.autoModeButton.Text = "Auto mode";
             this.autoModeButton.UseVisualStyleBackColor = true;
             this.autoModeButton.CheckedChanged += new System.EventHandler(this.autoModeButton_CheckedChanged);
             // 
+            // clearPanel1
+            // 
+            this.clearPanel1.Location = new System.Drawing.Point(741, 209);
+            this.clearPanel1.Name = "clearPanel1";
+            this.clearPanel1.Size = new System.Drawing.Size(95, 37);
+            this.clearPanel1.TabIndex = 117;
+            this.clearPanel1.Text = "Clear panel";
+            this.clearPanel1.UseVisualStyleBackColor = true;
+            this.clearPanel1.Click += new System.EventHandler(this.clearPanel1_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.script3_button);
+            this.groupBox4.Controls.Add(this.script2_button);
+            this.groupBox4.Controls.Add(this.script1_button);
+            this.groupBox4.Location = new System.Drawing.Point(719, 418);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(232, 163);
+            this.groupBox4.TabIndex = 120;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Script panel";
+            // 
+            // script2_button
+            // 
+            this.script2_button.Location = new System.Drawing.Point(6, 88);
+            this.script2_button.Name = "script2_button";
+            this.script2_button.Size = new System.Drawing.Size(110, 29);
+            this.script2_button.TabIndex = 119;
+            this.script2_button.Text = "script 2";
+            this.script2_button.UseVisualStyleBackColor = true;
+            this.script2_button.Click += new System.EventHandler(this.script2_button_Click);
+            // 
+            // script1_button
+            // 
+            this.script1_button.Location = new System.Drawing.Point(6, 49);
+            this.script1_button.Name = "script1_button";
+            this.script1_button.Size = new System.Drawing.Size(110, 29);
+            this.script1_button.TabIndex = 118;
+            this.script1_button.Text = "script 1";
+            this.script1_button.UseVisualStyleBackColor = true;
+            this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
+            // 
+            // script3_button
+            // 
+            this.script3_button.Location = new System.Drawing.Point(6, 125);
+            this.script3_button.Name = "script3_button";
+            this.script3_button.Size = new System.Drawing.Size(110, 29);
+            this.script3_button.TabIndex = 120;
+            this.script3_button.Text = "script 3";
+            this.script3_button.UseVisualStyleBackColor = true;
+            this.script3_button.Click += new System.EventHandler(this.script3_button_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(153, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 17);
+            this.label6.TabIndex = 121;
+            this.label6.Text = "STATUS";
+            // 
             // elevator_control
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1159, 589);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox11);
             this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.groupBox9);
@@ -742,7 +810,7 @@
             this.Name = "elevator_control";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " Tevel Engineering Team- SuperCapacitor module control V1.0";
+            this.Text = " DCS - Final Project";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
@@ -759,6 +827,8 @@
             this.groupBox10.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -821,6 +891,12 @@
         private System.Windows.Forms.Button counterClockwise;
         private System.Windows.Forms.Button clockwise;
         private System.Windows.Forms.Button stopStepMotor;
+        private System.Windows.Forms.Button clearPanel1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button script3_button;
+        private System.Windows.Forms.Button script2_button;
+        private System.Windows.Forms.Button script1_button;
+        private System.Windows.Forms.Label label6;
     }
 }
 
