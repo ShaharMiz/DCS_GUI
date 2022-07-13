@@ -6,7 +6,7 @@
 
 //  GLOBAL VARIABLES
 
-volatile unsigned int state = 0;  //Sleeping mode, enable interrupts
+volatile unsigned int state = 2;  //Sleeping mode, enable interrupts
 
 //volatile int SM_Step = 0x8;       //0-0001-000
 //volatile int SM_Half_Step = 0x18; //0-0011-000
@@ -53,7 +53,7 @@ void main(void){
                 break;
 
             case ScriptMode:
-                stepper_motor_calibration();
+                script_mode();
                 break;
 
             case move_motor_freely:

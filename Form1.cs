@@ -696,14 +696,39 @@ namespace Pneumatic_Control
         ///------------------------------------------------------------------///
         private void script1_button_Click(object sender, EventArgs e)
         {
-            const string Path = @"scripts \ script1.txt";
+            const string Path = @"scripts\script1.txt";
             try
             {
                 byte[] writeBuffer = File.ReadAllBytes(Path);
-                Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
+                // number of lines
+                string message = "";
+                for (int i = 0; i < writeBuffer.Length; i++)
+                {
+                    message += writeBuffer[i];
+                }
+                message = message.Replace("13", "");
+                message = message.Replace("10", "-");
+                string[] values = message.Split('-');
+                int nunberOfLines = values.Length;
+                // number of bytes
+                int numberOfbytes = 0;
+                for(int i = 0; i < writeBuffer.Length; i++)
+                {
+                    if (writeBuffer[i] != 13) numberOfbytes++;
+                }
+                byte[] numOfBytesAndLines = { (byte)numberOfbytes, (byte)'-', (byte)nunberOfLines, (byte)'-' };
+                Byte[] state_msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
+                
                 serialPort1.Write("!");
-                serialPort1.Write(msg, 0, 2);
-                serialPort1.Write(writeBuffer, 0, writeBuffer.Length);
+                serialPort1.Write(state_msg, 0, 2);
+                serialPort1.Write(numOfBytesAndLines, 0, numOfBytesAndLines.Length);
+
+                for (int i = 0; i < writeBuffer.Length; i++)
+                {
+                    if (writeBuffer[i] == 10) serialPort1.Write("-");
+                    else if(writeBuffer[i] != 13) serialPort1.Write(writeBuffer, i, 1);
+                }
+                message_sent_label.Text = (++message_sent_counter).ToString();
             }
             catch (Exception error)
             {
@@ -825,6 +850,5 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-
     }
 }
