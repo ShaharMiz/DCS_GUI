@@ -710,19 +710,30 @@ namespace Pneumatic_Control
                 message = message.Replace("10", "-");
                 string[] values = message.Split('-');
                 int nunberOfLines = values.Length;
+                string nunberOfLines_string = nunberOfLines.ToString();
+                /*char[] nunberOfLines_char = nunberOfLines_string.ToCharArray();
+                nunberOfLines_string = new string(nunberOfLines_char);*/
                 // number of bytes
                 int numberOfbytes = 0;
                 for(int i = 0; i < writeBuffer.Length; i++)
                 {
                     if (writeBuffer[i] != 13) numberOfbytes++;
                 }
-                byte[] numOfBytesAndLines = { (byte)numberOfbytes, (byte)'-', (byte)nunberOfLines, (byte)'-' };
-                Byte[] state_msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
-                
-                serialPort1.Write("!");
-                serialPort1.Write(state_msg, 0, 2);
-                serialPort1.Write(numOfBytesAndLines, 0, numOfBytesAndLines.Length);
+                string numberOfbytes_string = numberOfbytes.ToString();
+                /*char[] numberOfbytes_char = numberOfbytes_string.ToCharArray();
+                numberOfbytes_string = new string(numberOfbytes_char);*/
 
+                // SEND: !
+                serialPort1.Write("!");
+                // SEND: state and substate
+                Byte[] state_msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
+                serialPort1.Write(state_msg, 0, 2);
+                // SEND: number of byts and lines
+                serialPort1.Write(numberOfbytes_string);
+                serialPort1.Write("-");
+                serialPort1.Write(nunberOfLines_string);
+                serialPort1.Write("-");
+                // SEND: scipt
                 for (int i = 0; i < writeBuffer.Length; i++)
                 {
                     if (writeBuffer[i] == 10) serialPort1.Write("-");
