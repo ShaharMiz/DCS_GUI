@@ -51,6 +51,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ClearText = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.clearPanel1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.ChartcomboBox = new System.Windows.Forms.ComboBox();
@@ -92,12 +93,11 @@
             this.openModeButton = new System.Windows.Forms.RadioButton();
             this.closeModeButton = new System.Windows.Forms.RadioButton();
             this.autoModeButton = new System.Windows.Forms.RadioButton();
-            this.clearPanel1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.script3_button = new System.Windows.Forms.Button();
             this.script2_button = new System.Windows.Forms.Button();
             this.script1_button = new System.Windows.Forms.Button();
-            this.script3_button = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -280,6 +280,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Control panel";
             // 
+            // clearPanel1
+            // 
+            this.clearPanel1.Location = new System.Drawing.Point(741, 209);
+            this.clearPanel1.Name = "clearPanel1";
+            this.clearPanel1.Size = new System.Drawing.Size(95, 37);
+            this.clearPanel1.TabIndex = 117;
+            this.clearPanel1.Text = "Clear panel";
+            this.clearPanel1.UseVisualStyleBackColor = true;
+            this.clearPanel1.Click += new System.EventHandler(this.clearPanel1_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -350,7 +360,6 @@
             this.MainChart.Size = new System.Drawing.Size(133, 323);
             this.MainChart.TabIndex = 114;
             this.MainChart.Text = "MainChart";
-            this.MainChart.Click += new System.EventHandler(this.MainChart_Click);
             // 
             // groupBox3
             // 
@@ -430,7 +439,6 @@
             this.label20.TabIndex = 127;
             this.label20.Text = "SM counter";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label20.Click += new System.EventHandler(this.label20_Click);
             // 
             // label25
             // 
@@ -479,7 +487,6 @@
             this.MSG_Status.Size = new System.Drawing.Size(59, 17);
             this.MSG_Status.TabIndex = 33;
             this.MSG_Status.Text = "WAITING";
-            this.MSG_Status.Click += new System.EventHandler(this.MSG_Status_Click);
             // 
             // PingButton
             // 
@@ -542,7 +549,6 @@
             this.message_error_label.Size = new System.Drawing.Size(15, 17);
             this.message_error_label.TabIndex = 50;
             this.message_error_label.Text = "0";
-            this.message_error_label.Click += new System.EventHandler(this.message_error_label_Click);
             // 
             // reset_counter_button
             // 
@@ -571,7 +577,6 @@
             this.label15.Size = new System.Drawing.Size(41, 17);
             this.label15.TabIndex = 53;
             this.label15.Text = "Error:";
-            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // groupBox9
             // 
@@ -730,16 +735,6 @@
             this.autoModeButton.UseVisualStyleBackColor = true;
             this.autoModeButton.CheckedChanged += new System.EventHandler(this.autoModeButton_CheckedChanged);
             // 
-            // clearPanel1
-            // 
-            this.clearPanel1.Location = new System.Drawing.Point(741, 209);
-            this.clearPanel1.Name = "clearPanel1";
-            this.clearPanel1.Size = new System.Drawing.Size(95, 37);
-            this.clearPanel1.TabIndex = 117;
-            this.clearPanel1.Text = "Clear panel";
-            this.clearPanel1.UseVisualStyleBackColor = true;
-            this.clearPanel1.Click += new System.EventHandler(this.clearPanel1_Click);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label6);
@@ -752,6 +747,25 @@
             this.groupBox4.TabIndex = 120;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Script panel";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(153, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 17);
+            this.label6.TabIndex = 121;
+            this.label6.Text = "STATUS";
+            // 
+            // script3_button
+            // 
+            this.script3_button.Location = new System.Drawing.Point(6, 125);
+            this.script3_button.Name = "script3_button";
+            this.script3_button.Size = new System.Drawing.Size(110, 29);
+            this.script3_button.TabIndex = 120;
+            this.script3_button.Text = "script 3";
+            this.script3_button.UseVisualStyleBackColor = true;
+            this.script3_button.Click += new System.EventHandler(this.script3_button_Click);
             // 
             // script2_button
             // 
@@ -772,25 +786,6 @@
             this.script1_button.Text = "script 1";
             this.script1_button.UseVisualStyleBackColor = true;
             this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
-            // 
-            // script3_button
-            // 
-            this.script3_button.Location = new System.Drawing.Point(6, 125);
-            this.script3_button.Name = "script3_button";
-            this.script3_button.Size = new System.Drawing.Size(110, 29);
-            this.script3_button.TabIndex = 120;
-            this.script3_button.Text = "script 3";
-            this.script3_button.UseVisualStyleBackColor = true;
-            this.script3_button.Click += new System.EventHandler(this.script3_button_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(153, 21);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 17);
-            this.label6.TabIndex = 121;
-            this.label6.Text = "STATUS";
             // 
             // elevator_control
             // 

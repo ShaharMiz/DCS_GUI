@@ -1,47 +1,169 @@
 // HAL - Hardware Abstraction Layer
 
-// change
 #ifndef _hal_H_
 #define _hal_H_
 
-//================================================
-//               Variables
-//================================================
+
 extern volatile unsigned int state;
+#define sleep_mode         0
+#define ManualMotorControl 1
+#define JoystickPainter    2
+#define calibration        3
+#define ScriptMode         4
+#define move_motor_freely  5
+
+#define Phi_deg 17
 //extern volatile unsigned int x;
 //extern volatile char X[10];
-extern volatile int Out_to_RGB; // state 1
 
-// Stepper Motor
-extern volatile int SM_Step;
-extern volatile int SM_Half_Step;
-extern volatile int StepperDelay;
 //================================================
-//        SERVICE FUNCTIONS
+//                     UART
 //================================================
 //------------------------------------------------
-//                 UART
+//                  Variables
+//------------------------------------------------
+//  state defines
+#define State_Msg_Size = 4; // 2- State, 2- State_Stage, without '#'
+
+// stage state defines
+#define no_action 0
+#define start_move_forwards 1
+#define start_move_backwards 2
+#define stop_motor 3
+
+//  status defines
+#define Status_Msg_Size = 30;
+//------------------------------------------------
+//              SERVICE FUNCTIONS
 //------------------------------------------------
 extern void GatherStatusInfo(void);
 extern void enable_transmition(void);
-//------------------------------------------------
-//               Stepper Motor
-//------------------------------------------------
-extern void move_forward(void);
-extern void move_forward_half(void);
+__interrupt void USCI0RX_ISR(void);
+__interrupt void USCI0TX_ISR(void);
 
+//================================================
+//                Stepper Motor
+//================================================
 //------------------------------------------------
-//               State 1
+//                  Variables
+//------------------------------------------------
+extern volatile int SM_Step;
+extern volatile int SM_Half_Step;
+extern volatile int StepperDelay;
+//------------------------------------------------
+//              SERVICE FUNCTIONS
+//------------------------------------------------
+void step_angle_update(void);
+extern void move_forward(void);
+extern void move_backward(void);
+extern void move_forward_half(void);
+extern void move_backward_half(void);
+
+//================================================
+//            State 3 - calibration
+//================================================
+//------------------------------------------------
+//                  Variables
+//------------------------------------------------
+extern volatile unsigned int Phi;
+//------------------------------------------------
+//              SERVICE FUNCTIONS
 //------------------------------------------------
 extern void Phi_calculation(void);
 
+//================================================
+//             State 4 - Script Mode
+//================================================
+//------------------------------------------------
+//          Flash memory configuration
+//------------------------------------------------
+#define FLASH_INFO_SEG_B_START     (char*)0xE080
+#define FLASH_INFO_SEG_B_END       (char*)0xE0BF
+
+#define FLASH_INFO_SEG_C_START     (char*)0xE040
+#define FLASH_INFO_SEG_C_END       (char*)0xE07F
+
+#define FLASH_INFO_SEG_D_START     (char*)0xE000
+#define FLASH_INFO_SEG_D_END       (char*)0xE03F
+//------------------------------------------------
+//                  Variables
+//------------------------------------------------
+
+typedef struct Scripts{
+    int written[3];
+    char *pscript[3];
+    int size[3];
+    int lines[3];
+    int num_script;
+}Scripts;
+
+//Scripts s = {{0}, {FLASH_INFO_SEG_B_START, FLASH_INFO_SEG_C_START, FLASH_INFO_SEG_D_START}, {0}, {0} , 1};
+//int ScriptModeDelay = 50;
+//int write_to_flash = 0;
+//int offset = 0;
+
+//------------------------------------------------
+//              SERVICE FUNCTIONS
+//------------------------------------------------
+extern void clear_RGB(void);
+extern void blink_RGB(int delay, int times);
+extern void clear_RGB(void);
+extern volatile int Out_to_RGB; // state 4
+
+extern Scripts s;
+extern int ScriptModeDelay;
+extern int write_to_flash;
+extern int offset;
+
+extern int receive_int(void);
+extern void receive_string(int *data);
+extern void send_ack(int data);
+extern void send_ss_data(int deg, int distance);
 
 
+void write_seg (char* flash_ptr, int offset);
+char read_char(char address);
+int read_mem(int offset);
+void blink_rgb(int delay, int times);
+void rlc_leds(int delay, int times);
+void rrc_leds(int delay, int times);
+void servo_deg(int deg);
+void servo_scan(int left, int right);
+
+//extern int state;
+extern volatile char p_tx[10];
+extern volatile char p_rx[10];
+extern int index;
+
+extern void StopTimers();
+extern void Timer0_A_delay_ms(int mili_sec);
+extern void Timer1_A_delay_ms(int mili_sec);
+extern void PWM_Servo_config(int deg);
+extern int SS_Trig_config();
+extern void SS_Echo_config();
 //================================================
-//                UART
+//                  Delay [ms]
 //================================================
-__interrupt void USCI0RX_ISR(void);
-__interrupt void USCI0TX_ISR(void);
+void Timer0_A_delay_ms(int ms);
+void Timer1_A_delay_ms(int ms);
+//void delay_ms(unsigned int ms);
+__interrupt void Timer_A(void);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -54,25 +176,19 @@ extern void _buttonDebounceDelay(int button);
 __interrupt void PORT1_ISR(void);
 
 
-//================================================
-//        SERVICE FUNCTIONS
-//================================================
-// State 1
-extern void clear_RGB(void);
-extern void blink_RGB(int delay);
-extern void clear_RGB(void);
 
-//------------------------------------------------
+
+//================================================
 // State 5
 extern void SC_from_POT(void);
 
 extern void adc10_config();
 extern void adc10_enable(short enable);
 __interrupt void ADC10_ISR(void);
-//------------------------------------------------
+//================================================
 // State 6
 extern void clearing(void);
-//------------------------------------------------
+//================================================
 //// State 7
 //extern void enable_transmition(void);
 //================================================
@@ -122,11 +238,5 @@ extern void lcd_strobe();
 extern void DelayMs(unsigned int);
 extern void DelayUs(unsigned int);
 
-////================================================
-////  Delay [ms]
-////================================================
-//void delay_ms(int ms);
-void delay_ms(unsigned int ms);
-__interrupt void Timer_A(void);
 
 #endif

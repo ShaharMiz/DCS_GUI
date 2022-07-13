@@ -43,6 +43,7 @@ namespace Pneumatic_Control
         const int ID_MSG_LENGTH = 70;
         const int stringSize = 16;
         byte[] serialDataIn;
+        byte[] clearRXBuffer;
         int message_sent_counter = 0;
         int message_received_counter = 0;
         int message_error_counter = 0;
@@ -299,6 +300,7 @@ namespace Pneumatic_Control
             {
                 serialDataIn = new byte[bytes];
                 serialPort1.Read(serialDataIn, 0, MSG_LENGTH-3);
+                //clearRXBuffer = serialPort1.ReadExisting();
                 this.Invoke(new EventHandler(ShowData));
             }
 
@@ -309,17 +311,11 @@ namespace Pneumatic_Control
         private void ShowData(object sender, EventArgs e)
         {
             byte[] msg_array = serialDataIn;
-
-            //byte msg_checksum=0;
             uint m_stepAngle = 0;
             uint m_currentAngle = 0;
             uint m_SMcounter = 0;
-/*            uint m_current_x = 103;
-            uint m_current_y = 103;
-            uint m_joistic_mode = 103;*/
-
             bool CRC_status = false;
-            uint m_timestamp = 0;
+            //uint m_timestamp = 0;
             int index = 0;
 
 
@@ -347,19 +343,23 @@ namespace Pneumatic_Control
 
                 
                 string message = "";
+                
                 for (int i = 0; i < msg_array.Length; i++)
                 {
-                    message += msg_array[i] - ASCII_TO_INT;
+                    string msg_temp = "";
+                    msg_temp += msg_array[i] - ASCII_TO_INT;
+                    if (msg_temp == "-48") message += "0";
+                    else if (msg_temp == "-3") message += "-";
+                    else message += msg_temp;
                 }
                 string[] values = message.Split('-');
-                for (int i = 1; i < values.Length; i++)
+/*                for (int i = 1; i < values.Length; i++)
                 {
-                    values[i] = values[i].Remove(0, 1);
                     if (values[i].Length == 0) 
                     {
                         values[i] = "0";
                     }
-                }
+                }*/
                 
                 index =0;
                 if (CRC_status)
@@ -389,8 +389,10 @@ namespace Pneumatic_Control
                         m_current_y      = uint.Parse(values[4]);
                         m_joistic_mode   = uint.Parse(values[5]);
                         //
-                        step_angle_Label.Text = m_stepAngle.ToString() + " deg";
-                        current_angle_Label.Text = m_currentAngle.ToString() + " deg";
+                        float m_stepAngle_float = (float)m_stepAngle / 100;
+                        step_angle_Label.Text = m_stepAngle_float.ToString() + " deg";
+                        float m_currentAngle_float = (float)m_currentAngle / 100;
+                        current_angle_Label.Text = m_currentAngle_float.ToString() + " deg";
                         SM_countre_Label.Text = m_SMcounter.ToString();
 
                         // JOISTICK
@@ -644,25 +646,6 @@ namespace Pneumatic_Control
             }
         }
 
-        private void MainChart_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void message_error_label_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MSG_Status_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void textBox_textSent_TextChanged(object sender, EventArgs e)
         {
@@ -675,10 +658,6 @@ namespace Pneumatic_Control
 
         }
 
-        private void label20_Click(object sender, EventArgs e)
-        {
-
-        }
 
 
         ///------------------------------------------------------------------///
