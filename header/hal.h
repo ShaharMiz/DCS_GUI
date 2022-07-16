@@ -12,7 +12,7 @@ extern volatile unsigned int state;
 #define ScriptMode         4
 #define move_motor_freely  5
 
-#define Phi_deg 17
+#define Phi_deg 175
 //extern volatile unsigned int x;
 //extern volatile char X[10];
 
@@ -43,6 +43,10 @@ __interrupt void USCI0TX_ISR(void);
 //================================================
 //                 Joy Stick
 //================================================
+
+//------------------------------------------------
+//              SERVICE FUNCTIONS
+//------------------------------------------------
 __interrupt void ADC10_ISR(void);
 extern void sampleVxy(void);
 //================================================
@@ -54,6 +58,13 @@ extern void sampleVxy(void);
 extern volatile int SM_Step;
 extern volatile int SM_Half_Step;
 extern volatile int StepperDelay;
+
+extern volatile unsigned long Left_ang;
+extern volatile unsigned long Right_ang;
+extern volatile long Dist_in_degree;
+extern volatile int Got_to_left_flg;
+extern volatile int Got_to_right_flg;
+extern volatile scan_mode;
 //------------------------------------------------
 //              SERVICE FUNCTIONS
 //------------------------------------------------
@@ -63,13 +74,24 @@ extern void move_backward(void);
 extern void move_forward_half(void);
 extern void move_backward_half(void);
 
+
+
+void stepper_scan(unsigned long l, unsigned long r);
+
+void move_to_angle(unsigned long angle);
+void forward(void);
+void backward(void);
+
+void scan_to_right(void);
+
+void stepper_deg(unsigned long);
 //================================================
 //            State 3 - calibration
 //================================================
 //------------------------------------------------
 //                  Variables
 //------------------------------------------------
-extern volatile unsigned int Phi;
+extern volatile unsigned long Phi;
 //------------------------------------------------
 //              SERVICE FUNCTIONS
 //------------------------------------------------
@@ -132,10 +154,19 @@ void write_seg (char* flash_ptr, int offset);
 char read_char(char address);
 int read_mem(int offset);
 void blink_rgb(int delay, int times);
+
+// rotate functions
+#define left_rotate 1
+#define right_rotate 2
+
+extern volatile int first_rotate;
+extern volatile int PortNum;
+extern volatile int LEDs_val_P1;
+extern volatile int LEDs_val_P2;
+extern volatile int last_rotate;
 void rlc_leds(int delay, int times);
 void rrc_leds(int delay, int times);
-void stepper_deg(int deg);
-void stepper_scan(int left, int right);
+
 
 //extern int state;
 //extern volatile char p_tx[10];
@@ -144,18 +175,19 @@ extern volatile char p_rx[10];
 extern int index;
 
 extern void StopTimers();
-extern void Timer0_A_delay_ms(int mili_sec);
-extern void Timer1_A_delay_ms(int mili_sec);
+extern void Timer0_A_delay_ms(int ms);
+extern void Timer1_A_delay_10ms(int ms);
 //extern void PWM_Servo_config(int deg);
 //extern int SS_Trig_config();
 //extern void SS_Echo_config();
 //================================================
 //                  Delay [ms]
 //================================================
-void Timer0_A_delay_ms(int ms);
-void Timer1_A_delay_ms(int ms);
+//void Timer0_A_delay_ms(int ms);
+//void Timer1_A_delay_10ms(int ms);
 //void delay_ms(unsigned int ms);
-__interrupt void Timer_A(void);
+__interrupt void Timer0_A0(void);
+__interrupt void Timer0_A1(void);
 
 
 

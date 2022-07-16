@@ -39,6 +39,11 @@ extern void InitUART(void);
 #define ADC_Busy    ADC10BUSY
 #define ADC_DTC     ADC10DTC1
 #define ADC_DCT_SA  ADC10SA
+////***********************************************
+////            POT configuration
+////***********************************************
+//#define  POTPortSel     P1SEL
+//#define  POTPortDir     P1DIR
 //***********************************************
 //            RGB configuration
 //***********************************************
@@ -65,11 +70,7 @@ extern void InitUART(void);
                   LEDPort2OUT &= ~(BIT7 + BIT6 + BIT5 + BIT4 + BIT2);
 
 
-////***********************************************
-////            POT configuration
-////***********************************************
-//#define  POTPortSel     P1SEL
-//#define  POTPortDir     P1DIR
+
 ////***********************************************
 ////            REAL- PB1 configuration
 ////***********************************************

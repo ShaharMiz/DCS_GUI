@@ -19,7 +19,8 @@ void stepper_motor_manual_control(void){
 //              STATE 2 - calibration
 //==========================================================
 void Joystick_based_PC_painter(void){
-    _BIS_SR(GIE);
+//    _BIS_SR(GIE);
+//    adc10_config();
     sampleVxy();
 }
 //==========================================================
@@ -37,20 +38,33 @@ void stepper_motor_calibration(void){
 void script_mode(void){
 //            -------- Variables --------
     int script_size_counter;
-    int opcode, x_times, p, l, r;//, num_byte;
+    int opcode, x_times;//, num_byte;
+    unsigned long p, l, r;
     int script_lines_counter;
 
 //             --------  Stage 1 --------
 //        Get auxiliary variables to write script
 
 
-    //__bis_SR_register(LPM0_bits + GIE);
-    s.num_script = receive_int();                               // Get script number
+//    __bis_SR_register(LPM0_bits + GIE);
+//    s.num_script = receive_int();                               // Get script number
+
+
+    int cuonter = 0;
+    while(cuonter<2){
+        __bis_SR_register(LPM0_bits + GIE);
+        if(p_rx[index - 1] == '-'){
+            cuonter++;
+        }
+    }
+
+    s.num_script = receive_int();
+    index++;
 
     if(!s.written[s.num_script - 1]){                           // If Script number hasn't written yet in {0,1,2}
 
         receive_string(&s.size[s.num_script - 1]);              // Get script size
-
+        index++;
         receive_string(&s.lines[s.num_script - 1]);             // Get number of script's lines
 
 //             --------  Stage 2 --------
@@ -104,7 +118,7 @@ void script_mode(void){
                 rrc_leds(ScriptModeDelay, x_times);
                 break;
             case 4:
-                ScriptModeDelay =  get_x_value();   // update new delay
+                ScriptModeDelay = get_x_value();   // update new delay
 //                while(read_mem(2) != 0x00) num_byte += 1;
 //                offset -= num_byte * 2;
 //                ScriptModeDelay = read_mem(num_byte * 2);
@@ -115,14 +129,19 @@ void script_mode(void){
                 break;
             case 6:
                 p = read_mem(2);    // get pointed degree
+                scan_mode = 1;
                 stepper_deg(p);       //
                 // Show the degree and distance (dynamically) onto PC screen
+                scan_mode = 0;
                 break;
             case 7:
                 l = read_mem(2);
                 r = read_mem(2);
-                stepper_scan(l, r);
+                scan_mode = 1;
                 // Show the degree and distance (dynamically) onto PC screen
+                stepper_scan(l, r);
+
+                scan_mode = 0;
                 break;
             case 8:
                 state = 0; // sleep mode
@@ -251,6 +270,7 @@ void DownCounter(int delay){
 //                     STATE 5
 //==========================================================
 void Potentiometer(void){
+    _BIS_SR(GIE);
     adc10_config();
     SC_from_POT();
     int2str(POT,ADC10MEM);   // get pot value from ADC10MEM

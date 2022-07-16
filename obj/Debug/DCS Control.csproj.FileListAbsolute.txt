@@ -1,0 +1,11 @@
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\bin\Debug\DCS_Final_Project_Tester.exe.config
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\bin\Debug\DCS_Final_Project_Tester.exe
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\bin\Debug\DCS_Final_Project_Tester.pdb
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS Control.csproj.AssemblyReference.cache
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS Control.csproj.SuggestedBindingRedirects.cache
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS_Final_Project_Tester.Properties.Resources.resources
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS Control.csproj.GenerateResource.cache
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS Control.csproj.CoreCompileInputs.cache
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS_Final_Project_Tester.exe
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS_Final_Project_Tester.pdb
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\Pneumatic_Control.DCS_control.resources

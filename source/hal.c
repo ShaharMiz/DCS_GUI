@@ -1,5 +1,5 @@
 #include <msp430.h>
-
+#include <stdlib.h>
 #include <stdio.h>
 
 #include "../header/hal.h"
@@ -14,7 +14,7 @@
 //                  General
 //------------------------------------------------
 unsigned int i,j;
-volatile unsigned int Phi; // Current_angle
+volatile unsigned long Phi = 0; // Current_angle*100
 
 //------------------------------------------------
 //                    UART
@@ -34,6 +34,7 @@ volatile char str_2[2];
 volatile char str_3[3];
 volatile char str_4[4];
 volatile char str_5[5];
+volatile char str_6[6];
 
 //volatile int size;  // no use
 
@@ -47,14 +48,14 @@ unsigned int state_stage = 0;
 //               STATE 3 - calibration
 //------------------------------------------------
 volatile int SM_Counter= 0;
-volatile unsigned int Phi_step=Phi_deg;
-volatile unsigned int Phi_tmp = 0;
+volatile unsigned long Phi_step=Phi_deg; // The nominal angle * 100
+volatile long Phi_tmp = 0;
 
 //------------------------------------------------
 //              STATE 4 - Script Mode
 //------------------------------------------------
 
-Scripts s = {{0}, {FLASH_INFO_SEG_B_START, FLASH_INFO_SEG_C_START, FLASH_INFO_SEG_D_START}, {0}, {0} , 0};
+Scripts s = {{0}, {FLASH_INFO_SEG_B_START, FLASH_INFO_SEG_C_START, FLASH_INFO_SEG_D_START}, {0}, {0} , 1};
 int ScriptModeDelay = 50;
 int write_to_flash = 0;
 int offset = 0;
@@ -81,21 +82,65 @@ unsigned int res[2];
 volatile unsigned int JOISTICK_MODE=0;
 
 
+void adc10_config(){
+//    ADC10CTL1 = INCH_3 + ADC10SSEL_0;             // Repeat single channel, A3, ADC10OSC
+//    ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enable
+    ADC10CTL0 = ADC10IE;                      //ADC10 Interrupt Enable
+}
+
+//void SC_from_POT(void){
+//    ADC10CTL0 |= ADC10ON;                   // ADC10 ON
+//    ADC10CTL0 &= ~ENC;                      // disable conversion
+//    while(ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
+//    ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
+//    __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
+//    __no_operation();                       // For debugger
+//    ADC10CTL0 &= ~ADC10ON;                  // ADC10 OFF
+//}
+
 void sampleVxy(void){
+     ADC10CTL0 |= ADC10ON;                    // ADC10 ON
+
      ADC10CTL0 &= ~ENC;
      while (ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
-     ADC10SA = (int)res;                      // Data buffer start - here you save  the info
+     ADC10SA = (int)res; // Data buffer start
      ADC10CTL0 |= ENC + ADC10SC;              // Sampling and conversion start
-      __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
+     __bis_SR_register(CPUOFF + GIE);         // LPM0, ADC10_ISR will force exit
+
+     ADC10CTL0 &= ~ADC10ON;                   // ADC10 OFF
+
 
  }
-
+//void sampleVxy(void){
+//    ADC10CTL0 |= ADC10ON;                    // ADC10 ON
+//    ADC10CTL0 &= ~ENC;
+//    while (ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
+//    ADC10SA = (int)res;                      // Data buffer start - here you save  the info
+//    ADC10CTL0 |= ENC + ADC10SC;              // Sampling and conversion start
+//    __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
+//
+////    __no_operation();                       // For debugger
+////    ADC10CTL0 &= ~ADC10ON;                  // ADC10 OFF
+//
+// }
+//==========================================================
+//         ADC10 Interrupt Service Routine
+//==========================================================
 #pragma vector=ADC10_VECTOR
  __interrupt void ADC10_ISR(void){
     ADC10CTL0 &= ~ADC10IFG;        // clear interrupt flag
     Vx = res[0];
     Vy = res[1];
+  __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
+
 }
+
+ //#pragma vector=ADC10_VECTOR
+ //__interrupt void ADC10_ISR(void){
+ //    __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
+ //}
+
+
 //================================================
 //                    Stepper Motor
 //================================================
@@ -106,22 +151,25 @@ volatile int SM_Step_Right = 0x80;       //1000-0000- h-4
 volatile int SM_Step_Left = 0x10;        //0001-0000- h-1
 //volatile int SM_Half_Step_Right = 0x0C;  //1100-0000- h-C
 //volatile int SM_Half_Step_Left = 0x03;   //0011-0000- h-3
-volatile int StepperDelay = 20;   // f = MHz
-
+volatile int StepperDelay = 2;         // f = MHz
 
 void step_angle_update(void){
     if (state_stage==start_move_forwards){
         SM_Counter++;
         Phi_tmp += Phi_step;
-
     }else if (state_stage==start_move_backwards){
         SM_Counter--;
         Phi_tmp -= Phi_step;
     }
-    Phi = Phi_tmp%36000;
+    if (Phi_tmp > 360000){ // passed 360 degrees to the right --> turn to 0 degrees
+        Phi_tmp =0;
+    }else if (Phi_tmp < 0){ // passed 0 degrees to the left --> turn to 360 degrees
+        Phi_tmp = 360000;
+    }
+    Phi = Phi_tmp%360000;
 }
 
-
+//----------------------------------------------------------
 // Full step
 void move_forward(void){
     SM_Step_Right >>= 1;
@@ -131,6 +179,7 @@ void move_forward(void){
         SMPortOUT = SM_Step_Right;
         Timer0_A_delay_ms(StepperDelay);
 }
+//----------------------------------------------------------
 
 void move_backward(void){
     SM_Step_Left <<= 1;
@@ -148,7 +197,7 @@ void move_backward(void){
 //            SM_Half_Step_Right = 0x60;
 //        }
 //        SMPortOUT = SM_Half_Step_Right;
-//        Timer1_A_delay_ms(StepperDelay);
+//        Timer0_A_delay_ms(StepperDelay);
 //}
 //void move_backward_half(void){
 //    SM_Half_Step_Left >>= 1;
@@ -156,8 +205,128 @@ void move_backward(void){
 //            SM_Half_Step_Left = 0x18;
 //        }
 //        SMPortOUT = SM_Half_Step_Left;
-//        Timer1_A_delay_ms(StepperDelay);
+//        Timer0_A_delay_ms(StepperDelay);
 //}
+
+//----------------------------------------------------------
+//--------------------- Degree Scan ------------------------
+//----------------------------------------------------------
+volatile unsigned long Left_ang;
+volatile unsigned long Right_ang;
+volatile long Dist_in_degree;
+volatile int Got_to_left_flg = 0;  // for Tx
+volatile int Got_to_right_flg = 0; // for Tx
+volatile scan_mode = 0;
+void stepper_deg(unsigned long deg){
+    stepper_scan(deg, deg);
+}
+//----------------------------------------------------------
+void stepper_scan(unsigned long l, unsigned long r){
+    // send ACK
+//    acknowledge = 1;
+//    enable_transmition();
+//    Timer0_A_delay_ms(50);
+    //
+    Left_ang = l*1000;
+    Right_ang = r*1000;
+    Got_to_left_flg = 0;
+    Got_to_right_flg = 0;
+
+    // moving to Left angle
+    move_to_angle(Left_ang);
+    // Tell PC that motor arrived to Left angle
+    if ((state == 4) && (scan_mode == 1)){ // maybe
+        Got_to_left_flg = 1;
+        enable_transmition();
+    }
+    // if Left angle = Right angle, end of operation
+    if (Left_ang == Right_ang) return;
+                                                        //  TODO: delay???
+    // after getting to Left angle, scan area to Right angle
+    scan_to_right();
+
+    if ((state == 4) && (scan_mode == 1)){
+        Got_to_right_flg = 1;   // update PC that motor arrived to Right angle
+        enable_transmition();
+        Timer0_A_delay_ms(50);
+
+    }
+
+}
+void move_to_angle(unsigned long angle){
+    if (Phi >= angle) {
+        Dist_in_degree = Phi - angle;
+    }else{
+        Dist_in_degree = angle - Phi;
+    }
+//    Dist_in_degree = abs(Dist_in_degree);
+    if (Dist_in_degree > 180000){  // distance greater than 180 degrees
+        Dist_in_degree = 360000 - Dist_in_degree; // to take the shortest way
+        if (Phi > angle){
+            /* example: angle=20, Phi = 300
+             * faster to move forwards to get to angle
+             * with (360-Phi-angle) = 80 degrees to the right
+             */
+            forward();
+        }else{ // Phi < angle
+            /* example: angle=300, Phi = 20
+             * faster to move backwards to get to angle
+             * with (360-angle-Phi) = 80 degrees to the left
+             */
+            backward();
+        }
+
+    } else { // Dist_in_degree < 180000
+        if (Phi > angle){
+           /* example: angle=20, Phi = 120
+            * faster to move backwards to get to angle
+            * with (Phi-angle) = 100 degrees to the left
+            */
+            backward();
+       }else{ // Phi < angle
+           /* example: angle=120, Phi = 20
+            * faster to move backwards to get to angle
+            * with (angle-Phi) = 100 degrees to the right
+            */
+           forward();
+       }
+    }
+}
+//----------------------------------------------------------
+
+void forward(void){
+    state_stage = start_move_forwards;
+    while (Dist_in_degree >= 0){
+        move_forward();
+        step_angle_update();
+        Dist_in_degree -= Phi_step;
+    }
+    state_stage = stop_motor;
+
+}
+//----------------------------------------------------------
+
+void backward(void){
+    state_stage =start_move_backwards;
+    while (Dist_in_degree >= 0){
+        move_backward();
+        step_angle_update();
+        Dist_in_degree -= Phi_step;
+    }
+    state_stage = stop_motor;
+}
+//----------------------------------------------------------
+
+void scan_to_right(void){
+    if (Right_ang > Left_ang){
+        Dist_in_degree = Right_ang - Left_ang;
+    } else {
+        Dist_in_degree = 360000 + Right_ang - Left_ang;
+    }
+    forward();
+}
+//----------------------------------------------------------
+
 //==========================================================
 //              STATE 3 - calibration
 //==========================================================
@@ -166,7 +335,7 @@ void move_backward(void){
 void Phi_calculation(void){
     Phi_tmp=0;
     Phi =0;
-    Phi_step = 360*100;
+    Phi_step = 360000;
     Phi_step = Phi_step/SM_Counter;
 }
 //==========================================================
@@ -185,19 +354,19 @@ int get_x_value(void){
 //----------------------------------------------------------
 int receive_int(void){
     index = 0;
-    return *p_rx;  // TODO: check if -'0' necessary
+    return p_rx[index];//- '0';  // TODO: check if -'0' necessary
 }
 //----------------------------------------------------------
 void receive_string(int *data){
-    while(1){
-        __bis_SR_register(LPM0_bits + GIE);
-//        if(p_rx[index - 1] == '\0'){
-        if(p_rx[index-1] == '-'){
+//    while(1){
+////        __bis_SR_register(LPM0_bits + GIE);
+////        if(p_rx[index - 1] == '\0'){
+//        if(p_rx[index] == '-'){
             *data = str2int(p_rx);
-            index = 0;
-            break;
-        }
-    }
+            //index = 0;
+//            break;
+//        }
+//    }
 }
 //----------------------------------------------------------
 
@@ -265,7 +434,7 @@ int read_mem(int num_bytes){
 //            P2OUT += 0x04;
 //            RGB = P2OUT & 0x1C;
 //        }
-//        Timer1_A_delay_ms(delay); // 10ms
+//        Timer1_A_delay_10ms(delay); // 10ms
 //        times--;
 //    }
 //}
@@ -279,7 +448,7 @@ void blink_RGB(int delay, int times){
             Out_to_RGB <<= 1;
         }
         RGBPortOUT = Out_to_RGB;
-        Timer1_A_delay_ms(delay); // 10ms
+        Timer1_A_delay_10ms(delay); // 10ms
         times--;
     }
 }
@@ -293,90 +462,95 @@ void clear_RGB(void){
 //------------------------ LEDs ----------------------------
 //----------------------------------------------------------
 
+// Initialize Variables
+volatile int first_rotate = 1;
+volatile int PortNum = 1;
+volatile int LEDs_val_P1 = 0x00;
+volatile int LEDs_val_P2 = 0x00;
+volatile int last_rotate = 0;
+//----------------------------------------------------------
+
 void rlc_leds(int delay, int times){
-    int i;
-    int bits[8] = {BIT0, BIT3, BIT4, BIT5, BIT7, BIT0, BIT6, BIT7};
-    while(times){
-        for(i = 0; times && i < 8; i++, times--){
-            if(i < 5){
-                P1OUT |= bits[i];
-                Timer1_A_delay_ms(delay); // 10ms
-                P1OUT &= ~bits[i];
-            }
-            else{
-                P2OUT |= bits[i];
-                Timer1_A_delay_ms(delay);// 10ms
-                P2OUT &= ~bits[i];
-            }
-        }
+
+    if ((last_rotate == right_rotate) && (LEDs_val_P1 == 0x01)){
+        PortNum = 1;
     }
+    while(times){
+
+        times --;
+
+        if(first_rotate){
+            first_rotate = 0;
+            PortNum = 1;
+        }
+        if (PortNum == 1){
+            LEDs_val_P2 = 0x00;
+            if (LEDs_val_P1 == 0x00 || LEDs_val_P1 == 0x80){
+                LEDs_val_P1 = 0x01;         //0000-0001 P1.0
+            }else if (LEDs_val_P1 == 0x01){
+                LEDs_val_P1 = 0x40;         //0100-0000 P1.6
+            }else if (LEDs_val_P1 == 0x40){
+                LEDs_val_P1 = 0x80;         //1000-0000 P1.7
+                PortNum = 2;            // move to port 2 to next rotates
+
+            }
+
+        } else { // PortNum == 2
+            LEDs_val_P1 = 0x00;
+            LEDs_val_P2 = 0x10;            //0001-0000 P2.4
+            PortNum = 1;               // move to port 1 to next rotates
+
+        }
+
+        P1OUT = LEDs_val_P1;
+        P2OUT = LEDs_val_P2;
+        Timer1_A_delay_10ms(delay); // 10ms
+
+    }
+    last_rotate = left_rotate;
 }
+
 //----------------------------------------------------------
 
 void rrc_leds(int delay, int times){
-    int i;
-    int bits[8] = {BIT7, BIT6, BIT0, BIT7, BIT5, BIT4, BIT3, BIT0};
+
+    if ((last_rotate == left_rotate) && (LEDs_val_P1 == 0x80)){
+        PortNum = 1;
+    }
     while(times){
-        for(i = 0; times && i < 8; i++, times--){
-            if(i < 3){
-                P2OUT |= bits[i];
-                Timer1_A_delay_ms(delay);// 10ms
-                P2OUT &= ~bits[i];
-            }
-            else{
-                P1OUT |= bits[i];
-                Timer1_A_delay_ms(delay);// 10ms
-                P1OUT &= ~bits[i];
-            }
+
+        times --;
+
+        if(first_rotate){
+            first_rotate = 0;
+            PortNum = 2;
         }
-    }
-}
-//----------------------------------------------------------
-//--------------------- Degree Scan ------------------------
-//----------------------------------------------------------
+        if (PortNum == 1){
+            LEDs_val_P2 = 0x00;
+            if (LEDs_val_P1 == 0x00 || LEDs_val_P1 == 0x01){
+                LEDs_val_P1 = 0x80;         //1000-0000 P1.7
+            }else if (LEDs_val_P1 == 0x80){
+                LEDs_val_P1 = 0x40;         //0100-0000 P1.6
+            }else if (LEDs_val_P1 == 0x40){
+                LEDs_val_P1 = 0x01;         //0000-0001 P1.0
+                PortNum = 2;            // move to port 2 to next rotates
 
-void stepper_deg(int deg){
-    stepper_scan(deg, deg);
-}
-//----------------------------------------------------------
+            }
 
-void stepper_scan(int left, int right){ // TODO: CHANGE FUNCTION TO MOTOR!
-    int distance, i;
-    int deg_inc = 9;
-    int deg = left;
-    int stepper_deg_flag = (left == right) && (state == 4);
+        } else { // PortNum == 2
+            LEDs_val_P1 = 0x00;
+            LEDs_val_P2 = 0x10;            //0001-0000 P2.4
+            PortNum = 1;               // move to port 1 to next rotates
 
-    // Rotate to 0 degree
-//    PWM_Servo_config(deg);
-//    Timer0_A_delay_ms(50);
-//    StopTimers();
-//    p_rx[0] = state + '0';
-
-    // Delay before scan
-    for(i = 0; i < 5; i++)Timer0_A_delay_ms(StepperDelay);
-    StopTimers();
-
-    while(state != 0 && !(state == 4 && deg >= right + deg_inc)){
-        __bis_SR_register(GIE);
-        state = receive_int();
-        __bic_SR_register(GIE);
-//        distance = SS_Trig_config();
-//        send_ss_data(deg, distance);
-
-        if(stepper_deg_flag)break;// state == 4 stepper_deg();
-
-        if(state != 2){
-            // Increase degree
-            if(state == 1)
-                deg = (deg + deg_inc) % (right + deg_inc);
-            else if(state == 3)
-                deg = (deg + deg_inc) % (right + 2 * deg_inc);
         }
-//        PWM_Servo_config(deg);
-        Timer0_A_delay_ms(50);
-        StopTimers();
+
+        P1OUT = LEDs_val_P1;
+        P2OUT = LEDs_val_P2;
+        Timer1_A_delay_10ms(delay); // 10ms
+
     }
-    for(i = 0; i < 5; i++)Timer0_A_delay_ms(StepperDelay);
+    last_rotate = right_rotate;
+
 }
 
 
@@ -390,7 +564,13 @@ void GatherStatusInfo(void){
     Buff_index = 0;
     TXindex = 0;
     // First char
-    StatusArray[Buff_index]='#';
+    if ((state == 4) && (Got_to_left_flg == 1)){
+        StatusArray[Buff_index]='<'; // sending PC that motor arrived to left angle
+    } else if ((state == 4) && (Got_to_right_flg == 1)){
+        StatusArray[Buff_index]='>';// sending PC that motor arrived to right angle
+    } else {
+        StatusArray[Buff_index]='#';
+    }
     Buff_index+=3;
     bufferBuilder(Phi_step);
     bufferBuilder(Phi);
@@ -432,12 +612,18 @@ void bufferBuilder(unsigned int value){
             StatusArray[i]=str_4[i-Buff_index];
         }
         Buff_index+=4;
-    }else{
+    }else if(value<100000){
         int2str_TX(str_5,value);
         for (i=Buff_index;i<Buff_index+5;i++){
             StatusArray[i]=str_5[i-Buff_index];
         }
         Buff_index+=5;
+    }else{
+        int2str_TX(str_6,value);
+        for (i=Buff_index;i<Buff_index+6;i++){
+            StatusArray[i]=str_6[i-Buff_index];
+        }
+        Buff_index+=6;
     }
     ///* Separation - 1 *///
     StatusArray[Buff_index]='-';
@@ -496,7 +682,7 @@ __interrupt void USCI0TX_ISR(void)
 {
     if (status_flg==1){
          TxBuffer = StatusArray[TXindex++];
-        if (TXindex == Buff_index){                         // check if done with transmition
+        if (TXindex == Buff_index){                         // check if done with transmit
             TXindex = 0;
             IE2 &= ~UCA0TXIE;                            // Disable TX interrupt
             IE2 |= UCA0RXIE;                             // Enable RX interrupt
@@ -510,9 +696,19 @@ __interrupt void USCI0TX_ISR(void)
 
         IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
         IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
-        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
+        //__bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
 
-    }else{
+    }else if ((state == 4) && (scan_mode == 1) && (Got_to_left_flg == 1)){
+        GatherStatusInfo();
+        Got_to_left_flg = 0;
+        status_flg = 1;       // send PC current status
+
+    }else if ((state == 4) && (scan_mode == 1) && (Got_to_right_flg == 1)){
+        GatherStatusInfo();
+        Got_to_right_flg = 0;
+        status_flg = 1;       // send PC current status
+
+    } else{
       IE2 &= ~UCA0TXIE;                                  // Disable TX interrupt
     }
 }
@@ -520,17 +716,23 @@ __interrupt void USCI0TX_ISR(void)
 //          Timer A0 Interrupt Service Routine
 //===========================================================
 #pragma vector=TIMER0_A0_VECTOR
-__interrupt void Timer_A(void){
+__interrupt void Timer0_A0(void){
     TACCTL0 &= ~CCIE;                              // CCR0 interrupt enabled
     TA0CTL = TACLR;
     TA0CTL = MC_0 + TACLR;
     __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
 }
-
-void StopTimers(){
-    TA0CTL &= ~ 0x18;
-    TA1CTL &= ~ 0x18;
+//===========================================================
+//          Timer A1 Interrupt Service Routine
+//===========================================================
+#pragma vector=TIMER1_A0_VECTOR
+__interrupt void Timer1_A0(void){
+    TA1CCTL0 &= ~CCIE;                               // CCR0 interrupt enabled
+    TA1CTL = TACLR;
+    TA1CTL = MC_0 + TACLR;
+    __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
 }
+
 //===========================================================
 //                     Delay [ms]
 //===========================================================
@@ -543,15 +745,15 @@ void StopTimers(){
 //  __bis_SR_register(LPM0_bits + GIE);       // Enter LPM0 w/ interrupt
 //}
 
-void Timer0_A_delay_ms(int ms){
+void Timer0_A_delay_ms(int ms){                // 1ms
 //  int tmp = ms;
   TA0CCTL0 = CCIE;                             // CCR0 interrupt enabled
   TA0CCR0 = ms*131;
-  TA0CTL = TASSEL_2 + ID_3 + MC_1 + TACLR;   // SMCLK/8 = 131072[Hz], upmode
-  __bis_SR_register(LPM0_bits + GIE);       // Enter LPM0 w/ interrupt
+  TA0CTL = TASSEL_2 + ID_3 + MC_1 + TACLR;     // SMCLK/8 = 131072[Hz], upmode
+  __bis_SR_register(LPM0_bits + GIE);          // Enter LPM0 w/ interrupt
 }
 
-void Timer1_A_delay_ms(int ms_in10){           // 10ms
+void Timer1_A_delay_10ms(int ms_in10){           // 10ms
   TA1CCTL0 = CCIE;                             // CCR0 interrupt enabled
   TA1CCR0 = ms_in10 * 1310;
   TA1CTL = TASSEL_2 + ID_3 + MC_1 + TACLR;     // SMCLK/8 = 131072[Hz], upmode
@@ -565,7 +767,10 @@ void Timer1_A_delay_ms(int ms_in10){           // 10ms
 //        ms--;
 //    }
 //}
-
+void StopTimers(){
+    TA0CTL &= ~ 0x18;
+    TA1CTL &= ~ 0x18;
+}
 //===========================================================
 //            integer to string converter
 //===========================================================
@@ -615,11 +820,12 @@ void int2str_TX(char *str, unsigned int num){
 //===========================================================
 int str2int( char volatile *str)
 {
- int i,res = 0;
- for (i = 0; str[i] != '-'; ++i) {
+ int i,res = 0,temp = index;
+ for (i =temp; str[i] != '-'; ++i) {
      if (str[i]> '9' || str[i]<'0')
          return -1;
      res = res * 10 + str[i] - '0';
+     index++;
  }
  return res;
 }
@@ -714,10 +920,10 @@ int str2int( char volatile *str)
 //                     STATE 5
 //==========================================================
 
-void adc10_config(){
-    ADC10CTL1 = INCH_3 + ADC10SSEL_0;             // Repeat single channel, A3, ADC10OSC
-    ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enable
-}
+//void adc10_config(){
+//    ADC10CTL1 = INCH_3 + ADC10SSEL_0;             // Repeat single channel, A3, ADC10OSC
+//    ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enable
+//}
 
 void SC_from_POT(void){
     ADC10CTL0 |= ADC10ON;                   // ADC10 ON

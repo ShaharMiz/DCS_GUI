@@ -17,7 +17,7 @@ namespace Pneumatic_Control
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new elevator_control());
+            Application.Run(new DCS_control());
             
         }
     }
