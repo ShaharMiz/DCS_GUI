@@ -94,6 +94,14 @@
             this.closeModeButton = new System.Windows.Forms.RadioButton();
             this.autoModeButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.stop_3 = new System.Windows.Forms.Label();
+            this.stop_2 = new System.Windows.Forms.Label();
+            this.stop_1 = new System.Windows.Forms.Label();
+            this.start_3 = new System.Windows.Forms.Label();
+            this.start_2 = new System.Windows.Forms.Label();
+            this.start_1 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.DIS_ACK_script3 = new System.Windows.Forms.Label();
             this.DIS_ACK_script2 = new System.Windows.Forms.Label();
             this.DIS_ACK_script1 = new System.Windows.Forms.Label();
@@ -101,14 +109,6 @@
             this.script3_button = new System.Windows.Forms.Button();
             this.script2_button = new System.Windows.Forms.Button();
             this.script1_button = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.start_1 = new System.Windows.Forms.Label();
-            this.start_2 = new System.Windows.Forms.Label();
-            this.start_3 = new System.Windows.Forms.Label();
-            this.stop_1 = new System.Windows.Forms.Label();
-            this.stop_2 = new System.Windows.Forms.Label();
-            this.stop_3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -770,6 +770,96 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Script panel";
             // 
+            // stop_3
+            // 
+            this.stop_3.AutoSize = true;
+            this.stop_3.Enabled = false;
+            this.stop_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_3.Location = new System.Drawing.Point(342, 134);
+            this.stop_3.Name = "stop_3";
+            this.stop_3.Size = new System.Drawing.Size(37, 20);
+            this.stop_3.TabIndex = 131;
+            this.stop_3.Text = "    --";
+            this.stop_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // stop_2
+            // 
+            this.stop_2.AutoSize = true;
+            this.stop_2.Enabled = false;
+            this.stop_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_2.Location = new System.Drawing.Point(342, 95);
+            this.stop_2.Name = "stop_2";
+            this.stop_2.Size = new System.Drawing.Size(37, 20);
+            this.stop_2.TabIndex = 130;
+            this.stop_2.Text = "    --";
+            this.stop_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // stop_1
+            // 
+            this.stop_1.AutoSize = true;
+            this.stop_1.Enabled = false;
+            this.stop_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stop_1.Location = new System.Drawing.Point(342, 58);
+            this.stop_1.Name = "stop_1";
+            this.stop_1.Size = new System.Drawing.Size(37, 20);
+            this.stop_1.TabIndex = 129;
+            this.stop_1.Text = "    --";
+            this.stop_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // start_3
+            // 
+            this.start_3.AutoSize = true;
+            this.start_3.Enabled = false;
+            this.start_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.start_3.Location = new System.Drawing.Point(255, 130);
+            this.start_3.Name = "start_3";
+            this.start_3.Size = new System.Drawing.Size(37, 20);
+            this.start_3.TabIndex = 128;
+            this.start_3.Text = "    --";
+            this.start_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // start_2
+            // 
+            this.start_2.AutoSize = true;
+            this.start_2.Enabled = false;
+            this.start_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.start_2.Location = new System.Drawing.Point(255, 95);
+            this.start_2.Name = "start_2";
+            this.start_2.Size = new System.Drawing.Size(37, 20);
+            this.start_2.TabIndex = 127;
+            this.start_2.Text = "    --";
+            this.start_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // start_1
+            // 
+            this.start_1.AutoSize = true;
+            this.start_1.Enabled = false;
+            this.start_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.start_1.Location = new System.Drawing.Point(255, 56);
+            this.start_1.Name = "start_1";
+            this.start_1.Size = new System.Drawing.Size(37, 20);
+            this.start_1.TabIndex = 126;
+            this.start_1.Text = "    --";
+            this.start_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(342, 21);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(50, 23);
+            this.label10.TabIndex = 125;
+            this.label10.Text = "STOP";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(255, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 23);
+            this.label9.TabIndex = 124;
+            this.label9.Text = "START";
+            // 
             // DIS_ACK_script3
             // 
             this.DIS_ACK_script3.AutoSize = true;
@@ -841,96 +931,6 @@
             this.script1_button.Text = "script 1";
             this.script1_button.UseVisualStyleBackColor = true;
             this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(255, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(70, 29);
-            this.label9.TabIndex = 124;
-            this.label9.Text = "START";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(342, 21);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(63, 29);
-            this.label10.TabIndex = 125;
-            this.label10.Text = "STOP";
-            // 
-            // start_1
-            // 
-            this.start_1.AutoSize = true;
-            this.start_1.Enabled = false;
-            this.start_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_1.Location = new System.Drawing.Point(255, 56);
-            this.start_1.Name = "start_1";
-            this.start_1.Size = new System.Drawing.Size(46, 25);
-            this.start_1.TabIndex = 126;
-            this.start_1.Text = "    --";
-            this.start_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // start_2
-            // 
-            this.start_2.AutoSize = true;
-            this.start_2.Enabled = false;
-            this.start_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_2.Location = new System.Drawing.Point(255, 95);
-            this.start_2.Name = "start_2";
-            this.start_2.Size = new System.Drawing.Size(37, 20);
-            this.start_2.TabIndex = 127;
-            this.start_2.Text = "    --";
-            this.start_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // start_3
-            // 
-            this.start_3.AutoSize = true;
-            this.start_3.Enabled = false;
-            this.start_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_3.Location = new System.Drawing.Point(255, 130);
-            this.start_3.Name = "start_3";
-            this.start_3.Size = new System.Drawing.Size(37, 20);
-            this.start_3.TabIndex = 128;
-            this.start_3.Text = "    --";
-            this.start_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // stop_1
-            // 
-            this.stop_1.AutoSize = true;
-            this.stop_1.Enabled = false;
-            this.stop_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_1.Location = new System.Drawing.Point(342, 58);
-            this.stop_1.Name = "stop_1";
-            this.stop_1.Size = new System.Drawing.Size(37, 20);
-            this.stop_1.TabIndex = 129;
-            this.stop_1.Text = "    --";
-            this.stop_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // stop_2
-            // 
-            this.stop_2.AutoSize = true;
-            this.stop_2.Enabled = false;
-            this.stop_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_2.Location = new System.Drawing.Point(342, 95);
-            this.stop_2.Name = "stop_2";
-            this.stop_2.Size = new System.Drawing.Size(37, 20);
-            this.stop_2.TabIndex = 130;
-            this.stop_2.Text = "    --";
-            this.stop_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // stop_3
-            // 
-            this.stop_3.AutoSize = true;
-            this.stop_3.Enabled = false;
-            this.stop_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_3.Location = new System.Drawing.Point(342, 134);
-            this.stop_3.Name = "stop_3";
-            this.stop_3.Size = new System.Drawing.Size(37, 20);
-            this.stop_3.TabIndex = 131;
-            this.stop_3.Text = "    --";
-            this.stop_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DCS_control
             // 
