@@ -56,16 +56,17 @@ namespace Pneumatic_Control
         /////////////////////////////////////
         //           Joistick !!!          //
         /////////////////////////////////////
-        uint m_current_x = 103;
-        uint m_current_y = 103;
-        uint previous_x = 103;
-        uint previous_y = 103;
-        uint m_joistic_mode = 103;
+        uint m_current_x = 230;
+        uint m_current_y = 230;
+        uint previous_x = 230;
+        uint previous_y = 230;
+        uint m_joistic_mode = 0;
         JOISTICK_MODES joistick_modes = JOISTICK_MODES.NUTRAL;
         /////////////////////////////////////
         //             STATE 4             //
         /////////////////////////////////////
         SCRIPT_MODE_STATE scriptNumber = SCRIPT_MODE_STATE.UNKNOWN_STATE;
+        
 
 
 
@@ -75,8 +76,9 @@ namespace Pneumatic_Control
             WAIT = 0,
             SATUS,
             ACK_SCAN,
-            START_SCAN,
-            STOP_SCAN
+            LEFT_SCAN,
+            RIGHT_SCAN,
+            POINTER_SCAN
         };
 
 
@@ -153,9 +155,10 @@ namespace Pneumatic_Control
         }
         private enum JOISTICK_MODES : byte
         {
-            NUTRAL = 0,
+            NUTRAL = 1,
             DRAW,
-            ERASER
+            ERASER,
+            NONE
         }
         public DCS_control()
         {
@@ -166,7 +169,6 @@ namespace Pneumatic_Control
         private void Form1_Load(object sender, EventArgs e)
         {
             button_open.Enabled = true;
-            button_send.Enabled = false;
             progressBar_statusBar.Value = 0;
             label_status.Text = "DISCONNECTED";
             label_status.ForeColor = Color.Red;
@@ -205,7 +207,6 @@ namespace Pneumatic_Control
                     serialPort1.BaudRate = Convert.ToInt32(comboBox_baudRate.Text);
                     serialPort1.Open();
 
-                    button_send.Enabled = true;
                     progressBar_statusBar.Value = 100;
                     label_status.Text = "CONNECTED";
                     button_open.Text = "CLOSE";
@@ -219,7 +220,6 @@ namespace Pneumatic_Control
                 try
                 {
                     serialPort1.Close();
-                    button_send.Enabled = false;
                     progressBar_statusBar.Value = 0;
                     label_status.Text = "DISCONNECTED";
                     button_open.Text = "OPEN";
@@ -242,17 +242,7 @@ namespace Pneumatic_Control
                 }
             }
         }
-        private void button_send_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                serialPort1.Write(textBox_textSent.Text);
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
+
 
 
 
@@ -283,12 +273,17 @@ namespace Pneumatic_Control
                             else if(serialDataHeader[0] == '<')
                             {
                                 startChar = '<';
-                                msg_type = MSG_TYPE.START_SCAN;
+                                msg_type = MSG_TYPE.LEFT_SCAN;
                             }
-                            else
+                            else if(serialDataHeader[0] == '>')
                             {
                                 startChar = '>';
-                                msg_type = MSG_TYPE.STOP_SCAN;
+                                msg_type = MSG_TYPE.RIGHT_SCAN;
+                            }
+                            else if (serialDataHeader[0] == '%')
+                            {
+                                startChar = '%';
+                                msg_type = MSG_TYPE.POINTER_SCAN;
                             }
                             numberOfReceivdByts = new byte[2];
                             serialPort1.Read(numberOfReceivdByts, 0, 2);
@@ -321,7 +316,7 @@ namespace Pneumatic_Control
                     else startChar = '0';
                 }
             }
-            if (((msg_type == MSG_TYPE.SATUS) || (msg_type == MSG_TYPE.START_SCAN) || msg_type == MSG_TYPE.STOP_SCAN) && bytes >= (MSG_LENGTH-3))
+            if (((msg_type == MSG_TYPE.SATUS) || (msg_type == MSG_TYPE.LEFT_SCAN) || msg_type == MSG_TYPE.RIGHT_SCAN || msg_type == MSG_TYPE.POINTER_SCAN) && bytes >= (MSG_LENGTH-3))
             {
                 serialDataIn = new byte[bytes];
                 serialPort1.Read(serialDataIn, 0, MSG_LENGTH-3);
@@ -408,8 +403,8 @@ namespace Pneumatic_Control
                         m_stepAngle      = uint.Parse(values[0]);
                         m_currentAngle   = uint.Parse(values[1]);
                         m_SMcounter      = uint.Parse(values[2]);
-                        m_current_x      = uint.Parse(values[3]);
-                        m_current_y      = uint.Parse(values[4]);
+                        m_current_x      = uint.Parse(values[3])/2;
+                        m_current_y      = 512-uint.Parse(values[4])/2;
                         m_joistic_mode   = uint.Parse(values[5]);
                         //
                         float m_stepAngle_float = (float)m_stepAngle / 1000;
@@ -419,22 +414,32 @@ namespace Pneumatic_Control
                         SM_countre_Label.Text = m_SMcounter.ToString();
 
                         // JOISTICK
-                        if (m_joistic_mode == 0) joistick_modes = JOISTICK_MODES.NUTRAL;
-                        else if (m_joistic_mode == 1) joistick_modes = JOISTICK_MODES.DRAW;
-                        else joistick_modes = JOISTICK_MODES.ERASER;
-                        panel1_Paint(sender, e);
-                        // STATE 4
-                        if(msg_type == MSG_TYPE.START_SCAN)
+                        if (m_joistic_mode != 4)
                         {
-                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) start_1.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) start_2.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) start_3.Text = m_currentAngle_float.ToString();
+                            if (m_joistic_mode == 1) joistick_modes = JOISTICK_MODES.NUTRAL;
+                            else if (m_joistic_mode == 2) joistick_modes = JOISTICK_MODES.DRAW;
+                            else joistick_modes = JOISTICK_MODES.ERASER;
+                            panel1_Paint(sender, e);
                         }
-                        else if (msg_type == MSG_TYPE.STOP_SCAN)
+                            
+                        // STATE 4
+                        if(msg_type == MSG_TYPE.LEFT_SCAN)
                         {
-                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) stop_1.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) stop_2.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) stop_3.Text = m_currentAngle_float.ToString();
+                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) left_1.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) left_2.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) left_3.Text = m_currentAngle_float.ToString();
+                        }
+                        else if (msg_type == MSG_TYPE.RIGHT_SCAN)
+                        {
+                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) right_1.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) right_2.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) right_3.Text = m_currentAngle_float.ToString();
+                        }
+                        else if (msg_type == MSG_TYPE.POINTER_SCAN)
+                        {
+                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) pointer_1.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) pointer_2.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) pointer_3.Text = m_currentAngle_float.ToString();
                         }
 
                     }
@@ -524,7 +529,6 @@ namespace Pneumatic_Control
         {
             message_sent_label.Text = (message_sent_counter=0).ToString();
             message_recieved_label.Text = (message_received_counter = 0).ToString();
-            message_error_label.Text = (message_error_counter = 0).ToString();
         }
 
 
@@ -535,160 +539,6 @@ namespace Pneumatic_Control
             comboBox_comPort.Items.AddRange(portLists);
             comboBox_comPort.SelectedIndex = comboBox_comPort.Items.Count - 1;
         }
-
-
-        private void ResetButton_Click(object sender, EventArgs e)
-        {
-            serialPort1.DtrEnable = true;
-            serialPort1.DtrEnable = false;
-            serialPort1.DtrEnable = false;
-            serialPort1.DtrEnable = true;
-        }
-
-        private void clearChartButton_Click(object sender, EventArgs e)
-        {
-            MainChart.Series["Vin"].Points.Clear();
-            MainChart.Series["Vcap"].Points.Clear();
-            MainChart.Series["Current"].Points.Clear();
- 
-        }
-
-        private void ChartcomboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            MainChart.Series["Vin"].Points.Clear();
-            MainChart.Series["Vcap"].Points.Clear();
-            MainChart.Series["Current"].Points.Clear();
-        }
-
-        private void motor_num_combobox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                byte[] Checksum = { 0 };
-                Byte[] msg = { (byte)SC_CMD.AUTOMAT, 0, 0, 0, 0 };
-                for (int i = 0; i < msg.Length; i++)
-                    Checksum[0] ^= msg[i];
-                serialPort1.Write("#");
-                serialPort1.Write(Checksum, 0, 1);
-                serialPort1.Write(msg, 0, 5);
-                message_sent_label.Text = (++message_sent_counter).ToString();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-        private void autoModeButton_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                byte[] Checksum = { 0 };
-                Byte[] msg = { (byte)SC_CMD.AUTOMAT, 0, 0, 0, 0 };
-                for (int i = 0; i < msg.Length; i++)
-                    Checksum[0] ^= msg[i];
-                serialPort1.Write("#");
-                serialPort1.Write(Checksum, 0, 1);
-                serialPort1.Write(msg, 0, 5);
-                message_sent_label.Text = (++message_sent_counter).ToString();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-        private void closeModeButton_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                byte[] Checksum = { 0 };
-                Byte[] msg = { (byte)SC_CMD.RELAY_CLOSE, 0, 0, 0, 0 };
-                for (int i = 0; i < msg.Length; i++)
-                    Checksum[0] ^= msg[i];
-                serialPort1.Write("#");
-                serialPort1.Write(Checksum, 0, 1);
-                serialPort1.Write(msg, 0, 5);
-                message_sent_label.Text = (++message_sent_counter).ToString();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-        private void openModeButton_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                byte[] Checksum = { 0 };
-                Byte[] msg = { (byte)SC_CMD.RELAY_OPEN, 0, 0, 0, 0 };
-                for(int i=0;i<msg.Length;i++)
-                    Checksum[0] ^= msg[i];
-                serialPort1.Write("#");
-                serialPort1.Write(Checksum, 0, 1);
-                serialPort1.Write(msg, 0, 5);
-                message_sent_label.Text = (++message_sent_counter).ToString();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-        
-        private void calibButton_Click(object sender, EventArgs e)
-        {
-            float calib_voltage = 0;
-            calib_voltage = float.Parse(calibTextBox.Text);
-            byte[] calibOut = BitConverter.GetBytes(calib_voltage);
-
-            try
-            {
-                byte[] Checksum = { 0 };
-                Byte[] msg = { (byte)SC_CMD.CALIBRATION_VOLTAGE, calibOut[0], calibOut[1], calibOut[2], calibOut[3] };
-                for (int i = 0; i < msg.Length; i++)
-                    Checksum[0] ^= msg[i];
-                serialPort1.Write("#");
-                serialPort1.Write(Checksum, 0, 1);
-                serialPort1.Write(msg, 0, 5);
-                message_sent_label.Text = (++message_sent_counter).ToString();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-        private void calibCurrentButton_Click(object sender, EventArgs e)
-        {
-            float calib_voltage = 0;
-            calib_voltage = float.Parse(calibTextBox.Text);
-            byte[] calibOut = BitConverter.GetBytes(calib_voltage);
-
-            try
-            {
-                byte[] Checksum = { 0 };
-                Byte[] msg = { (byte)SC_CMD.CALIBRATION_CURRENT, calibOut[0], calibOut[1], calibOut[2], calibOut[3] };
-                for (int i = 0; i < msg.Length; i++)
-                    Checksum[0] ^= msg[i];
-                serialPort1.Write("#");
-                serialPort1.Write(Checksum, 0, 1);
-                serialPort1.Write(msg, 0, 5);
-                message_sent_label.Text = (++message_sent_counter).ToString();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-
-        private void textBox_textSent_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void groupBox3_Enter(object sender, EventArgs e)
         {
 
@@ -735,7 +585,7 @@ namespace Pneumatic_Control
             Brush black = new SolidBrush(Color.Black);
             Pen blackPen = new Pen(black, 3);
             Brush white = new SolidBrush(Color.White);
-            Pen whitePen = new Pen(white, 5);
+            Pen whitePen = new Pen(white, 8);
             // Draw
             if (joistick_modes == JOISTICK_MODES.DRAW)
             {
@@ -953,8 +803,5 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-
-
-
     }
 }

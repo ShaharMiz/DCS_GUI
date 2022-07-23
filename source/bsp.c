@@ -40,13 +40,22 @@ void InitGPIO(void){
 //***********************************************
     // P2.4-P2.7 are both for motor and 4 leds
     SMPortSel &= ~(BIT4 + BIT5 + BIT6 + BIT7);     //Stepper Motor:Phases:A-2.4,B-2.5,C-2.6,D-2.7 as GPIO
-    SMPortDir |= (BIT4 + BIT5 + BIT6 + BIT7);      //Stepper Motor: as GPIO-output
+    SMPortDir |=  (BIT4 + BIT5 + BIT6 + BIT7);      //Stepper Motor: as GPIO-output
 
 //***********************************************
-//         Joy Stick configuration
+//         Joy Stick- Ports configuration
 //***********************************************
 	JSPortSel &= ~(BIT3 + BIT4 + BIT5);      //Joy Stick: A-1.3,B-1.4,C-1.5, D-1.6 as GPIO
 	JSPortDir &= ~(BIT3 + BIT4 + BIT5);      //Joy Stick: as GPIO-input
+
+//***********************************************
+//     Joy Stick PB configuration - P1.5 - PB1- temp
+//***********************************************
+        PB1_IntPending  &= ~BIT5;
+        PB1_IntEnable   |=  BIT5;
+        PB1_IntEdgeSel  |=  BIT5;
+        PB1_PortSel     &= ~BIT5;
+        PB1_PortDir     &= ~BIT5;
 //***********************************************
 //             LEDs configuration
 //***********************************************
@@ -115,15 +124,7 @@ void InitGPIO(void){
 //        POTPortSel &= ~BIT3;    //POT-1.3 as GPIO
 //        POTPortDir |= BIT3;     //POT as GPIO-output
 //
-////***********************************************
-////            REAL- PB1 configuration
-////***********************************************
-//
-//        PB1_IntPending  &= ~BIT0;
-//        PB1_IntEnable |= BIT0;
-//        PB1_IntEdgeSel |= BIT0;
-//        PB1_PortSel &= ~BIT0;
-//        PB1_PortDir &= ~BIT0;
+
 ////***********************************************
 ////            LCD control configuration
 ////***********************************************

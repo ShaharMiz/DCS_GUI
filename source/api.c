@@ -38,14 +38,14 @@ void stepper_motor_calibration(void){
 //==========================================================
 //              STATE 4 - Script Mode
 //==========================================================
-volatile int opcode;
+//volatile int opcode;
 void script_mode(void){
 //            -------- Variables --------
     int script_size_counter;
     int  x_times;//, num_byte;
     unsigned long p, l, r;
     int script_lines_counter;
-
+    index = 0;
 //             --------  Stage 1 --------
 //        Get auxiliary variables to write script
 
@@ -76,11 +76,16 @@ void script_mode(void){
 
         write_to_flash = 1;
         script_size_counter = s.size[s.num_script - 1];         // Script size
-        while(script_size_counter--){                           // Until we get all chars in script
+
+        while(script_size_counter-- ){                           // Until we get all chars in script
             __bis_SR_register(LPM0_bits + GIE);                 // wait for new char in Rx
             write_seg(s.pscript[s.num_script - 1], offset++);   // Write value (char from p_rx[0]) to flash
-
         }
+
+//        script_size_counter = s.size[s.num_script - 1];
+//        while(script_size_counter-- ){                           // Until we get all chars in script
+//            write_seg(s.pscript[s.num_script - 1], offset++);   // Write value (char from p_rx[0]) to flash
+//                }
         s.written[s.num_script - 1] = 1;                        // Mark script already written
         write_to_flash = 0;
         state_flg = 0;
@@ -149,7 +154,7 @@ void script_mode(void){
                 scan_mode = 0;
                 break;
             case 8:
-                state = 0; // sleep mode
+                state = sleep_mode;
                 break;
             default:
                 //opcode = 8;
@@ -159,7 +164,8 @@ void script_mode(void){
         script_lines_counter--;
     }
     offset = 0;
-
+    //debug
+    state = sleep_mode;
 
 }
 
@@ -230,74 +236,74 @@ void moving_stepper_motor(void){
 //==========================================================
 //                     STATE 2
 //==========================================================
-void UpCounter(int delay){
-
-    unsigned int SumValTmp;
-    char SumValTXT[20] ={'\0'};
-    lcd_clear();
-    while(state == 2){
-        Timer0_A_delay_ms(delay);
-        sum_up_value++;
-
-        SumValTmp = (unsigned int) sum_up_value;
-        int2str(SumValTXT, SumValTmp);
-        lcd_home();
-        lcd_puts("c_up: ");
-        lcd_puts(SumValTXT);    // print initial label 1 on LCD
-        _BIS_SR(GIE);
-
-    }
-}
-//==========================================================
-//                     STATE 3
-//==========================================================
-void DownCounter(int delay){
-
-    unsigned int SumValTmp;
-    char SumValTXT[20] ={'\0'};
-
-    while(state == 3){
-        Timer0_A_delay_ms(delay);
-        sum_down_value--;
-
-        SumValTmp = (unsigned int) sum_down_value;
-        int2str(SumValTXT, sum_down_value);
-        lcd_home();
-        lcd_puts("c_down: ");
-        lcd_puts(SumValTXT);    // print initial label 1 on LCD
-        _BIS_SR(GIE);
-
-    }
-    }
-
-
-//==========================================================
-//                     STATE 5
-//==========================================================
-void Potentiometer(void){
-    _BIS_SR(GIE);
-    adc10_config();
-    SC_from_POT();
-    int2str(POT,ADC10MEM);   // get pot value from ADC10MEM
-    enable_transmition();
-}
-//==========================================================
-//                     STATE 6
-//==========================================================
-void clear_and_initialize(void){
-    sum_up_value = 0;
-    sum_down_value = 65535;
-
-    clearing();
-    state = 9;
-}
-
-//==========================================================
-//                     STATE 8
-//==========================================================
-void Transmit_menu(void){
-    enable_transmition();
-}
+//void UpCounter(int delay){
+//
+//    unsigned int SumValTmp;
+//    char SumValTXT[20] ={'\0'};
+//    lcd_clear();
+//    while(state == 2){
+//        Timer0_A_delay_ms(delay);
+//        sum_up_value++;
+//
+//        SumValTmp = (unsigned int) sum_up_value;
+//        int2str(SumValTXT, SumValTmp);
+//        lcd_home();
+//        lcd_puts("c_up: ");
+//        lcd_puts(SumValTXT);    // print initial label 1 on LCD
+//        _BIS_SR(GIE);
+//
+//    }
+//}
+////==========================================================
+////                     STATE 3
+////==========================================================
+//void DownCounter(int delay){
+//
+//    unsigned int SumValTmp;
+//    char SumValTXT[20] ={'\0'};
+//
+//    while(state == 3){
+//        Timer0_A_delay_ms(delay);
+//        sum_down_value--;
+//
+//        SumValTmp = (unsigned int) sum_down_value;
+//        int2str(SumValTXT, sum_down_value);
+//        lcd_home();
+//        lcd_puts("c_down: ");
+//        lcd_puts(SumValTXT);    // print initial label 1 on LCD
+//        _BIS_SR(GIE);
+//
+//    }
+//    }
+//
+//
+////==========================================================
+////                     STATE 5
+////==========================================================
+//void Potentiometer(void){
+//    _BIS_SR(GIE);
+//    adc10_config();
+//    SC_from_POT();
+//    int2str(POT,ADC10MEM);   // get pot value from ADC10MEM
+//    enable_transmition();
+//}
+////==========================================================
+////                     STATE 6
+////==========================================================
+//void clear_and_initialize(void){
+//    sum_up_value = 0;
+//    sum_down_value = 65535;
+//
+//    clearing();
+//    state = 9;
+//}
+//
+////==========================================================
+////                     STATE 8
+////==========================================================
+//void Transmit_menu(void){
+//    enable_transmition();
+//}
 
 //***********************************************************
 //***********************************************************

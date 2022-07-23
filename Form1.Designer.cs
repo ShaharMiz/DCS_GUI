@@ -38,60 +38,36 @@
             this.label_status = new System.Windows.Forms.Label();
             this.comboBox_comPort = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox_textSent = new System.Windows.Forms.TextBox();
             this.richTextBox_textReceiver = new System.Windows.Forms.RichTextBox();
-            this.button_send = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ClearText = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.clearPanel1 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.ChartcomboBox = new System.Windows.Forms.ComboBox();
-            this.clearChartButton = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.stopStepMotor = new System.Windows.Forms.Button();
-            this.counterClockwise = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.clockwise = new System.Windows.Forms.Button();
-            this.step_angle_Label = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.SM_countre_Label = new System.Windows.Forms.Label();
-            this.current_angle_Label = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.MSG_Status = new System.Windows.Forms.Label();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.PingButton = new System.Windows.Forms.Button();
             this.AutoButton = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.reset_counter_button = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.message_sent_label = new System.Windows.Forms.Label();
             this.message_recieved_label = new System.Windows.Forms.Label();
-            this.reset_counter_button = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.stopCalib = new System.Windows.Forms.Button();
-            this.startCalib = new System.Windows.Forms.Button();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.ResetButton = new System.Windows.Forms.Button();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.calibCurrentButton = new System.Windows.Forms.Button();
-            this.calibVoltageButton = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.calibTextBox = new System.Windows.Forms.TextBox();
-            this.openModeButton = new System.Windows.Forms.RadioButton();
-            this.closeModeButton = new System.Windows.Forms.RadioButton();
-            this.autoModeButton = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.clearPanel1 = new System.Windows.Forms.Button();
+            this.JoystickPainter_start = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.ManualControl_start = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.stop_3 = new System.Windows.Forms.Label();
-            this.stop_2 = new System.Windows.Forms.Label();
-            this.stop_1 = new System.Windows.Forms.Label();
-            this.start_3 = new System.Windows.Forms.Label();
-            this.start_2 = new System.Windows.Forms.Label();
-            this.start_1 = new System.Windows.Forms.Label();
+            this.pointer_3 = new System.Windows.Forms.Label();
+            this.pointer_2 = new System.Windows.Forms.Label();
+            this.pointer_1 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.right_3 = new System.Windows.Forms.Label();
+            this.right_2 = new System.Windows.Forms.Label();
+            this.right_1 = new System.Windows.Forms.Label();
+            this.left_3 = new System.Windows.Forms.Label();
+            this.left_2 = new System.Windows.Forms.Label();
+            this.left_1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.DIS_ACK_script3 = new System.Windows.Forms.Label();
@@ -102,21 +78,36 @@
             this.script2_button = new System.Windows.Forms.Button();
             this.script1_button = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.ManualControl_start = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.JoystickPainter_start = new System.Windows.Forms.Button();
+            this.stopStepMotor = new System.Windows.Forms.Button();
+            this.counterClockwise = new System.Windows.Forms.Button();
+            this.clockwise = new System.Windows.Forms.Button();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.stopCalib = new System.Windows.Forms.Button();
+            this.startCalib = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.step_angle_Label = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.SM_countre_Label = new System.Windows.Forms.Label();
+            this.current_angle_Label = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.MSG_Status = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_open
@@ -199,33 +190,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "COM PORT :";
             // 
-            // textBox_textSent
-            // 
-            this.textBox_textSent.Location = new System.Drawing.Point(0, 589);
-            this.textBox_textSent.Name = "textBox_textSent";
-            this.textBox_textSent.Size = new System.Drawing.Size(171, 29);
-            this.textBox_textSent.TabIndex = 1;
-            this.textBox_textSent.TextChanged += new System.EventHandler(this.textBox_textSent_TextChanged);
-            // 
             // richTextBox_textReceiver
             // 
             this.richTextBox_textReceiver.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox_textReceiver.Location = new System.Drawing.Point(0, 171);
             this.richTextBox_textReceiver.Name = "richTextBox_textReceiver";
-            this.richTextBox_textReceiver.Size = new System.Drawing.Size(243, 405);
+            this.richTextBox_textReceiver.Size = new System.Drawing.Size(272, 326);
             this.richTextBox_textReceiver.TabIndex = 2;
             this.richTextBox_textReceiver.Text = "";
             this.richTextBox_textReceiver.TextChanged += new System.EventHandler(this.richTextBox_textReceiver_TextChanged);
-            // 
-            // button_send
-            // 
-            this.button_send.Location = new System.Drawing.Point(177, 587);
-            this.button_send.Name = "button_send";
-            this.button_send.Size = new System.Drawing.Size(64, 28);
-            this.button_send.TabIndex = 3;
-            this.button_send.Text = "Send";
-            this.button_send.UseVisualStyleBackColor = true;
-            this.button_send.Click += new System.EventHandler(this.button_send_Click);
             // 
             // serialPort1
             // 
@@ -247,6 +220,7 @@
             this.groupBox1.Controls.Add(this.comboBox_comPort);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.groupBox10);
             this.groupBox1.Controls.Add(this.label_status);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboBox_baudRate);
@@ -254,11 +228,9 @@
             this.groupBox1.Controls.Add(this.progressBar_statusBar);
             this.groupBox1.Controls.Add(this.button_open);
             this.groupBox1.Controls.Add(this.richTextBox_textReceiver);
-            this.groupBox1.Controls.Add(this.button_send);
-            this.groupBox1.Controls.Add(this.textBox_textSent);
-            this.groupBox1.Location = new System.Drawing.Point(8, 8);
+            this.groupBox1.Location = new System.Drawing.Point(8, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(289, 642);
+            this.groupBox1.Size = new System.Drawing.Size(276, 651);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication";
@@ -273,6 +245,88 @@
             this.ClearText.UseVisualStyleBackColor = true;
             this.ClearText.Click += new System.EventHandler(this.ClearText_Click);
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.PingButton);
+            this.groupBox10.Controls.Add(this.AutoButton);
+            this.groupBox10.Controls.Add(this.reset_counter_button);
+            this.groupBox10.Controls.Add(this.label8);
+            this.groupBox10.Controls.Add(this.label14);
+            this.groupBox10.Controls.Add(this.message_sent_label);
+            this.groupBox10.Controls.Add(this.message_recieved_label);
+            this.groupBox10.Location = new System.Drawing.Point(1, 503);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(271, 146);
+            this.groupBox10.TabIndex = 113;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Message panel";
+            // 
+            // PingButton
+            // 
+            this.PingButton.Location = new System.Drawing.Point(6, 26);
+            this.PingButton.Name = "PingButton";
+            this.PingButton.Size = new System.Drawing.Size(110, 29);
+            this.PingButton.TabIndex = 41;
+            this.PingButton.Text = "Status request";
+            this.PingButton.UseVisualStyleBackColor = true;
+            this.PingButton.Click += new System.EventHandler(this.PingButton_Click);
+            // 
+            // AutoButton
+            // 
+            this.AutoButton.Location = new System.Drawing.Point(6, 56);
+            this.AutoButton.Name = "AutoButton";
+            this.AutoButton.Size = new System.Drawing.Size(110, 29);
+            this.AutoButton.TabIndex = 42;
+            this.AutoButton.Text = "Press to run";
+            this.AutoButton.UseVisualStyleBackColor = true;
+            this.AutoButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // reset_counter_button
+            // 
+            this.reset_counter_button.Location = new System.Drawing.Point(123, 28);
+            this.reset_counter_button.Name = "reset_counter_button";
+            this.reset_counter_button.Size = new System.Drawing.Size(123, 29);
+            this.reset_counter_button.TabIndex = 51;
+            this.reset_counter_button.Text = "Reset counter";
+            this.reset_counter_button.UseVisualStyleBackColor = true;
+            this.reset_counter_button.Click += new System.EventHandler(this.reset_counter_button_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 94);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 23);
+            this.label8.TabIndex = 44;
+            this.label8.Text = "Sent:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(10, 117);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(81, 23);
+            this.label14.TabIndex = 52;
+            this.label14.Text = "Received:";
+            // 
+            // message_sent_label
+            // 
+            this.message_sent_label.AutoSize = true;
+            this.message_sent_label.Location = new System.Drawing.Point(108, 94);
+            this.message_sent_label.Name = "message_sent_label";
+            this.message_sent_label.Size = new System.Drawing.Size(19, 23);
+            this.message_sent_label.TabIndex = 46;
+            this.message_sent_label.Text = "0";
+            // 
+            // message_recieved_label
+            // 
+            this.message_recieved_label.AutoSize = true;
+            this.message_recieved_label.Location = new System.Drawing.Point(108, 117);
+            this.message_recieved_label.Name = "message_recieved_label";
+            this.message_recieved_label.Size = new System.Drawing.Size(19, 23);
+            this.message_recieved_label.TabIndex = 48;
+            this.message_recieved_label.Text = "0";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.groupBox7);
@@ -283,82 +337,311 @@
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.MSG_Status);
-            this.groupBox2.Location = new System.Drawing.Point(303, 8);
+            this.groupBox2.Location = new System.Drawing.Point(291, 91);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(456, 514);
+            this.groupBox2.Size = new System.Drawing.Size(429, 525);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Control panel";
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.clearPanel1);
+            this.groupBox7.Controls.Add(this.JoystickPainter_start);
+            this.groupBox7.Location = new System.Drawing.Point(278, 198);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(141, 108);
+            this.groupBox7.TabIndex = 121;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Joystick Painter";
+            // 
             // clearPanel1
             // 
-            this.clearPanel1.Location = new System.Drawing.Point(1342, 66);
+            this.clearPanel1.Location = new System.Drawing.Point(15, 64);
             this.clearPanel1.Name = "clearPanel1";
-            this.clearPanel1.Size = new System.Drawing.Size(108, 37);
+            this.clearPanel1.Size = new System.Drawing.Size(110, 31);
             this.clearPanel1.TabIndex = 117;
             this.clearPanel1.Text = "Clear panel";
             this.clearPanel1.UseVisualStyleBackColor = true;
             this.clearPanel1.Click += new System.EventHandler(this.clearPanel1_Click);
             // 
-            // panel1
+            // JoystickPainter_start
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Location = new System.Drawing.Point(799, 10);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(512, 512);
-            this.panel1.TabIndex = 116;
+            this.JoystickPainter_start.Location = new System.Drawing.Point(15, 28);
+            this.JoystickPainter_start.Name = "JoystickPainter_start";
+            this.JoystickPainter_start.Size = new System.Drawing.Size(110, 29);
+            this.JoystickPainter_start.TabIndex = 119;
+            this.JoystickPainter_start.Text = "start";
+            this.JoystickPainter_start.UseVisualStyleBackColor = true;
+            this.JoystickPainter_start.Click += new System.EventHandler(this.JoystickPainter_start_Click);
             // 
-            // radioButton1
+            // groupBox6
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(103, 103);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(17, 16);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.groupBox6.Controls.Add(this.ManualControl_start);
+            this.groupBox6.Location = new System.Drawing.Point(135, 198);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(137, 108);
+            this.groupBox6.TabIndex = 120;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Manual Motor Control";
             // 
-            // ChartcomboBox
+            // ManualControl_start
             // 
-            this.ChartcomboBox.FormattingEnabled = true;
-            this.ChartcomboBox.Items.AddRange(new object[] {
-            "All"});
-            this.ChartcomboBox.Location = new System.Drawing.Point(1379, 188);
-            this.ChartcomboBox.Name = "ChartcomboBox";
-            this.ChartcomboBox.Size = new System.Drawing.Size(95, 29);
-            this.ChartcomboBox.TabIndex = 115;
-            this.ChartcomboBox.Text = "No select";
-            this.ChartcomboBox.SelectedIndexChanged += new System.EventHandler(this.ChartcomboBox_SelectedIndexChanged);
+            this.ManualControl_start.Location = new System.Drawing.Point(13, 63);
+            this.ManualControl_start.Name = "ManualControl_start";
+            this.ManualControl_start.Size = new System.Drawing.Size(110, 29);
+            this.ManualControl_start.TabIndex = 119;
+            this.ManualControl_start.Text = "start";
+            this.ManualControl_start.UseVisualStyleBackColor = true;
+            this.ManualControl_start.Click += new System.EventHandler(this.ManualControl_start_Click);
             // 
-            // clearChartButton
+            // groupBox4
             // 
-            this.clearChartButton.Location = new System.Drawing.Point(1353, 135);
-            this.clearChartButton.Name = "clearChartButton";
-            this.clearChartButton.Size = new System.Drawing.Size(108, 37);
-            this.clearChartButton.TabIndex = 115;
-            this.clearChartButton.Text = "Clear chart";
-            this.clearChartButton.UseVisualStyleBackColor = true;
-            this.clearChartButton.Click += new System.EventHandler(this.clearChartButton_Click);
+            this.groupBox4.Controls.Add(this.pointer_3);
+            this.groupBox4.Controls.Add(this.pointer_2);
+            this.groupBox4.Controls.Add(this.pointer_1);
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Controls.Add(this.right_3);
+            this.groupBox4.Controls.Add(this.right_2);
+            this.groupBox4.Controls.Add(this.right_1);
+            this.groupBox4.Controls.Add(this.left_3);
+            this.groupBox4.Controls.Add(this.left_2);
+            this.groupBox4.Controls.Add(this.left_1);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.DIS_ACK_script3);
+            this.groupBox4.Controls.Add(this.DIS_ACK_script2);
+            this.groupBox4.Controls.Add(this.DIS_ACK_script1);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.script3_button);
+            this.groupBox4.Controls.Add(this.script2_button);
+            this.groupBox4.Controls.Add(this.script1_button);
+            this.groupBox4.Location = new System.Drawing.Point(6, 331);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(413, 166);
+            this.groupBox4.TabIndex = 120;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Script panel";
             // 
-            // groupBox3
+            // pointer_3
             // 
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.step_angle_Label);
-            this.groupBox3.Controls.Add(this.label20);
-            this.groupBox3.Controls.Add(this.label25);
-            this.groupBox3.Controls.Add(this.SM_countre_Label);
-            this.groupBox3.Controls.Add(this.current_angle_Label);
-            this.groupBox3.Location = new System.Drawing.Point(6, 58);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(187, 110);
-            this.groupBox3.TabIndex = 101;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Step Motor status";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            this.pointer_3.AutoSize = true;
+            this.pointer_3.Enabled = false;
+            this.pointer_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pointer_3.Location = new System.Drawing.Point(190, 129);
+            this.pointer_3.Name = "pointer_3";
+            this.pointer_3.Size = new System.Drawing.Size(37, 20);
+            this.pointer_3.TabIndex = 135;
+            this.pointer_3.Text = "    --";
+            this.pointer_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pointer_2
+            // 
+            this.pointer_2.AutoSize = true;
+            this.pointer_2.Enabled = false;
+            this.pointer_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pointer_2.Location = new System.Drawing.Point(190, 94);
+            this.pointer_2.Name = "pointer_2";
+            this.pointer_2.Size = new System.Drawing.Size(37, 20);
+            this.pointer_2.TabIndex = 134;
+            this.pointer_2.Text = "    --";
+            this.pointer_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pointer_1
+            // 
+            this.pointer_1.AutoSize = true;
+            this.pointer_1.Enabled = false;
+            this.pointer_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pointer_1.Location = new System.Drawing.Point(190, 55);
+            this.pointer_1.Name = "pointer_1";
+            this.pointer_1.Size = new System.Drawing.Size(37, 20);
+            this.pointer_1.TabIndex = 133;
+            this.pointer_1.Text = "    --";
+            this.pointer_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(177, 21);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(79, 23);
+            this.label11.TabIndex = 132;
+            this.label11.Text = "POINTER";
+            // 
+            // right_3
+            // 
+            this.right_3.AutoSize = true;
+            this.right_3.Enabled = false;
+            this.right_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.right_3.Location = new System.Drawing.Point(335, 131);
+            this.right_3.Name = "right_3";
+            this.right_3.Size = new System.Drawing.Size(37, 20);
+            this.right_3.TabIndex = 131;
+            this.right_3.Text = "    --";
+            this.right_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // right_2
+            // 
+            this.right_2.AutoSize = true;
+            this.right_2.Enabled = false;
+            this.right_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.right_2.Location = new System.Drawing.Point(335, 92);
+            this.right_2.Name = "right_2";
+            this.right_2.Size = new System.Drawing.Size(37, 20);
+            this.right_2.TabIndex = 130;
+            this.right_2.Text = "    --";
+            this.right_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // right_1
+            // 
+            this.right_1.AutoSize = true;
+            this.right_1.Enabled = false;
+            this.right_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.right_1.Location = new System.Drawing.Point(335, 55);
+            this.right_1.Name = "right_1";
+            this.right_1.Size = new System.Drawing.Size(37, 20);
+            this.right_1.TabIndex = 129;
+            this.right_1.Text = "    --";
+            this.right_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // left_3
+            // 
+            this.left_3.AutoSize = true;
+            this.left_3.Enabled = false;
+            this.left_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.left_3.Location = new System.Drawing.Point(270, 130);
+            this.left_3.Name = "left_3";
+            this.left_3.Size = new System.Drawing.Size(37, 20);
+            this.left_3.TabIndex = 128;
+            this.left_3.Text = "    --";
+            this.left_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // left_2
+            // 
+            this.left_2.AutoSize = true;
+            this.left_2.Enabled = false;
+            this.left_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.left_2.Location = new System.Drawing.Point(270, 95);
+            this.left_2.Name = "left_2";
+            this.left_2.Size = new System.Drawing.Size(37, 20);
+            this.left_2.TabIndex = 127;
+            this.left_2.Text = "    --";
+            this.left_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // left_1
+            // 
+            this.left_1.AutoSize = true;
+            this.left_1.Enabled = false;
+            this.left_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.left_1.Location = new System.Drawing.Point(270, 56);
+            this.left_1.Name = "left_1";
+            this.left_1.Size = new System.Drawing.Size(37, 20);
+            this.left_1.TabIndex = 126;
+            this.left_1.Text = "    --";
+            this.left_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(335, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(58, 23);
+            this.label10.TabIndex = 125;
+            this.label10.Text = "RIGHT";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(270, 21);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 23);
+            this.label9.TabIndex = 124;
+            this.label9.Text = "LEFT ";
+            // 
+            // DIS_ACK_script3
+            // 
+            this.DIS_ACK_script3.AutoSize = true;
+            this.DIS_ACK_script3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DIS_ACK_script3.Location = new System.Drawing.Point(101, 130);
+            this.DIS_ACK_script3.Name = "DIS_ACK_script3";
+            this.DIS_ACK_script3.Size = new System.Drawing.Size(66, 20);
+            this.DIS_ACK_script3.TabIndex = 123;
+            this.DIS_ACK_script3.Text = "DIS_ACK";
+            this.DIS_ACK_script3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DIS_ACK_script2
+            // 
+            this.DIS_ACK_script2.AutoSize = true;
+            this.DIS_ACK_script2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DIS_ACK_script2.Location = new System.Drawing.Point(101, 93);
+            this.DIS_ACK_script2.Name = "DIS_ACK_script2";
+            this.DIS_ACK_script2.Size = new System.Drawing.Size(66, 20);
+            this.DIS_ACK_script2.TabIndex = 122;
+            this.DIS_ACK_script2.Text = "DIS_ACK";
+            this.DIS_ACK_script2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DIS_ACK_script1
+            // 
+            this.DIS_ACK_script1.AutoSize = true;
+            this.DIS_ACK_script1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DIS_ACK_script1.Location = new System.Drawing.Point(101, 54);
+            this.DIS_ACK_script1.Name = "DIS_ACK_script1";
+            this.DIS_ACK_script1.Size = new System.Drawing.Size(66, 20);
+            this.DIS_ACK_script1.TabIndex = 26;
+            this.DIS_ACK_script1.Text = "DIS_ACK";
+            this.DIS_ACK_script1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(101, 21);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(67, 23);
+            this.label6.TabIndex = 121;
+            this.label6.Text = "STATUS";
+            // 
+            // script3_button
+            // 
+            this.script3_button.Location = new System.Drawing.Point(6, 125);
+            this.script3_button.Name = "script3_button";
+            this.script3_button.Size = new System.Drawing.Size(73, 29);
+            this.script3_button.TabIndex = 120;
+            this.script3_button.Text = "script 3";
+            this.script3_button.UseVisualStyleBackColor = true;
+            this.script3_button.Click += new System.EventHandler(this.script3_button_Click);
+            // 
+            // script2_button
+            // 
+            this.script2_button.Location = new System.Drawing.Point(6, 88);
+            this.script2_button.Name = "script2_button";
+            this.script2_button.Size = new System.Drawing.Size(73, 29);
+            this.script2_button.TabIndex = 119;
+            this.script2_button.Text = "script 2";
+            this.script2_button.UseVisualStyleBackColor = true;
+            this.script2_button.Click += new System.EventHandler(this.script2_button_Click);
+            // 
+            // script1_button
+            // 
+            this.script1_button.Location = new System.Drawing.Point(6, 49);
+            this.script1_button.Name = "script1_button";
+            this.script1_button.Size = new System.Drawing.Size(73, 29);
+            this.script1_button.TabIndex = 118;
+            this.script1_button.Text = "script 1";
+            this.script1_button.UseVisualStyleBackColor = true;
+            this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.stopStepMotor);
+            this.groupBox5.Controls.Add(this.counterClockwise);
+            this.groupBox5.Controls.Add(this.clockwise);
+            this.groupBox5.Location = new System.Drawing.Point(239, 32);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(180, 144);
+            this.groupBox5.TabIndex = 120;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Motor command";
             // 
             // stopStepMotor
             // 
@@ -380,16 +663,6 @@
             this.counterClockwise.UseVisualStyleBackColor = true;
             this.counterClockwise.Click += new System.EventHandler(this.counterClockwise_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 76);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 23);
-            this.label2.TabIndex = 132;
-            this.label2.Text = "step angle";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // clockwise
             // 
             this.clockwise.Location = new System.Drawing.Point(6, 38);
@@ -400,10 +673,67 @@
             this.clockwise.UseVisualStyleBackColor = true;
             this.clockwise.Click += new System.EventHandler(this.clockwise_Click);
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.stopCalib);
+            this.groupBox9.Controls.Add(this.startCalib);
+            this.groupBox9.Location = new System.Drawing.Point(6, 196);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(123, 108);
+            this.groupBox9.TabIndex = 112;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Calibration";
+            // 
+            // stopCalib
+            // 
+            this.stopCalib.Location = new System.Drawing.Point(6, 63);
+            this.stopCalib.Name = "stopCalib";
+            this.stopCalib.Size = new System.Drawing.Size(110, 29);
+            this.stopCalib.TabIndex = 119;
+            this.stopCalib.Text = "stop calib";
+            this.stopCalib.UseVisualStyleBackColor = true;
+            this.stopCalib.Click += new System.EventHandler(this.stopCalib_Click);
+            // 
+            // startCalib
+            // 
+            this.startCalib.Location = new System.Drawing.Point(6, 28);
+            this.startCalib.Name = "startCalib";
+            this.startCalib.Size = new System.Drawing.Size(110, 29);
+            this.startCalib.TabIndex = 118;
+            this.startCalib.Text = "start calib";
+            this.startCalib.UseVisualStyleBackColor = true;
+            this.startCalib.Click += new System.EventHandler(this.startCalib_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.step_angle_Label);
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.Controls.Add(this.SM_countre_Label);
+            this.groupBox3.Controls.Add(this.current_angle_Label);
+            this.groupBox3.Location = new System.Drawing.Point(6, 58);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(187, 110);
+            this.groupBox3.TabIndex = 101;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Step Motor status";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 76);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 23);
+            this.label2.TabIndex = 132;
+            this.label2.Text = "step angle";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // step_angle_Label
             // 
             this.step_angle_Label.AutoSize = true;
-            this.step_angle_Label.Location = new System.Drawing.Point(156, 76);
+            this.step_angle_Label.Location = new System.Drawing.Point(138, 78);
             this.step_angle_Label.Name = "step_angle_Label";
             this.step_angle_Label.Size = new System.Drawing.Size(19, 23);
             this.step_angle_Label.TabIndex = 133;
@@ -433,7 +763,7 @@
             // SM_countre_Label
             // 
             this.SM_countre_Label.AutoSize = true;
-            this.SM_countre_Label.Location = new System.Drawing.Point(156, 27);
+            this.SM_countre_Label.Location = new System.Drawing.Point(138, 27);
             this.SM_countre_Label.Name = "SM_countre_Label";
             this.SM_countre_Label.Size = new System.Drawing.Size(19, 23);
             this.SM_countre_Label.TabIndex = 128;
@@ -443,7 +773,7 @@
             // current_angle_Label
             // 
             this.current_angle_Label.AutoSize = true;
-            this.current_angle_Label.Location = new System.Drawing.Point(156, 53);
+            this.current_angle_Label.Location = new System.Drawing.Point(138, 53);
             this.current_angle_Label.Name = "current_angle_Label";
             this.current_angle_Label.Size = new System.Drawing.Size(19, 23);
             this.current_angle_Label.TabIndex = 130;
@@ -468,483 +798,67 @@
             this.MSG_Status.TabIndex = 33;
             this.MSG_Status.Text = "WAITING";
             // 
-            // PingButton
+            // panel1
             // 
-            this.PingButton.Location = new System.Drawing.Point(6, 26);
-            this.PingButton.Name = "PingButton";
-            this.PingButton.Size = new System.Drawing.Size(110, 29);
-            this.PingButton.TabIndex = 41;
-            this.PingButton.Text = "Status request";
-            this.PingButton.UseVisualStyleBackColor = true;
-            this.PingButton.Click += new System.EventHandler(this.PingButton_Click);
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.radioButton1);
+            this.panel1.Location = new System.Drawing.Point(727, 104);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(512, 512);
+            this.panel1.TabIndex = 116;
             // 
-            // AutoButton
+            // radioButton1
             // 
-            this.AutoButton.Location = new System.Drawing.Point(6, 56);
-            this.AutoButton.Name = "AutoButton";
-            this.AutoButton.Size = new System.Drawing.Size(110, 29);
-            this.AutoButton.TabIndex = 42;
-            this.AutoButton.Text = "Press to run";
-            this.AutoButton.UseVisualStyleBackColor = true;
-            this.AutoButton.Click += new System.EventHandler(this.button1_Click);
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(260, 248);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(17, 16);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // timer1
-            // 
+            //
             this.timer1.Enabled = true;
             this.timer1.Interval = 250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 94);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 23);
-            this.label8.TabIndex = 44;
-            this.label8.Text = "Sent:";
-            // 
-            // message_sent_label
-            // 
-            this.message_sent_label.AutoSize = true;
-            this.message_sent_label.Location = new System.Drawing.Point(108, 94);
-            this.message_sent_label.Name = "message_sent_label";
-            this.message_sent_label.Size = new System.Drawing.Size(19, 23);
-            this.message_sent_label.TabIndex = 46;
-            this.message_sent_label.Text = "0";
-            // 
-            // message_recieved_label
-            // 
-            this.message_recieved_label.AutoSize = true;
-            this.message_recieved_label.Location = new System.Drawing.Point(108, 117);
-            this.message_recieved_label.Name = "message_recieved_label";
-            this.message_recieved_label.Size = new System.Drawing.Size(19, 23);
-            this.message_recieved_label.TabIndex = 48;
-            this.message_recieved_label.Text = "0";
-            // 
-            // reset_counter_button
-            // 
-            this.reset_counter_button.Location = new System.Drawing.Point(124, 56);
-            this.reset_counter_button.Name = "reset_counter_button";
-            this.reset_counter_button.Size = new System.Drawing.Size(123, 29);
-            this.reset_counter_button.TabIndex = 51;
-            this.reset_counter_button.Text = "Reset counter";
-            this.reset_counter_button.UseVisualStyleBackColor = true;
-            this.reset_counter_button.Click += new System.EventHandler(this.reset_counter_button_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(10, 117);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(81, 23);
-            this.label14.TabIndex = 52;
-            this.label14.Text = "Received:";
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.stopCalib);
-            this.groupBox9.Controls.Add(this.startCalib);
-            this.groupBox9.Location = new System.Drawing.Point(6, 180);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(123, 108);
-            this.groupBox9.TabIndex = 112;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Calibration";
-            // 
-            // stopCalib
-            // 
-            this.stopCalib.Location = new System.Drawing.Point(6, 63);
-            this.stopCalib.Name = "stopCalib";
-            this.stopCalib.Size = new System.Drawing.Size(110, 29);
-            this.stopCalib.TabIndex = 119;
-            this.stopCalib.Text = "stop calib";
-            this.stopCalib.UseVisualStyleBackColor = true;
-            this.stopCalib.Click += new System.EventHandler(this.stopCalib_Click);
-            // 
-            // startCalib
-            // 
-            this.startCalib.Location = new System.Drawing.Point(6, 28);
-            this.startCalib.Name = "startCalib";
-            this.startCalib.Size = new System.Drawing.Size(110, 29);
-            this.startCalib.TabIndex = 118;
-            this.startCalib.Text = "start calib";
-            this.startCalib.UseVisualStyleBackColor = true;
-            this.startCalib.Click += new System.EventHandler(this.startCalib_Click);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.ResetButton);
-            this.groupBox10.Controls.Add(this.PingButton);
-            this.groupBox10.Controls.Add(this.AutoButton);
-            this.groupBox10.Controls.Add(this.reset_counter_button);
-            this.groupBox10.Controls.Add(this.label8);
-            this.groupBox10.Controls.Add(this.label14);
-            this.groupBox10.Controls.Add(this.message_sent_label);
-            this.groupBox10.Controls.Add(this.message_recieved_label);
-            this.groupBox10.Location = new System.Drawing.Point(303, 511);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(271, 139);
-            this.groupBox10.TabIndex = 113;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Message panel";
-            // 
-            // ResetButton
-            // 
-            this.ResetButton.Location = new System.Drawing.Point(124, 26);
-            this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(123, 29);
-            this.ResetButton.TabIndex = 117;
-            this.ResetButton.Text = "Reset device";
-            this.ResetButton.UseVisualStyleBackColor = true;
-            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.label13);
-            this.groupBox11.Controls.Add(this.calibCurrentButton);
-            this.groupBox11.Controls.Add(this.calibVoltageButton);
-            this.groupBox11.Controls.Add(this.label12);
-            this.groupBox11.Controls.Add(this.calibTextBox);
-            this.groupBox11.Controls.Add(this.openModeButton);
-            this.groupBox11.Controls.Add(this.closeModeButton);
-            this.groupBox11.Controls.Add(this.autoModeButton);
-            this.groupBox11.Location = new System.Drawing.Point(1123, 530);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(276, 129);
-            this.groupBox11.TabIndex = 114;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Command panel";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(121, 35);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(93, 23);
-            this.label13.TabIndex = 119;
-            this.label13.Text = "Calibration";
-            // 
-            // calibCurrentButton
-            // 
-            this.calibCurrentButton.Location = new System.Drawing.Point(101, 130);
-            this.calibCurrentButton.Name = "calibCurrentButton";
-            this.calibCurrentButton.Size = new System.Drawing.Size(134, 28);
-            this.calibCurrentButton.TabIndex = 118;
-            this.calibCurrentButton.Text = "Calib current";
-            this.calibCurrentButton.UseVisualStyleBackColor = true;
-            this.calibCurrentButton.Click += new System.EventHandler(this.calibCurrentButton_Click);
-            // 
-            // calibVoltageButton
-            // 
-            this.calibVoltageButton.Location = new System.Drawing.Point(113, 98);
-            this.calibVoltageButton.Name = "calibVoltageButton";
-            this.calibVoltageButton.Size = new System.Drawing.Size(122, 28);
-            this.calibVoltageButton.TabIndex = 116;
-            this.calibVoltageButton.Text = "Calib voltage";
-            this.calibVoltageButton.UseVisualStyleBackColor = true;
-            this.calibVoltageButton.Click += new System.EventHandler(this.calibButton_Click);
+            //this.timer1.Enabled = true;
+            //this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(6, 40);
+            this.label12.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.DarkOrchid;
+            this.label12.Location = new System.Drawing.Point(547, 27);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 23);
-            this.label12.TabIndex = 107;
-            this.label12.Text = "Work mode";
+            this.label12.Size = new System.Drawing.Size(376, 38);
+            this.label12.TabIndex = 133;
+            this.label12.Text = "DCS - Final Project GUI";
             // 
-            // calibTextBox
+            // label13
             // 
-            this.calibTextBox.Location = new System.Drawing.Point(122, 64);
-            this.calibTextBox.Name = "calibTextBox";
-            this.calibTextBox.Size = new System.Drawing.Size(92, 29);
-            this.calibTextBox.TabIndex = 115;
-            // 
-            // openModeButton
-            // 
-            this.openModeButton.AutoSize = true;
-            this.openModeButton.Location = new System.Drawing.Point(6, 81);
-            this.openModeButton.Name = "openModeButton";
-            this.openModeButton.Size = new System.Drawing.Size(114, 27);
-            this.openModeButton.TabIndex = 106;
-            this.openModeButton.Text = "Open relay";
-            this.openModeButton.UseVisualStyleBackColor = true;
-            this.openModeButton.CheckedChanged += new System.EventHandler(this.openModeButton_CheckedChanged);
-            // 
-            // closeModeButton
-            // 
-            this.closeModeButton.AutoSize = true;
-            this.closeModeButton.Location = new System.Drawing.Point(6, 102);
-            this.closeModeButton.Name = "closeModeButton";
-            this.closeModeButton.Size = new System.Drawing.Size(113, 27);
-            this.closeModeButton.TabIndex = 105;
-            this.closeModeButton.Text = "Close relay";
-            this.closeModeButton.UseVisualStyleBackColor = true;
-            this.closeModeButton.CheckedChanged += new System.EventHandler(this.closeModeButton_CheckedChanged);
-            // 
-            // autoModeButton
-            // 
-            this.autoModeButton.AutoSize = true;
-            this.autoModeButton.Location = new System.Drawing.Point(6, 60);
-            this.autoModeButton.Name = "autoModeButton";
-            this.autoModeButton.Size = new System.Drawing.Size(117, 27);
-            this.autoModeButton.TabIndex = 104;
-            this.autoModeButton.Text = "Auto mode";
-            this.autoModeButton.UseVisualStyleBackColor = true;
-            this.autoModeButton.CheckedChanged += new System.EventHandler(this.autoModeButton_CheckedChanged);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.stop_3);
-            this.groupBox4.Controls.Add(this.stop_2);
-            this.groupBox4.Controls.Add(this.stop_1);
-            this.groupBox4.Controls.Add(this.start_3);
-            this.groupBox4.Controls.Add(this.start_2);
-            this.groupBox4.Controls.Add(this.start_1);
-            this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.DIS_ACK_script3);
-            this.groupBox4.Controls.Add(this.DIS_ACK_script2);
-            this.groupBox4.Controls.Add(this.DIS_ACK_script1);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.script3_button);
-            this.groupBox4.Controls.Add(this.script2_button);
-            this.groupBox4.Controls.Add(this.script1_button);
-            this.groupBox4.Location = new System.Drawing.Point(6, 334);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(426, 163);
-            this.groupBox4.TabIndex = 120;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Script panel";
-            // 
-            // stop_3
-            // 
-            this.stop_3.AutoSize = true;
-            this.stop_3.Enabled = false;
-            this.stop_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_3.Location = new System.Drawing.Point(342, 134);
-            this.stop_3.Name = "stop_3";
-            this.stop_3.Size = new System.Drawing.Size(37, 20);
-            this.stop_3.TabIndex = 131;
-            this.stop_3.Text = "    --";
-            this.stop_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // stop_2
-            // 
-            this.stop_2.AutoSize = true;
-            this.stop_2.Enabled = false;
-            this.stop_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_2.Location = new System.Drawing.Point(342, 95);
-            this.stop_2.Name = "stop_2";
-            this.stop_2.Size = new System.Drawing.Size(37, 20);
-            this.stop_2.TabIndex = 130;
-            this.stop_2.Text = "    --";
-            this.stop_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // stop_1
-            // 
-            this.stop_1.AutoSize = true;
-            this.stop_1.Enabled = false;
-            this.stop_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stop_1.Location = new System.Drawing.Point(342, 58);
-            this.stop_1.Name = "stop_1";
-            this.stop_1.Size = new System.Drawing.Size(37, 20);
-            this.stop_1.TabIndex = 129;
-            this.stop_1.Text = "    --";
-            this.stop_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // start_3
-            // 
-            this.start_3.AutoSize = true;
-            this.start_3.Enabled = false;
-            this.start_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_3.Location = new System.Drawing.Point(255, 130);
-            this.start_3.Name = "start_3";
-            this.start_3.Size = new System.Drawing.Size(37, 20);
-            this.start_3.TabIndex = 128;
-            this.start_3.Text = "    --";
-            this.start_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // start_2
-            // 
-            this.start_2.AutoSize = true;
-            this.start_2.Enabled = false;
-            this.start_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_2.Location = new System.Drawing.Point(255, 95);
-            this.start_2.Name = "start_2";
-            this.start_2.Size = new System.Drawing.Size(37, 20);
-            this.start_2.TabIndex = 127;
-            this.start_2.Text = "    --";
-            this.start_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // start_1
-            // 
-            this.start_1.AutoSize = true;
-            this.start_1.Enabled = false;
-            this.start_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.start_1.Location = new System.Drawing.Point(255, 56);
-            this.start_1.Name = "start_1";
-            this.start_1.Size = new System.Drawing.Size(37, 20);
-            this.start_1.TabIndex = 126;
-            this.start_1.Text = "    --";
-            this.start_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(342, 21);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 23);
-            this.label10.TabIndex = 125;
-            this.label10.Text = "STOP";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(255, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 23);
-            this.label9.TabIndex = 124;
-            this.label9.Text = "START";
-            // 
-            // DIS_ACK_script3
-            // 
-            this.DIS_ACK_script3.AutoSize = true;
-            this.DIS_ACK_script3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script3.Location = new System.Drawing.Point(153, 130);
-            this.DIS_ACK_script3.Name = "DIS_ACK_script3";
-            this.DIS_ACK_script3.Size = new System.Drawing.Size(66, 20);
-            this.DIS_ACK_script3.TabIndex = 123;
-            this.DIS_ACK_script3.Text = "DIS_ACK";
-            this.DIS_ACK_script3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DIS_ACK_script2
-            // 
-            this.DIS_ACK_script2.AutoSize = true;
-            this.DIS_ACK_script2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script2.Location = new System.Drawing.Point(153, 93);
-            this.DIS_ACK_script2.Name = "DIS_ACK_script2";
-            this.DIS_ACK_script2.Size = new System.Drawing.Size(66, 20);
-            this.DIS_ACK_script2.TabIndex = 122;
-            this.DIS_ACK_script2.Text = "DIS_ACK";
-            this.DIS_ACK_script2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DIS_ACK_script1
-            // 
-            this.DIS_ACK_script1.AutoSize = true;
-            this.DIS_ACK_script1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script1.Location = new System.Drawing.Point(153, 54);
-            this.DIS_ACK_script1.Name = "DIS_ACK_script1";
-            this.DIS_ACK_script1.Size = new System.Drawing.Size(66, 20);
-            this.DIS_ACK_script1.TabIndex = 26;
-            this.DIS_ACK_script1.Text = "DIS_ACK";
-            this.DIS_ACK_script1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(153, 21);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 23);
-            this.label6.TabIndex = 121;
-            this.label6.Text = "STATUS";
-            // 
-            // script3_button
-            // 
-            this.script3_button.Location = new System.Drawing.Point(6, 125);
-            this.script3_button.Name = "script3_button";
-            this.script3_button.Size = new System.Drawing.Size(110, 29);
-            this.script3_button.TabIndex = 120;
-            this.script3_button.Text = "script 3";
-            this.script3_button.UseVisualStyleBackColor = true;
-            this.script3_button.Click += new System.EventHandler(this.script3_button_Click);
-            // 
-            // script2_button
-            // 
-            this.script2_button.Location = new System.Drawing.Point(6, 88);
-            this.script2_button.Name = "script2_button";
-            this.script2_button.Size = new System.Drawing.Size(110, 29);
-            this.script2_button.TabIndex = 119;
-            this.script2_button.Text = "script 2";
-            this.script2_button.UseVisualStyleBackColor = true;
-            this.script2_button.Click += new System.EventHandler(this.script2_button_Click);
-            // 
-            // script1_button
-            // 
-            this.script1_button.Location = new System.Drawing.Point(6, 49);
-            this.script1_button.Name = "script1_button";
-            this.script1_button.Size = new System.Drawing.Size(110, 29);
-            this.script1_button.TabIndex = 118;
-            this.script1_button.Text = "script 1";
-            this.script1_button.UseVisualStyleBackColor = true;
-            this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.stopStepMotor);
-            this.groupBox5.Controls.Add(this.counterClockwise);
-            this.groupBox5.Controls.Add(this.clockwise);
-            this.groupBox5.Location = new System.Drawing.Point(214, 22);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(180, 144);
-            this.groupBox5.TabIndex = 120;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Motor command";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.ManualControl_start);
-            this.groupBox6.Location = new System.Drawing.Point(148, 180);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(137, 108);
-            this.groupBox6.TabIndex = 120;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Manual Motor Control";
-            // 
-            // ManualControl_start
-            // 
-            this.ManualControl_start.Location = new System.Drawing.Point(13, 63);
-            this.ManualControl_start.Name = "ManualControl_start";
-            this.ManualControl_start.Size = new System.Drawing.Size(110, 29);
-            this.ManualControl_start.TabIndex = 119;
-            this.ManualControl_start.Text = "start";
-            this.ManualControl_start.UseVisualStyleBackColor = true;
-            this.ManualControl_start.Click += new System.EventHandler(this.ManualControl_start_Click);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.JoystickPainter_start);
-            this.groupBox7.Location = new System.Drawing.Point(310, 180);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(137, 108);
-            this.groupBox7.TabIndex = 121;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Joystick Painter";
-            // 
-            // JoystickPainter_start
-            // 
-            this.JoystickPainter_start.Location = new System.Drawing.Point(13, 63);
-            this.JoystickPainter_start.Name = "JoystickPainter_start";
-            this.JoystickPainter_start.Size = new System.Drawing.Size(110, 29);
-            this.JoystickPainter_start.TabIndex = 119;
-            this.JoystickPainter_start.Text = "start";
-            this.JoystickPainter_start.UseVisualStyleBackColor = true;
-            this.JoystickPainter_start.Click += new System.EventHandler(this.JoystickPainter_start_Click);
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.DimGray;
+            this.label13.Location = new System.Drawing.Point(473, 627);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(494, 26);
+            this.label13.TabIndex = 134;
+            this.label13.Text = "© Copyright: Shahar Mizrahi and Tamar Oren";
             // 
             // DCS_control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1534, 658);
-            this.Controls.Add(this.clearPanel1);
-            this.Controls.Add(this.ChartcomboBox);
+            this.ClientSize = new System.Drawing.Size(1250, 658);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.groupBox11);
-            this.Controls.Add(this.groupBox10);
-            this.Controls.Add(this.clearChartButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -958,23 +872,22 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -987,9 +900,7 @@
         private System.Windows.Forms.Label label_status;
         private System.Windows.Forms.ComboBox comboBox_comPort;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox_textSent;
         private System.Windows.Forms.RichTextBox richTextBox_textReceiver;
-        private System.Windows.Forms.Button button_send;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1008,24 +919,12 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.Button ResetButton;
-        private System.Windows.Forms.Button clearChartButton;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label current_angle_Label;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label SM_countre_Label;
-        private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.ComboBox ChartcomboBox;
-        private System.Windows.Forms.RadioButton openModeButton;
-        private System.Windows.Forms.RadioButton closeModeButton;
-        private System.Windows.Forms.RadioButton autoModeButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label step_angle_Label;
-        private System.Windows.Forms.Button calibVoltageButton;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox calibTextBox;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button calibCurrentButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button startCalib;
@@ -1044,17 +943,23 @@
         private System.Windows.Forms.Label DIS_ACK_script2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label stop_3;
-        private System.Windows.Forms.Label stop_2;
-        private System.Windows.Forms.Label stop_1;
-        private System.Windows.Forms.Label start_3;
-        private System.Windows.Forms.Label start_2;
-        private System.Windows.Forms.Label start_1;
+        private System.Windows.Forms.Label right_3;
+        private System.Windows.Forms.Label right_2;
+        private System.Windows.Forms.Label right_1;
+        private System.Windows.Forms.Label left_3;
+        private System.Windows.Forms.Label left_2;
+        private System.Windows.Forms.Label left_1;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button ManualControl_start;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Button JoystickPainter_start;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label pointer_3;
+        private System.Windows.Forms.Label pointer_2;
+        private System.Windows.Forms.Label pointer_1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
     }
 }
 

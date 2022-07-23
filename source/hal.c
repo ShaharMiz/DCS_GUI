@@ -55,13 +55,15 @@ volatile long Phi_tmp = 0;
 //------------------------------------------------
 //              STATE 4 - Script Mode
 //------------------------------------------------
+volatile int opcode = 8; // default- sleep mode
 
 Scripts s = {{0}, {FLASH_INFO_SEG_B_START, FLASH_INFO_SEG_C_START, FLASH_INFO_SEG_D_START}, {0}, {0} , 1};
 int ScriptModeDelay = 50;
 int write_to_flash = 0;
 int offset = 0;
 int acknowledge = 0;
-
+volatile char to_flash[8];
+int debug_idx = 0;
 volatile char p_rx[10];
 //volatile char p_tx[10];
 int index;
@@ -80,14 +82,14 @@ volatile unsigned int Vx=origin; // the middle - 103
 volatile unsigned int Vy=origin;
 unsigned int res[2] = {460, 460};
 
-volatile unsigned int JOISTICK_MODE=neutral;
+volatile unsigned int JOISTICK_MODE=none;
 
 
-void adc10_config(){
-//    ADC10CTL1 = INCH_3 + ADC10SSEL_0;             // Repeat single channel, A3, ADC10OSC
-//    ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enable
-    ADC10CTL0 = ADC10IE;                      //ADC10 Interrupt Enable
-}
+//void adc10_config(){
+////    ADC10CTL1 = INCH_3 + ADC10SSEL_0;             // Repeat single channel, A3, ADC10OSC
+////    ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enable
+//    ADC10CTL0 = ADC10IE;                      //ADC10 Interrupt Enable
+//}
 
 
 void sampleVxy(void){
@@ -97,7 +99,7 @@ void sampleVxy(void){
      while (ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
      ADC10SA = (int)res; // Data buffer start
      ADC10CTL0 |= ENC + ADC10SC;              // Sampling and conversion start
-     __bis_SR_register(CPUOFF + GIE);         // LPM0, ADC10_ISR will force exit
+     __bis_SR_register(LPM0_bits + GIE);         // LPM0, ADC10_ISR will force exit
 
      ADC10CTL0 &= ~ADC10ON;                   // ADC10 OFF
  }
@@ -111,6 +113,44 @@ void sampleVxy(void){
 ////    Vy = res[1];                        // adc array 1 copied to the variable x_Axis
 ////    __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
 //}
+//------------------------------------------------------------------
+//--------------- Port1 Interrupt Service Routine ------------------
+//------------------------------------------------------------------
+#pragma vector=PORT1_VECTOR
+__interrupt void PORT1_ISR(void){
+    if(PB1_IntPending & 0x20){      // with port P1.5
+        _buttonDebounceDelay(0x20);
+//        if (state == 7){
+//            UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
+//            IE2 |= UCA0TXIE;                          // Enable USCI_A0 TX interrupt
+//        }else {
+//            state = 0;
+//        }
+        if (state == JoystickPainter){
+            if (JOISTICK_MODE == neutral){
+                JOISTICK_MODE = draw;
+            } else if (JOISTICK_MODE == draw){
+                JOISTICK_MODE = erase;
+            }else {
+                JOISTICK_MODE = neutral;
+            }
+        }
+    }
+}
+
+//==========================================================
+//                     Real PB1 ISR
+//==========================================================
+
+//------------------------------------------------------------------
+void _buttonDebounceDelay(int button){
+    volatile unsigned int i;
+    for(i = 1000; i > 0; i--);                     //delay, button debounce
+    while(!(PB1_PortIN & button));          // wait of release the button
+    for(i = 1000; i > 0; i--);                     //delay, button debounce
+    PB1_IntPending &= ~button;              // manual clear of p1.button
+}
+
 // -------------------------------------------------------------
 volatile unsigned long destiny_angle;
 unsigned int a, b;
@@ -183,7 +223,7 @@ void MoveToJoyStickDiraction(void){
     ADC10CTL0 &= ~ADC10IFG;        // clear interrupt flag
     Vx = res[0];
     Vy = res[1];
-  __bic_SR_register_on_exit(CPUOFF);        // Clear CPUOFF bit from 0(SR)
+  __bic_SR_register_on_exit(LPM0_bits + GIE);        // Clear CPUOFF bit from 0(SR)
 
 }
 
@@ -287,7 +327,7 @@ void stepper_scan(unsigned long l, unsigned long r){
     // moving to Left angle
     move_to_angle(Left_ang);
     // Tell PC that motor arrived to Left angle
-    if ((state == 4) && (scan_mode == 1)){ // maybe
+    if ((state == ScriptMode) && (scan_mode == 1)){ // maybe
         Got_to_left_flg = 1;
         enable_transmition();
     }
@@ -297,7 +337,7 @@ void stepper_scan(unsigned long l, unsigned long r){
     // after getting to Left angle, scan area to Right angle
     scan_to_right();
 
-    if ((state == 4) && (scan_mode == 1)){
+    if ((state == ScriptMode) && (scan_mode == 1)){
         Got_to_right_flg = 1;   // update PC that motor arrived to Right angle
         enable_transmition();
         Timer0_A_delay_ms(50);
@@ -453,6 +493,7 @@ void write_seg (char* flash_ptr, int offset){
     FCTL3 = FWKEY;                            // Clear Lock bit
     FCTL1 = FWKEY + WRT;                      // Set WRT bit for write operation
     flash_ptr[offset] = *p_rx;                // Write value to flash
+//    flash_ptr[offset] = to_flash[offset];                // Write value to flash
     while((FCTL3 & WAIT) != WAIT);            // Wait for write to complete
     FCTL1 = FWKEY;                            // Clear WRT bit
     FCTL3 = FWKEY + LOCK;                     // Set LOCK bit
@@ -507,15 +548,21 @@ int read_mem(int num_bytes){
 volatile int Out_to_RGB = 0x01;
 
 void blink_RGB(int delay, int times){
+    int rotate;
+
     while(times){
-        if (Out_to_RGB == 0x04){
-            Out_to_RGB = 0x01;
-        }else{
-            Out_to_RGB <<= 1;
+        rotate = 3;
+        times --;
+        while(rotate){
+            rotate --;
+            if (Out_to_RGB == 0x04){
+                Out_to_RGB = 0x01;
+            }else{
+                Out_to_RGB <<= 1;
+            }
+            RGBPortOUT = Out_to_RGB;
+            Timer1_A_delay_10ms(delay); // 10ms
         }
-        RGBPortOUT = Out_to_RGB;
-        Timer1_A_delay_10ms(delay); // 10ms
-        times--;
     }
 }
 //----------------------------------------------------------
@@ -640,11 +687,15 @@ void GatherStatusInfo(void){
     Buff_index = 0;
     TXindex = 0;
     // First char
-    if ((state == 4) && (Got_to_left_flg == 1)){
-        StatusArray[Buff_index]='<'; // sending PC that motor arrived to left angle
-    } else if ((state == 4) && (Got_to_right_flg == 1)){
-        StatusArray[Buff_index]='>';// sending PC that motor arrived to right angle
-    } else if ((state == 4) && (acknowledge == 1)){
+    if ((state == ScriptMode) && (Got_to_left_flg == 1)){
+        if (opcode == 6){
+            StatusArray[Buff_index]='%'; // sending PC that motor arrived to p angle in stepper_deg mode
+        }else if(opcode == 7){
+            StatusArray[Buff_index]='<'; // sending PC that motor arrived to left angle in scan mode
+        }
+    } else if ((state == ScriptMode) && (Got_to_right_flg == 1)){
+        StatusArray[Buff_index]='>';// sending PC that motor arrived to right angle in scan mode
+    } else if ((state == ScriptMode) && (acknowledge == 1)){
         StatusArray[Buff_index]='!';
     } else {
         StatusArray[Buff_index]='#';
@@ -733,17 +784,26 @@ __interrupt void USCI0RX_ISR(void)
         if (Msg_location==1){ // Get status value
             state = RxBuffer;
             Msg_location ++;
-        }else if ((Msg_location==2) && ((state ==3) || (state ==5))){ // Get status_stage value for calibration or moving freely
+            if (state ==JoystickPainter){
+                JOISTICK_MODE = neutral;
+            }else{
+                JOISTICK_MODE = none;
+            }
+            if ((state == JoystickPainter) || (state == ManualMotorControl)) {
+                __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
+            }
+        }else if ((Msg_location==2) && ((state == calibration) || (state ==move_motor_freely))){ // Get status_stage value for calibration or moving freely
             state_stage =  RxBuffer;
             Msg_location = 0;
             state_flg = 0; // Done getting all state information
             __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
-        }else if (state ==4) {
+        }else if (state ==ScriptMode) {
             Msg_location = 0;
             while (!(IFG2&UCA0TXIFG));                // USCI_A0 TX buffer ready?
-            if(write_to_flash)
+            if(write_to_flash){
                 p_rx[0] = RxBuffer;
-            else
+//                to_flash[debug_idx++] =  RxBuffer;
+            }else
                 p_rx[index++] = RxBuffer;
 
             __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
@@ -766,10 +826,11 @@ __interrupt void USCI0TX_ISR(void)
             IE2 |= UCA0RXIE;                             // Enable RX interrupt
             status_flg = 0;
         }
-    }else if ((state == 4) && (acknowledge == 1)){
+    }else if ((state == ScriptMode) && (acknowledge == 1)){
         TxBuffer =  '!';
         // drop flags
-        GatherStatusInfo(); //////////////////////
+        GatherStatusInfo();
+
         index = 0;
         acknowledge = 0;
         status_flg = 1;
@@ -777,12 +838,12 @@ __interrupt void USCI0TX_ISR(void)
 //        IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
 //        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
 
-    }else if ((state == 4) && (scan_mode == 1) && (Got_to_left_flg == 1)){
+    }else if ((state == ScriptMode) && (scan_mode == 1) && (Got_to_left_flg == 1)){
         GatherStatusInfo();
         Got_to_left_flg = 0;
         status_flg = 1;       // send PC current status
 
-    }else if ((state == 4) && (scan_mode == 1) && (Got_to_right_flg == 1)){
+    }else if ((state == ScriptMode) && (scan_mode == 1) && (Got_to_right_flg == 1)){
         GatherStatusInfo();
         Got_to_right_flg = 0;
         status_flg = 1;       // send PC current status
@@ -947,35 +1008,6 @@ int str2int( char volatile *str)
 //                    "*******************************************************\r";
 //
 //volatile char REAL_Str[16] = "I love my Negev ";
-//------------------------------------------------------------------
-//--------------- Port1 Interrupt Service Routine ------------------
-//------------------------------------------------------------------
-//#pragma vector=PORT1_VECTOR
-//__interrupt void PORT1_ISR(void){
-//    if(PB1_IntPending & 0x01){
-//        _buttonDebounceDelay(0x01);
-////        menu_tx = 1;
-//        if (state == 7){
-//            UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
-//            IE2 |= UCA0TXIE;                          // Enable USCI_A0 TX interrupt
-//        }else {
-//            state = 0;
-//        }
-//    }
-//}
-
-//==========================================================
-//                     Real PB1 ISR
-//==========================================================
-
-//------------------------------------------------------------------
-//void _buttonDebounceDelay(int button){
-//    volatile unsigned int i;
-//    for(i = 1000; i > 0; i--);                     //delay, button debounce
-//    while(!(PB1_PortIN & button));          // wait of release the button
-//    for(i = 1000; i > 0; i--);                     //delay, button debounce
-//    PB1_IntPending &= ~button;              // manual clear of p1.button
-//}
 
 //==========================================================
 //                     STATE 1
@@ -1004,16 +1036,16 @@ int str2int( char volatile *str)
 //    ADC10CTL0 = ADC10SHT_0 + ADC10IE;             //ADC10 Interrupt Enable
 //}
 
-void SC_from_POT(void){
-    ADC10CTL0 |= ADC10ON;                   // ADC10 ON
-    ADC10CTL0 &= ~ENC;                      // disable conversion
-    while(ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
-    ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
-    __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
-    __no_operation();                       // For debugger
-    ADC10CTL0 &= ~ADC10ON;                  // ADC10 OFF
-}
-
+//void SC_from_POT(void){
+//    ADC10CTL0 |= ADC10ON;                   // ADC10 ON
+//    ADC10CTL0 &= ~ENC;                      // disable conversion
+//    while(ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
+//    ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
+//    __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
+//    __no_operation();                       // For debugger
+//    ADC10CTL0 &= ~ADC10ON;                  // ADC10 OFF
+//}
+//
 
 //==========================================================
 //         ADC10 Interrupt Service Routine

@@ -18,10 +18,20 @@ extern void InitUART(void);
 #define  SMPortOUT     P2OUT
 
 //***********************************************
-//         Joy Stick configuration
+//      Joy Stick Ports configuration
 //***********************************************
 #define  JSPortSel     P1SEL
 #define  JSPortDir     P1DIR
+//***********************************************
+//       Joy Stick PB configuration - P1.5 - PB1- temp
+//***********************************************
+#define PB1_PortIN           P1IN
+#define PB1_PortOUT          P1OUT
+#define PB1_IntPending       P1IFG
+#define PB1_IntEnable        P1IE
+#define PB1_IntEdgeSel       P1IES
+#define PB1_PortSel          P1SEL
+#define PB1_PortDir          P1DIR
 
 //***********************************************
 //            ADC configuration
@@ -71,16 +81,6 @@ extern void InitUART(void);
 
 
 
-////***********************************************
-////            REAL- PB1 configuration
-////***********************************************
-//#define PB1_PortIN           P1IN
-//#define PB1_PortOUT          P1OUT
-//#define PB1_IntPending       P1IFG
-//#define PB1_IntEnable        P1IE
-//#define PB1_IntEdgeSel       P1IES
-//#define PB1_PortSel          P1SEL
-//#define PB1_PortDir          P1DIR
 
 //***********************************************
 //            LCD data configuration

@@ -13,9 +13,10 @@ extern volatile unsigned int state;
 #define move_motor_freely  5
 
 // Joy Stick modes
-#define neutral 0
-#define draw    1
-#define erase   2
+#define neutral 1
+#define draw    2
+#define erase   3
+#define none    4
 #define origin  460   // (0,0) of x-y
 #define radius_min 455
 #define radius_max 460
@@ -65,6 +66,7 @@ extern volatile unsigned long destiny_angle;
 //              SERVICE FUNCTIONS
 //------------------------------------------------
 __interrupt void ADC10_ISR(void);
+__interrupt void PORT1_ISR(void);
 extern void sampleVxy(void);
 extern void MoveToJoyStickDiraction(void);
 
@@ -122,8 +124,10 @@ extern void Phi_calculation(void);
 //------------------------------------------------
 //          Flash memory configuration
 //------------------------------------------------
-#define FLASH_INFO_SEG_B_START     (char*)0xE080
-#define FLASH_INFO_SEG_B_END       (char*)0xE0BF
+//#define FLASH_INFO_SEG_B_START     (char*)0xE080
+//#define FLASH_INFO_SEG_B_END       (char*)0xE0BF
+#define FLASH_INFO_SEG_B_START     (char*)0x1040
+#define FLASH_INFO_SEG_B_END       (char*)0x107F
 
 #define FLASH_INFO_SEG_C_START     (char*)0xE040
 #define FLASH_INFO_SEG_C_END       (char*)0xE07F
@@ -133,7 +137,7 @@ extern void Phi_calculation(void);
 //------------------------------------------------
 //                  Variables
 //------------------------------------------------
-
+extern volatile int opcode;
 typedef struct Scripts{
     int written[3];
     char *pscript[3];
