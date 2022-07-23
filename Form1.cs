@@ -393,13 +393,7 @@ namespace Pneumatic_Control
                     else message += msg_temp;
                 }
                 string[] values = message.Split('-');
-/*                for (int i = 1; i < values.Length; i++)
-                {
-                    if (values[i].Length == 0) 
-                    {
-                        values[i] = "0";
-                    }
-                }*/
+
                 
                 index =0;
                 if (CRC_status)
@@ -764,6 +758,8 @@ namespace Pneumatic_Control
                 DIS_ACK_script3.Text = "ACK";
                 DIS_ACK_script3.ForeColor = Color.Green;
             }
+            startChar = '0';
+            msg_type = MSG_TYPE.WAIT;
         }
         private void script1_button_Click(object sender, EventArgs e)
         {
@@ -786,12 +782,12 @@ namespace Pneumatic_Control
                 char[] nunberOfLines_char = nunberOfLines_string.ToCharArray();
                 nunberOfLines_string = new string(nunberOfLines_char);
                 // number of bytes
-                int numberOfbytes = 0;
+/*                int numberOfbytes = 0;
                 for (int i = 0; i < writeBuffer.Length; i++)
                 {
-                    if (writeBuffer[i] != 13) numberOfbytes++;
-                }
-                string numberOfbytes_string = numberOfbytes.ToString();
+                    numberOfbytes++;
+                }*/
+                string numberOfbytes_string = writeBuffer.Length.ToString();
                 char[] numberOfbytes_char = numberOfbytes_string.ToCharArray();
                 numberOfbytes_string = new string(numberOfbytes_char);
 
@@ -810,16 +806,12 @@ namespace Pneumatic_Control
                 numOfBytesAndLines += "-";
                 serialPort1.Write(numOfBytesAndLines);
                 // SEND: scipt
-/*                for (int i = 0; i < writeBuffer.Length; i++)
+                for (int i = 0; i < writeBuffer.Length; i++)
                 {
-                    if (writeBuffer[i] == 10) serialPort1.Write("-");
-                    else if (writeBuffer[i] != 13) serialPort1.Write(writeBuffer, i, 1);
+                    if (writeBuffer[i] == 10 || writeBuffer[i] == 13) serialPort1.Write("-");
+                    else serialPort1.Write(writeBuffer, i, 1);
                 }
-                message_sent_label.Text = (++message_sent_counter).ToString();*/
-                /*                Byte[] msg = { (byte)STATE.TEST_6 };
-                                serialPort1.Write("!");
-                                serialPort1.Write(msg, 0 , 1);
-                                message_sent_label.Text = (++message_sent_counter).ToString();*/
+                message_sent_label.Text = (++message_sent_counter).ToString();
 
             }
             catch (Exception error)
