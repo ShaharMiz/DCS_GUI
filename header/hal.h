@@ -12,6 +12,17 @@ extern volatile unsigned int state;
 #define ScriptMode         4
 #define move_motor_freely  5
 
+// Joy Stick modes
+#define neutral 0
+#define draw    1
+#define erase   2
+#define origin  460   // (0,0) of x-y
+#define radius_min 455
+#define radius_max 460
+#define radius_min_bruto 100
+#define radius_max_bruto 900
+#define PI 3.14159265
+
 #define Phi_deg 175
 //extern volatile unsigned int x;
 //extern volatile char X[10];
@@ -22,6 +33,7 @@ extern volatile unsigned int state;
 //------------------------------------------------
 //                  Variables
 //------------------------------------------------
+extern unsigned int state_flg;
 //  state defines
 #define State_Msg_Size = 4; // 2- State, 2- State_Stage, without '#'
 
@@ -43,12 +55,19 @@ __interrupt void USCI0TX_ISR(void);
 //================================================
 //                 Joy Stick
 //================================================
-
+//------------------------------------------------
+//                  Variables
+//------------------------------------------------
+extern volatile unsigned int Vx;
+extern volatile unsigned int Vy;
+extern volatile unsigned long destiny_angle;
 //------------------------------------------------
 //              SERVICE FUNCTIONS
 //------------------------------------------------
 __interrupt void ADC10_ISR(void);
 extern void sampleVxy(void);
+extern void MoveToJoyStickDiraction(void);
+
 //================================================
 //                Stepper Motor
 //================================================

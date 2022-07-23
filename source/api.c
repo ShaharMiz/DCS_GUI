@@ -13,7 +13,10 @@
 //              STATE 1 - manual control
 //==========================================================
 void stepper_motor_manual_control(void){
-
+    while ((Vx>=radius_min_bruto && Vx<=radius_max_bruto) && (Vy>=radius_min_bruto && Vy<=radius_max_bruto)){
+        sampleVxy();
+    }
+    MoveToJoyStickDiraction();
 }
 //==========================================================
 //              STATE 2 - calibration
@@ -21,6 +24,7 @@ void stepper_motor_manual_control(void){
 void Joystick_based_PC_painter(void){
 //    _BIS_SR(GIE);
 //    adc10_config();
+
     sampleVxy();
 }
 //==========================================================
@@ -34,11 +38,11 @@ void stepper_motor_calibration(void){
 //==========================================================
 //              STATE 4 - Script Mode
 //==========================================================
-
+volatile int opcode;
 void script_mode(void){
 //            -------- Variables --------
     int script_size_counter;
-    int opcode, x_times;//, num_byte;
+    int  x_times;//, num_byte;
     unsigned long p, l, r;
     int script_lines_counter;
 
@@ -73,12 +77,13 @@ void script_mode(void){
         write_to_flash = 1;
         script_size_counter = s.size[s.num_script - 1];         // Script size
         while(script_size_counter--){                           // Until we get all chars in script
-            __bis_SR_register(LPM0_bits + GIE);                 // wait for new char in Tx
+            __bis_SR_register(LPM0_bits + GIE);                 // wait for new char in Rx
             write_seg(s.pscript[s.num_script - 1], offset++);   // Write value (char from p_rx[0]) to flash
 
         }
         s.written[s.num_script - 1] = 1;                        // Mark script already written
         write_to_flash = 0;
+        state_flg = 0;
     }
 
 //             --------  Stage 3 --------
@@ -150,7 +155,7 @@ void script_mode(void){
                 //opcode = 8;
                 break;
         }
-        if(script_lines_counter)offset++;      // If its not the last script line advance the '\n' char in the script
+        if(script_lines_counter)offset+=2;      // If its not the last script line advance the '\n' char in the script
         script_lines_counter--;
     }
     offset = 0;

@@ -46,7 +46,7 @@ void InitGPIO(void){
 //         Joy Stick configuration
 //***********************************************
 	JSPortSel &= ~(BIT3 + BIT4 + BIT5);      //Joy Stick: A-1.3,B-1.4,C-1.5, D-1.6 as GPIO
-	JSPortDir &= ~(BIT3 + BIT4 + BIT5);      //Joy Stick: as GPIO-output
+	JSPortDir &= ~(BIT3 + BIT4 + BIT5);      //Joy Stick: as GPIO-input
 //***********************************************
 //             LEDs configuration
 //***********************************************
@@ -93,11 +93,18 @@ void InitGPIO(void){
 //    ADC10AE0 |= (BIT4 + BIT3);               // P1.3, P1.4 ADC10 option select
 ///////////////////////////////////////////////////////////////////////////////
     //    Vx-1.3, Vy-1.4
+//22.7
+//    ADC10CTL1 = INCH_4 + CONSEQ_1;                 // A3, A4 Sequence-of-channels
+//     ADC10CTL0 = ADC10SHT_2 + MSC + ADC10ON + ADC10IE;
+//         ADC10DTC1 = 0x02;                         // 2 conversions
+//         ADC10AE0 |= 0x18;                         // P1.4, P1.3 ADC10 option select
+//
 
-    ADC10CTL1 = INCH_4 + CONSEQ_1;                 // A3, A4 Sequence-of-channels
-     ADC10CTL0 = ADC10SHT_2 + MSC + ADC10ON + ADC10IE;
-         ADC10DTC1 = 0x02;                         // 2 conversions
-         ADC10AE0 |= 0x18;                         // P1.4, P1.3 ADC10 option select
+         ///////////////////////     ADC CONFIGURATIONS         //////////////////////////////////
+           ADC10CTL1 = INCH_4 + CONSEQ_3+ ADC10SSEL_0;           // A3, A4 Sequence-of-channels
+           ADC10CTL0 = ADC10SHT_2 + MSC + ADC10ON + ADC10IE;     // SHT for sample and hold, MSC- multiple sample and conversion,interrupt enable
+           ADC10DTC1 = 0x02;                         // 2 conversions
+           ADC10AE0 |= 0x18;                         // P1.4, P1.3 ADC10 option select
 //***********************************************
 //            POT configuration
 //***********************************************

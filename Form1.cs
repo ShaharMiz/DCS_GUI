@@ -122,30 +122,14 @@ namespace Pneumatic_Control
             LOW_VOLTAGE,
             RESET
         };
-        private enum SC_MSG_MODES : byte
-        {
-            UNKNOWN_MODE = 0,
-            AUTOMAT_MODE,
-            RELAY_OPEND,
-            RELAY_CLOSED,
-            CHARGING,
-            NOT_CHARGING
-        }
-        private enum JOISTICK_MODES : byte
-        {
-            NUTRAL = 0,
-            DRAW,
-            ERASER
-        }
         private enum STATE : byte
         {
             SLEEP = 0,
-            MOTOR_POINTER,
-            JOISTICK_DRAW,
+            MANUAL_CONTROL,
+            JOISTICK_PAINTER,
             CALIBRATION,
             SCRIPT_MODE,
-            MOTOR_COMMAND,
-            TEST_6
+            MOTOR_COMMAND
         }
         private enum CALIBRATION_STATE : byte
         {
@@ -167,7 +151,12 @@ namespace Pneumatic_Control
             COUNTER_CLOCKWISE,
             STOP_MOTOR
         }
-
+        private enum JOISTICK_MODES : byte
+        {
+            NUTRAL = 0,
+            DRAW,
+            ERASER
+        }
         public DCS_control()
         {
             InitializeComponent();
@@ -705,8 +694,74 @@ namespace Pneumatic_Control
 
         }
 
-
-
+        ///------------------------------------------------------------------///
+        ///                    STATE 1 - Manual Motor Control                ///
+        ///------------------------------------------------------------------///
+        private void ManualControl_start_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Byte[] msg = { (byte)STATE.MANUAL_CONTROL};
+                serialPort1.Write("!");
+                serialPort1.Write(msg, 0, 1);
+                message_sent_label.Text = (++message_sent_counter).ToString();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        ///------------------------------------------------------------------///
+        ///                    STATE 2 - Joystick Painter                    ///
+        ///------------------------------------------------------------------///
+        private void JoystickPainter_start_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Byte[] msg = { (byte)STATE.JOISTICK_PAINTER };
+                serialPort1.Write("!");
+                serialPort1.Write(msg, 0, 1);
+                message_sent_label.Text = (++message_sent_counter).ToString();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        ///    PANEL   ///
+        private void panel1_Paint(object sender, EventArgs e)
+        {
+            Graphics panelObject = panel1.CreateGraphics();
+            Brush black = new SolidBrush(Color.Black);
+            Pen blackPen = new Pen(black, 3);
+            Brush white = new SolidBrush(Color.White);
+            Pen whitePen = new Pen(white, 5);
+            // Draw
+            if (joistick_modes == JOISTICK_MODES.DRAW)
+            {
+                panelObject.DrawLine(blackPen, m_current_x, m_current_y, previous_x, previous_y);
+            }
+            else if (joistick_modes == JOISTICK_MODES.ERASER)
+            {
+                panelObject.DrawLine(whitePen, m_current_x, m_current_y, previous_x, previous_y);
+            }
+            // Pointer update
+            radioButton1.Location = new Point((int)m_current_x, (int)m_current_y);
+            // Previous point update
+            previous_x = m_current_x;
+            previous_y = m_current_y;
+        }
+        private void clearPanel1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                panel1.Refresh();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
         ///------------------------------------------------------------------///
         ///                    STATE 3 - Calibration                         ///
         ///------------------------------------------------------------------///
@@ -898,42 +953,8 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-        ///------------------------------------------------------------------///
-        ///                          PANEL                                   ///
-        ///------------------------------------------------------------------///
-        private void panel1_Paint(object sender, EventArgs e)
-        {
-            Graphics panelObject = panel1.CreateGraphics();
-            Brush black = new SolidBrush(Color.Black);
-            Pen blackPen = new Pen(black, 3);
-            Brush white = new SolidBrush(Color.White);
-            Pen whitePen = new Pen(white, 5);
-            // Draw
-            if (joistick_modes == JOISTICK_MODES.DRAW)
-            {
-                panelObject.DrawLine(blackPen, m_current_x, m_current_y, previous_x, previous_y);
-            }
-            else if (joistick_modes == JOISTICK_MODES.ERASER)
-            {
-                panelObject.DrawLine(whitePen, m_current_x, m_current_y, previous_x, previous_y);
-            }
-            // Pointer update
-            radioButton1.Location = new Point((int)m_current_x, (int)m_current_y);
-            // Previous point update
-            previous_x = m_current_x;
-            previous_y = m_current_y;
-        }
-        private void clearPanel1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                panel1.Refresh();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
+
+
 
     }
 }

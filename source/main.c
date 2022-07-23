@@ -6,7 +6,7 @@
 
 //  GLOBAL VARIABLES
 
-volatile unsigned int state =7;  //Sleeping mode, enable interrupts
+volatile unsigned int state = sleep_mode;  //Sleeping mode, enable interrupts
 
 // temp
 unsigned long left_ang_tmp = 60;
@@ -65,15 +65,14 @@ void main(void){
                 break;
 
             case 6:
-                state = 4; // for debud       TODO: DELETE!!!
+                state = 4; // for debug       TODO: DELETE!!!
 
-                scan_mode = 1;
+//                scan_mode = 1;
                 stepper_scan(left_ang_tmp, right_ang_tmp);
 //                Timer0_A_delay_ms(50);
                 scan_mode = 0;
 //                state = 0;
-                state = 4;
-                state = 0; // for debud       TODO: DELETE!!!
+                state = 6; // for debud       TODO: DELETE!!!
 
                 break;
 

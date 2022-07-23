@@ -1,6 +1,7 @@
 #include <msp430.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #include "../header/hal.h"
 #include "../header/bsp.h"
@@ -75,11 +76,11 @@ int start;
 //------------------------------------------------
 //                  Variables
 //------------------------------------------------
-volatile unsigned int Vx=103; // the middle - 103
-volatile unsigned int Vy=103;
-unsigned int res[2];
+volatile unsigned int Vx=origin; // the middle - 103
+volatile unsigned int Vy=origin;
+unsigned int res[2] = {460, 460};
 
-volatile unsigned int JOISTICK_MODE=0;
+volatile unsigned int JOISTICK_MODE=neutral;
 
 
 void adc10_config(){
@@ -88,15 +89,6 @@ void adc10_config(){
     ADC10CTL0 = ADC10IE;                      //ADC10 Interrupt Enable
 }
 
-//void SC_from_POT(void){
-//    ADC10CTL0 |= ADC10ON;                   // ADC10 ON
-//    ADC10CTL0 &= ~ENC;                      // disable conversion
-//    while(ADC10CTL1 & ADC10BUSY);           // Wait if ADC10 core is active
-//    ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
-//    __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
-//    __no_operation();                       // For debugger
-//    ADC10CTL0 &= ~ADC10ON;                  // ADC10 OFF
-//}
 
 void sampleVxy(void){
      ADC10CTL0 |= ADC10ON;                    // ADC10 ON
@@ -108,9 +100,69 @@ void sampleVxy(void){
      __bis_SR_register(CPUOFF + GIE);         // LPM0, ADC10_ISR will force exit
 
      ADC10CTL0 &= ~ADC10ON;                   // ADC10 OFF
-
-
  }
+//void sampleVxy(void){
+//    ADC10CTL0 &= ~ENC;
+//    while (ADC10CTL1 & BUSY);               // Wait if ADC10 core is active
+//    ADC10SA = (int)res;         // Copies data in ADC10SA to unsigned int adc array
+//    ADC10CTL0 |= ENC + ADC10SC;             // Sampling and conversion start
+//
+////    Vx = res[0];                        // adc array 0 copied to the variable y_Axis
+////    Vy = res[1];                        // adc array 1 copied to the variable x_Axis
+////    __bis_SR_register(CPUOFF + GIE);        // LPM0, ADC10_ISR will force exit
+//}
+// -------------------------------------------------------------
+volatile unsigned long destiny_angle;
+unsigned int a, b;
+double fraction_a_b;
+double alpha;
+void MoveToJoyStickDiraction(void){
+    if (Vx > radius_max_bruto){                          // first or fourth quarter of x-y
+        if(Vy > radius_max){                       // first quarter
+            a = Vx - origin;
+            b = Vy - origin;
+            fraction_a_b = a/b;             // Assign the value we will find the atan of
+            alpha = atan(fraction_a_b) * 180 / PI;     // Calculate the Arc Tangent of value
+        } else if (Vy < radius_min){               // fourth quarter
+            a = Vx - origin;
+            b = origin - Vy;
+            fraction_a_b = a/b;             // Assign the value we will find the atan of
+            alpha = atan(fraction_a_b) * 180 / PI;     // Calculate the Arc Tangent of value
+            alpha = 180 - alpha;
+        }
+        else{                               // Vy in [radius_min, radius_max] => direction is on x axis
+            alpha = 90;
+        }
+
+    } else if (Vx < radius_min_bruto){                   // second or third quarter of x-y
+        if(Vy > radius_max){                       // second quarter
+            a = origin - Vx;
+            b = Vy - origin;
+            fraction_a_b = a/b;             // Assign the value we will find the atan of
+            alpha = atan(fraction_a_b) * 180 / PI;     // Calculate the Arc Tangent of value
+            alpha = 360 - alpha;
+        } else if (Vy < radius_min){               // third quarter
+            a = origin - Vx;
+            b = origin - Vy;
+            fraction_a_b = a/b;             // Assign the value we will find the atan of
+            alpha = atan(fraction_a_b) * 180 / PI;     // Calculate the Arc Tangent of value
+            alpha = 180 + alpha;
+        } else {                               // Vy in [radius_min, radius_max] => direction is on x axis
+            alpha = 270;
+        }
+    }
+    else{ // Vx in [radius_min, radius_max] => direction is on y axis
+        if(Vy > radius_max_bruto){
+            alpha = 0;
+        } else if (Vy < radius_min_bruto){
+            alpha = 180;
+        }
+    }
+    destiny_angle = (unsigned long)alpha;
+    stepper_deg(destiny_angle);
+    Vx = origin;
+    Vy = origin;
+}
 //void sampleVxy(void){
 //    ADC10CTL0 |= ADC10ON;                    // ADC10 ON
 //    ADC10CTL0 &= ~ENC;
@@ -151,7 +203,7 @@ volatile int SM_Step_Right = 0x80;       //1000-0000- h-4
 volatile int SM_Step_Left = 0x10;        //0001-0000- h-1
 //volatile int SM_Half_Step_Right = 0x0C;  //1100-0000- h-C
 //volatile int SM_Half_Step_Left = 0x03;   //0011-0000- h-3
-volatile int StepperDelay = 2;         // f = MHz
+volatile int StepperDelay = 10;         // f = MHz
 
 void step_angle_update(void){
     if (state_stage==start_move_forwards){
@@ -276,14 +328,14 @@ void move_to_angle(unsigned long angle){
             backward();
         }
 
-    } else { // Dist_in_degree < 180000
+    } else { // Dist_in_degree <= 180000
         if (Phi > angle){
            /* example: angle=20, Phi = 120
             * faster to move backwards to get to angle
             * with (Phi-angle) = 100 degrees to the left
             */
             backward();
-       }else{ // Phi < angle
+       }else{ // Phi <= angle
            /* example: angle=120, Phi = 20
             * faster to move backwards to get to angle
             * with (angle-Phi) = 100 degrees to the right
@@ -342,13 +394,20 @@ void Phi_calculation(void){
 //              STATE 4 - Script Mode
 //==========================================================
 volatile int num_byte;
-
+volatile unsigned int temp;
 int get_x_value(void){
     int x;
+
     num_byte = 0;
-    while(read_mem(2) != 0x00) num_byte += 1;   // count the total bytes of information
-    offset -= num_byte * 2;                     // retuen offset to read all
+
+    while(read_mem(2) != 0){
+        num_byte += 1;   // count the total bytes of information
+
+    }
+
+    offset -= (num_byte+1) * 2;                     // return offset to read all
     x = read_mem(num_byte * 2);
+//    offset += 2;
     return x;
 }
 //----------------------------------------------------------
@@ -374,7 +433,8 @@ void send_ack(void){
     acknowledge = 1;
     IE2 &= ~UCA0RXIE;                         // Disable USCI_A0 RX interrupt
     enable_transmition();
-    __bis_SR_register(LPM0_bits + GIE);
+    //__bis_SR_register(LPM0_bits + GIE);
+    Timer0_A_delay_ms(50);
 }
 
 ////----------------------------------------------------------
@@ -408,15 +468,21 @@ char read_char(char addr){
 
 int read_mem(int num_bytes){
     int data = 0, i;
-    char ch;
+    char ch, slash='-';
     for(i = 0; i < num_bytes; i++){
         ch = read_char(i);
         if(ch == 0)
             return 0;
-        else if(ch > '9')
+//        else if (ch == 0x2D)
+//            data += (0x00) << 4 * (num_bytes - 1 - i);
+//        else if (ch == '10')
+//            data += (0x00) << 4 * (num_bytes - 1 - i);
+        else if(ch > '9') // val in dec of '9'
             data += (ch - 0x37) << 4 * (num_bytes - 1 - i);
-        else
+        else if(ch > '0')
             data += (ch - 0x30) << 4 * (num_bytes - 1 - i);
+        else
+            data += (0x00) << 4 * (num_bytes - 1 - i);
     }
     offset += num_bytes;
     return data;
@@ -471,56 +537,63 @@ volatile int last_rotate = 0;
 //----------------------------------------------------------
 
 void rlc_leds(int delay, int times){
-
-    if ((last_rotate == right_rotate) && (LEDs_val_P1 == 0x01)){
-        PortNum = 1;
-    }
+int rotate;
+//    if ((last_rotate == right_rotate) && (LEDs_val_P1 == 0x01)){
+//        PortNum = 1;
+//    }
     while(times){
-
+        rotate = 4;
         times --;
+        while(rotate){
+            rotate --;
+            if(first_rotate){
+                        first_rotate = 0;
+                        PortNum = 1;
+                    }
+                    if (PortNum == 1){
+                        LEDs_val_P2 = 0x00;
+                        if (LEDs_val_P1 == 0x00 || LEDs_val_P1 == 0x80){
+                            LEDs_val_P1 = 0x01;         //0000-0001 P1.0
+                        }else if (LEDs_val_P1 == 0x01){
+                            LEDs_val_P1 = 0x40;         //0100-0000 P1.6
+                        }else if (LEDs_val_P1 == 0x40){
+                            LEDs_val_P1 = 0x80;         //1000-0000 P1.7
+                            PortNum = 2;            // move to port 2 to next rotates
 
-        if(first_rotate){
-            first_rotate = 0;
-            PortNum = 1;
+                        }
+
+                    } else { // PortNum == 2
+                        LEDs_val_P1 = 0x00;
+                        LEDs_val_P2 = 0x10;            //0001-0000 P2.4
+                        PortNum = 1;               // move to port 1 to next rotates
+
+                    }
+
+                    P1OUT = LEDs_val_P1;
+                    P2OUT = LEDs_val_P2;
+                    Timer1_A_delay_10ms(delay); // 10ms
+
         }
-        if (PortNum == 1){
-            LEDs_val_P2 = 0x00;
-            if (LEDs_val_P1 == 0x00 || LEDs_val_P1 == 0x80){
-                LEDs_val_P1 = 0x01;         //0000-0001 P1.0
-            }else if (LEDs_val_P1 == 0x01){
-                LEDs_val_P1 = 0x40;         //0100-0000 P1.6
-            }else if (LEDs_val_P1 == 0x40){
-                LEDs_val_P1 = 0x80;         //1000-0000 P1.7
-                PortNum = 2;            // move to port 2 to next rotates
-
-            }
-
-        } else { // PortNum == 2
-            LEDs_val_P1 = 0x00;
-            LEDs_val_P2 = 0x10;            //0001-0000 P2.4
-            PortNum = 1;               // move to port 1 to next rotates
-
-        }
-
-        P1OUT = LEDs_val_P1;
-        P2OUT = LEDs_val_P2;
-        Timer1_A_delay_10ms(delay); // 10ms
 
     }
-    last_rotate = left_rotate;
+//    last_rotate = left_rotate;
+    P1OUT = 0;
+    P2OUT = 0;
 }
 
 //----------------------------------------------------------
 
 void rrc_leds(int delay, int times){
+    int rotate;
 
-    if ((last_rotate == left_rotate) && (LEDs_val_P1 == 0x80)){
-        PortNum = 1;
-    }
+//    if ((last_rotate == left_rotate) && (LEDs_val_P1 == 0x80)){
+//        PortNum = 1;
+//    }
     while(times){
-
+        rotate = 4;
         times --;
-
+        while(rotate){
+            rotate --;
         if(first_rotate){
             first_rotate = 0;
             PortNum = 2;
@@ -547,9 +620,12 @@ void rrc_leds(int delay, int times){
         P1OUT = LEDs_val_P1;
         P2OUT = LEDs_val_P2;
         Timer1_A_delay_10ms(delay); // 10ms
+        }
 
     }
-    last_rotate = right_rotate;
+    P1OUT = 0;
+    P2OUT = 0;
+//    last_rotate = right_rotate;
 
 }
 
@@ -568,6 +644,8 @@ void GatherStatusInfo(void){
         StatusArray[Buff_index]='<'; // sending PC that motor arrived to left angle
     } else if ((state == 4) && (Got_to_right_flg == 1)){
         StatusArray[Buff_index]='>';// sending PC that motor arrived to right angle
+    } else if ((state == 4) && (acknowledge == 1)){
+        StatusArray[Buff_index]='!';
     } else {
         StatusArray[Buff_index]='#';
     }
@@ -691,12 +769,13 @@ __interrupt void USCI0TX_ISR(void)
     }else if ((state == 4) && (acknowledge == 1)){
         TxBuffer =  '!';
         // drop flags
+        GatherStatusInfo(); //////////////////////
         index = 0;
         acknowledge = 0;
-
-        IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
-        IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
-        //__bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
+        status_flg = 1;
+//        IE2 &= ~UCA0TXIE;                            // Disable USCI_A0 TX interrupt
+//        IE2 |= UCA0RXIE;                             // Enable USCI_A0 RX interrupt
+//        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
 
     }else if ((state == 4) && (scan_mode == 1) && (Got_to_left_flg == 1)){
         GatherStatusInfo();

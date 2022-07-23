@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DCS_control));
             this.button_open = new System.Windows.Forms.Button();
             this.progressBar_statusBar = new System.Windows.Forms.ProgressBar();
@@ -56,7 +51,6 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.ChartcomboBox = new System.Windows.Forms.ComboBox();
             this.clearChartButton = new System.Windows.Forms.Button();
-            this.MainChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.stopStepMotor = new System.Windows.Forms.Button();
             this.counterClockwise = new System.Windows.Forms.Button();
@@ -75,10 +69,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.message_sent_label = new System.Windows.Forms.Label();
             this.message_recieved_label = new System.Windows.Forms.Label();
-            this.message_error_label = new System.Windows.Forms.Label();
             this.reset_counter_button = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.stopCalib = new System.Windows.Forms.Button();
             this.startCalib = new System.Windows.Forms.Button();
@@ -109,15 +101,22 @@
             this.script3_button = new System.Windows.Forms.Button();
             this.script2_button = new System.Windows.Forms.Button();
             this.script1_button = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.ManualControl_start = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.JoystickPainter_start = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MainChart)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_open
@@ -202,7 +201,7 @@
             // 
             // textBox_textSent
             // 
-            this.textBox_textSent.Location = new System.Drawing.Point(3, 491);
+            this.textBox_textSent.Location = new System.Drawing.Point(0, 589);
             this.textBox_textSent.Name = "textBox_textSent";
             this.textBox_textSent.Size = new System.Drawing.Size(171, 29);
             this.textBox_textSent.TabIndex = 1;
@@ -213,14 +212,14 @@
             this.richTextBox_textReceiver.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox_textReceiver.Location = new System.Drawing.Point(0, 171);
             this.richTextBox_textReceiver.Name = "richTextBox_textReceiver";
-            this.richTextBox_textReceiver.Size = new System.Drawing.Size(243, 316);
+            this.richTextBox_textReceiver.Size = new System.Drawing.Size(243, 405);
             this.richTextBox_textReceiver.TabIndex = 2;
             this.richTextBox_textReceiver.Text = "";
             this.richTextBox_textReceiver.TextChanged += new System.EventHandler(this.richTextBox_textReceiver_TextChanged);
             // 
             // button_send
             // 
-            this.button_send.Location = new System.Drawing.Point(180, 489);
+            this.button_send.Location = new System.Drawing.Point(177, 587);
             this.button_send.Name = "button_send";
             this.button_send.Size = new System.Drawing.Size(64, 28);
             this.button_send.TabIndex = 3;
@@ -259,7 +258,7 @@
             this.groupBox1.Controls.Add(this.textBox_textSent);
             this.groupBox1.Location = new System.Drawing.Point(8, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(289, 573);
+            this.groupBox1.Size = new System.Drawing.Size(289, 642);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication";
@@ -276,26 +275,26 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.clearPanel1);
-            this.groupBox2.Controls.Add(this.panel1);
-            this.groupBox2.Controls.Add(this.ChartcomboBox);
-            this.groupBox2.Controls.Add(this.clearChartButton);
-            this.groupBox2.Controls.Add(this.MainChart);
+            this.groupBox2.Controls.Add(this.groupBox7);
+            this.groupBox2.Controls.Add(this.groupBox6);
+            this.groupBox2.Controls.Add(this.groupBox4);
+            this.groupBox2.Controls.Add(this.groupBox5);
+            this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.MSG_Status);
             this.groupBox2.Location = new System.Drawing.Point(303, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(842, 353);
+            this.groupBox2.Size = new System.Drawing.Size(456, 514);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Control panel";
             // 
             // clearPanel1
             // 
-            this.clearPanel1.Location = new System.Drawing.Point(741, 209);
+            this.clearPanel1.Location = new System.Drawing.Point(1342, 66);
             this.clearPanel1.Name = "clearPanel1";
-            this.clearPanel1.Size = new System.Drawing.Size(95, 37);
+            this.clearPanel1.Size = new System.Drawing.Size(108, 37);
             this.clearPanel1.TabIndex = 117;
             this.clearPanel1.Text = "Clear panel";
             this.clearPanel1.UseVisualStyleBackColor = true;
@@ -306,10 +305,10 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Location = new System.Drawing.Point(477, 86);
+            this.panel1.Location = new System.Drawing.Point(799, 10);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(220, 220);
+            this.panel1.Size = new System.Drawing.Size(512, 512);
             this.panel1.TabIndex = 116;
             // 
             // radioButton1
@@ -328,7 +327,7 @@
             this.ChartcomboBox.FormattingEnabled = true;
             this.ChartcomboBox.Items.AddRange(new object[] {
             "All"});
-            this.ChartcomboBox.Location = new System.Drawing.Point(741, 295);
+            this.ChartcomboBox.Location = new System.Drawing.Point(1379, 188);
             this.ChartcomboBox.Name = "ChartcomboBox";
             this.ChartcomboBox.Size = new System.Drawing.Size(95, 29);
             this.ChartcomboBox.TabIndex = 115;
@@ -337,55 +336,25 @@
             // 
             // clearChartButton
             // 
-            this.clearChartButton.Location = new System.Drawing.Point(741, 252);
+            this.clearChartButton.Location = new System.Drawing.Point(1353, 135);
             this.clearChartButton.Name = "clearChartButton";
-            this.clearChartButton.Size = new System.Drawing.Size(95, 37);
+            this.clearChartButton.Size = new System.Drawing.Size(108, 37);
             this.clearChartButton.TabIndex = 115;
             this.clearChartButton.Text = "Clear chart";
             this.clearChartButton.UseVisualStyleBackColor = true;
             this.clearChartButton.Click += new System.EventHandler(this.clearChartButton_Click);
             // 
-            // MainChart
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.MainChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.MainChart.Legends.Add(legend1);
-            this.MainChart.Location = new System.Drawing.Point(336, 24);
-            this.MainChart.Name = "MainChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Legend = "Legend1";
-            series1.Name = "Vin";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Legend = "Legend1";
-            series2.Name = "Vcap";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Legend = "Legend1";
-            series3.Name = "Current";
-            this.MainChart.Series.Add(series1);
-            this.MainChart.Series.Add(series2);
-            this.MainChart.Series.Add(series3);
-            this.MainChart.Size = new System.Drawing.Size(133, 323);
-            this.MainChart.TabIndex = 114;
-            this.MainChart.Text = "MainChart";
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.stopStepMotor);
-            this.groupBox3.Controls.Add(this.counterClockwise);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.clockwise);
             this.groupBox3.Controls.Add(this.step_angle_Label);
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.Controls.Add(this.SM_countre_Label);
             this.groupBox3.Controls.Add(this.current_angle_Label);
-            this.groupBox3.Location = new System.Drawing.Point(14, 118);
+            this.groupBox3.Location = new System.Drawing.Point(6, 58);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(233, 217);
+            this.groupBox3.Size = new System.Drawing.Size(187, 110);
             this.groupBox3.TabIndex = 101;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Step Motor status";
@@ -393,7 +362,7 @@
             // 
             // stopStepMotor
             // 
-            this.stopStepMotor.Location = new System.Drawing.Point(10, 169);
+            this.stopStepMotor.Location = new System.Drawing.Point(6, 108);
             this.stopStepMotor.Name = "stopStepMotor";
             this.stopStepMotor.Size = new System.Drawing.Size(165, 29);
             this.stopStepMotor.TabIndex = 134;
@@ -403,7 +372,7 @@
             // 
             // counterClockwise
             // 
-            this.counterClockwise.Location = new System.Drawing.Point(10, 134);
+            this.counterClockwise.Location = new System.Drawing.Point(6, 73);
             this.counterClockwise.Name = "counterClockwise";
             this.counterClockwise.Size = new System.Drawing.Size(165, 29);
             this.counterClockwise.TabIndex = 119;
@@ -423,7 +392,7 @@
             // 
             // clockwise
             // 
-            this.clockwise.Location = new System.Drawing.Point(10, 102);
+            this.clockwise.Location = new System.Drawing.Point(6, 38);
             this.clockwise.Name = "clockwise";
             this.clockwise.Size = new System.Drawing.Size(165, 29);
             this.clockwise.TabIndex = 118;
@@ -552,15 +521,6 @@
             this.message_recieved_label.TabIndex = 48;
             this.message_recieved_label.Text = "0";
             // 
-            // message_error_label
-            // 
-            this.message_error_label.AutoSize = true;
-            this.message_error_label.Location = new System.Drawing.Point(108, 143);
-            this.message_error_label.Name = "message_error_label";
-            this.message_error_label.Size = new System.Drawing.Size(19, 23);
-            this.message_error_label.TabIndex = 50;
-            this.message_error_label.Text = "0";
-            // 
             // reset_counter_button
             // 
             this.reset_counter_button.Location = new System.Drawing.Point(124, 56);
@@ -580,25 +540,16 @@
             this.label14.TabIndex = 52;
             this.label14.Text = "Received:";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 137);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(51, 23);
-            this.label15.TabIndex = 53;
-            this.label15.Text = "Error:";
-            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.stopCalib);
             this.groupBox9.Controls.Add(this.startCalib);
-            this.groupBox9.Location = new System.Drawing.Point(590, 418);
+            this.groupBox9.Location = new System.Drawing.Point(6, 180);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(123, 163);
+            this.groupBox9.Size = new System.Drawing.Size(123, 108);
             this.groupBox9.TabIndex = 112;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Clibration";
+            this.groupBox9.Text = "Calibration";
             // 
             // stopCalib
             // 
@@ -626,15 +577,13 @@
             this.groupBox10.Controls.Add(this.PingButton);
             this.groupBox10.Controls.Add(this.AutoButton);
             this.groupBox10.Controls.Add(this.reset_counter_button);
-            this.groupBox10.Controls.Add(this.label15);
             this.groupBox10.Controls.Add(this.label8);
             this.groupBox10.Controls.Add(this.label14);
             this.groupBox10.Controls.Add(this.message_sent_label);
-            this.groupBox10.Controls.Add(this.message_error_label);
             this.groupBox10.Controls.Add(this.message_recieved_label);
-            this.groupBox10.Location = new System.Drawing.Point(303, 418);
+            this.groupBox10.Location = new System.Drawing.Point(303, 511);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(271, 163);
+            this.groupBox10.Size = new System.Drawing.Size(271, 139);
             this.groupBox10.TabIndex = 113;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Message panel";
@@ -659,9 +608,9 @@
             this.groupBox11.Controls.Add(this.openModeButton);
             this.groupBox11.Controls.Add(this.closeModeButton);
             this.groupBox11.Controls.Add(this.autoModeButton);
-            this.groupBox11.Location = new System.Drawing.Point(1187, 168);
+            this.groupBox11.Location = new System.Drawing.Point(1123, 530);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(276, 187);
+            this.groupBox11.Size = new System.Drawing.Size(276, 129);
             this.groupBox11.TabIndex = 114;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Command panel";
@@ -763,7 +712,7 @@
             this.groupBox4.Controls.Add(this.script3_button);
             this.groupBox4.Controls.Add(this.script2_button);
             this.groupBox4.Controls.Add(this.script1_button);
-            this.groupBox4.Location = new System.Drawing.Point(719, 418);
+            this.groupBox4.Location = new System.Drawing.Point(6, 334);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(426, 163);
             this.groupBox4.TabIndex = 120;
@@ -932,16 +881,70 @@
             this.script1_button.UseVisualStyleBackColor = true;
             this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.stopStepMotor);
+            this.groupBox5.Controls.Add(this.counterClockwise);
+            this.groupBox5.Controls.Add(this.clockwise);
+            this.groupBox5.Location = new System.Drawing.Point(214, 22);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(180, 144);
+            this.groupBox5.TabIndex = 120;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Motor command";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.ManualControl_start);
+            this.groupBox6.Location = new System.Drawing.Point(148, 180);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(137, 108);
+            this.groupBox6.TabIndex = 120;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Manual Motor Control";
+            // 
+            // ManualControl_start
+            // 
+            this.ManualControl_start.Location = new System.Drawing.Point(13, 63);
+            this.ManualControl_start.Name = "ManualControl_start";
+            this.ManualControl_start.Size = new System.Drawing.Size(110, 29);
+            this.ManualControl_start.TabIndex = 119;
+            this.ManualControl_start.Text = "start";
+            this.ManualControl_start.UseVisualStyleBackColor = true;
+            this.ManualControl_start.Click += new System.EventHandler(this.ManualControl_start_Click);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.JoystickPainter_start);
+            this.groupBox7.Location = new System.Drawing.Point(310, 180);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(137, 108);
+            this.groupBox7.TabIndex = 121;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Joystick Painter";
+            // 
+            // JoystickPainter_start
+            // 
+            this.JoystickPainter_start.Location = new System.Drawing.Point(13, 63);
+            this.JoystickPainter_start.Name = "JoystickPainter_start";
+            this.JoystickPainter_start.Size = new System.Drawing.Size(110, 29);
+            this.JoystickPainter_start.TabIndex = 119;
+            this.JoystickPainter_start.Text = "start";
+            this.JoystickPainter_start.UseVisualStyleBackColor = true;
+            this.JoystickPainter_start.Click += new System.EventHandler(this.JoystickPainter_start_Click);
+            // 
             // DCS_control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1534, 658);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.clearPanel1);
+            this.Controls.Add(this.ChartcomboBox);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox11);
             this.Controls.Add(this.groupBox10);
-            this.Controls.Add(this.groupBox9);
+            this.Controls.Add(this.clearChartButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -959,7 +962,6 @@
             this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MainChart)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -969,6 +971,9 @@
             this.groupBox11.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -998,15 +1003,12 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label message_sent_label;
         private System.Windows.Forms.Label message_recieved_label;
-        private System.Windows.Forms.Label message_error_label;
         private System.Windows.Forms.Button reset_counter_button;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.Button ResetButton;
-        private System.Windows.Forms.DataVisualization.Charting.Chart MainChart;
         private System.Windows.Forms.Button clearChartButton;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label current_angle_Label;
@@ -1048,6 +1050,11 @@
         private System.Windows.Forms.Label start_3;
         private System.Windows.Forms.Label start_2;
         private System.Windows.Forms.Label start_1;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button ManualControl_start;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button JoystickPainter_start;
     }
 }
 
