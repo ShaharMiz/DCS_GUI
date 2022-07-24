@@ -33,16 +33,16 @@ void main(void){
 
     InitGPIO();
 	InitUART();
-
+	UCA0CTL1 &= ~UCSWRST;                     // Initialize USCI state machine
+    IE2 &= ~UCA0TXIE;                        // Disable TX interrupt
+    IE2 |= UCA0RXIE;                         // Enable RX interrupt
     while(1){
         // FSM:  
         switch(state){
             case sleep_mode:
-                UCA0CTL1 &= ~UCSWRST;                     // Initialize USCI state machine
-                IE2 &= ~UCA0TXIE;                        // Disable TX interrupt
-                IE2 |= UCA0RXIE;                         // Enable RX interrupt
+
                 __bis_SR_register(LPM0_bits + GIE);   // Enter LPM0
-                break;
+                 break;
 
             case ManualMotorControl:
                 stepper_motor_manual_control();

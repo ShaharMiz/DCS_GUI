@@ -126,24 +126,37 @@ extern void Phi_calculation(void);
 //------------------------------------------------
 //#define FLASH_INFO_SEG_B_START     (char*)0xE080
 //#define FLASH_INFO_SEG_B_END       (char*)0xE0BF
-#define FLASH_INFO_SEG_B_START     (char*)0x1040
-#define FLASH_INFO_SEG_B_END       (char*)0x107F
+//
+//#define FLASH_INFO_SEG_C_START     (char*)0xE040
+//#define FLASH_INFO_SEG_C_END       (char*)0xE07F
+//
+//#define FLASH_INFO_SEG_D_START     (char*)0xE000
+//#define FLASH_INFO_SEG_D_END       (char*)0xE03F
 
-#define FLASH_INFO_SEG_C_START     (char*)0xE040
-#define FLASH_INFO_SEG_C_END       (char*)0xE07F
+#define FLASH_INFO_SEG_B_START     (char*)0x1000
+#define FLASH_INFO_SEG_B_END       (char*)0x103F
 
-#define FLASH_INFO_SEG_D_START     (char*)0xE000
-#define FLASH_INFO_SEG_D_END       (char*)0xE03F
+#define FLASH_INFO_SEG_C_START     (char*)0x1040
+#define FLASH_INFO_SEG_C_END       (char*)0x107F
+
+#define FLASH_INFO_SEG_D_START     (char*)0x1080
+#define FLASH_INFO_SEG_D_END       (char*)0x10BF
 //------------------------------------------------
 //                  Variables
 //------------------------------------------------
 extern volatile int opcode;
+extern volatile int ScriptNumFlg;
+extern volatile char ScriptNum;
+extern int script_size_counter;
+extern int script_idx;
+
 typedef struct Scripts{
     int written[3];
     char *pscript[3];
     int size[3];
     int lines[3];
     int num_script;
+    int first_written[3];
 }Scripts;
 
 //Scripts s = {{0}, {FLASH_INFO_SEG_B_START, FLASH_INFO_SEG_C_START, FLASH_INFO_SEG_D_START}, {0}, {0} , 1};
@@ -173,7 +186,7 @@ extern void send_ack(void);
 //extern void send_ss_data(int deg, int distance);
 
 
-void write_seg (char* flash_ptr, int offset);
+void write_seg (char* flash_ptr);
 char read_char(char address);
 int read_mem(int offset);
 void blink_rgb(int delay, int times);

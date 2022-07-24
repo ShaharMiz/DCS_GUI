@@ -261,7 +261,7 @@ namespace Pneumatic_Control
                     serialDataHeader = new byte[1];
                     serialPort1.Read(serialDataHeader, 0, 1);
                     bytes--;
-                    if (serialDataHeader[0] == '#' || serialDataHeader[0] == '<' || serialDataHeader[0] == '>')
+                    if (serialDataHeader[0] == '#' || serialDataHeader[0] == '<' || serialDataHeader[0] == '>' || serialDataHeader[0] == '%')
                     {
                         try
                         {
@@ -359,7 +359,7 @@ namespace Pneumatic_Control
             }
             richTextBox_textReceiver.Text += "---------------------" + "\n";
 
-            if (startChar == '#' || startChar == '<' || startChar == '>')
+            if (startChar == '#' || startChar == '<' || startChar == '>' || startChar == '%')
             {
                 CRC_status = true;
                 message_received_counter++;
@@ -382,22 +382,6 @@ namespace Pneumatic_Control
                 index =0;
                 if (CRC_status)
                 {
-                    /*              MSG_Status.Text = Enum.GetName(typeof(SC_MSG_STATUS), msg_array[index]);
-                                    index++;
-                                    modeLabel.Text = Enum.GetName(typeof(SC_MSG_MODES), msg_array[index]);
-                                    index++;
-                                    m_timestamp = BitConverter.ToUInt32(new byte[4] { msg_array[index], msg_array[index+1], msg_array[index+2], msg_array[index+3] }, 0);
-                                    index+=4;
-                                    m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                                    //m_SMcounter = BitConverter.ToUInt16( msg_array, index);
-                                    index += 2;
-                                    m_vscap = BitConverter.ToUInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                                    index += 2;
-                                    m_current = BitConverter.ToInt16(new byte[2] { msg_array[index], msg_array[index + 1] }, 0);
-                                    index += 2;*/
-
-                    // Read buffer
-                    //m_SMcounter = BitConverter.ToUInt16(new byte[2] { msg_array[index + 1], msg_array[index] }, 0);
                     try
                     {
                         m_stepAngle      = uint.Parse(values[0]);
@@ -409,21 +393,23 @@ namespace Pneumatic_Control
                         //
                         float m_stepAngle_float = (float)m_stepAngle / 1000;
                         step_angle_Label.Text = m_stepAngle_float.ToString() + " deg";
-                        float m_currentAngle_float = (float)m_currentAngle / 1000;
+                        float m_currentAngle_float = (float)m_currentAngle / 100;
                         current_angle_Label.Text = m_currentAngle_float.ToString() + " deg";
                         SM_countre_Label.Text = m_SMcounter.ToString();
-
+                        
                         // JOISTICK
                         if (m_joistic_mode != 4)
                         {
+                            //timer1.Interval = 100;
                             if (m_joistic_mode == 1) joistick_modes = JOISTICK_MODES.NUTRAL;
                             else if (m_joistic_mode == 2) joistick_modes = JOISTICK_MODES.DRAW;
                             else joistick_modes = JOISTICK_MODES.ERASER;
                             panel1_Paint(sender, e);
                         }
-                            
+                        //else timer1.Interval = 250;
+
                         // STATE 4
-                        if(msg_type == MSG_TYPE.LEFT_SCAN)
+                        if (msg_type == MSG_TYPE.LEFT_SCAN)
                         {
                             if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) left_1.Text = m_currentAngle_float.ToString();
                             else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) left_2.Text = m_currentAngle_float.ToString();
@@ -447,17 +433,7 @@ namespace Pneumatic_Control
                     {
                     }
 
-
-                        /*                    MainChart.Series["Vin"].Points.AddXY(m_timestamp.ToString(), m_SMcounter.ToString());
-                                            MainChart.Series["Vcap"].Points.AddXY(m_timestamp.ToString(), m_vscap.ToString());
-                                            MainChart.Series["Current"].Points.AddXY(m_timestamp.ToString(), m_current.ToString());*/
-
-                        /////////////////////////////////////
-                        //           Joistick !!!          //
-                        /////////////////////////////////////
-                        //radioButton1.Location = new Point((int)(current_x * 1.8 * m_CJoy.dX0), (int)(current_y * 1.8 * m_CJoy.dY0));
-                        /////////////////////////////////////
-                    }
+                }
             }
             else
             {
@@ -465,7 +441,6 @@ namespace Pneumatic_Control
             }
             startChar = '0';
             msg_type = MSG_TYPE.WAIT;
-
         }
 
         
@@ -585,7 +560,7 @@ namespace Pneumatic_Control
             Brush black = new SolidBrush(Color.Black);
             Pen blackPen = new Pen(black, 3);
             Brush white = new SolidBrush(Color.White);
-            Pen whitePen = new Pen(white, 8);
+            Pen whitePen = new Pen(white, 30);
             // Draw
             if (joistick_modes == JOISTICK_MODES.DRAW)
             {
@@ -646,6 +621,10 @@ namespace Pneumatic_Control
         ///------------------------------------------------------------------///
         ///                       STATE 4 - Script                           ///
         ///------------------------------------------------------------------///
+        ///
+        ///-----------------///
+        ///       ACK       ///
+        ///-----------------///
         private void ACK_state4(object sender, EventArgs e)
         {
             if(scriptNumber == SCRIPT_MODE_STATE.SCRIPT1)
@@ -666,13 +645,133 @@ namespace Pneumatic_Control
             startChar = '0';
             msg_type = MSG_TYPE.WAIT;
         }
-        private void script1_button_Click(object sender, EventArgs e)
+        ///------------------------///
+        ///       Run button       ///
+        ///------------------------///
+        private void run_script_1_Click(object sender, EventArgs e)
         {
-            const string Path = @"scripts\script1.txt";
-            scriptNumber = SCRIPT_MODE_STATE.SCRIPT1;
             try
             {
-                byte[] writeBuffer = File.ReadAllBytes(Path);
+                if (DIS_ACK_script1.Text == "ACK")
+                {
+                    Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
+                    serialPort1.Write("!");
+                    serialPort1.Write(msg, 0, 2);
+                    serialPort1.Write("-");
+                    serialPort1.Write("-");
+                    serialPort1.Write("-");
+                    message_sent_label.Text = (++message_sent_counter).ToString();
+                }
+                
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        private void run_script_2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DIS_ACK_script2.Text == "ACK")
+                {
+                    Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT2 };
+                    serialPort1.Write("!");
+                    serialPort1.Write(msg, 0, 2);
+                    serialPort1.Write("-");
+                    serialPort1.Write("-");
+                    serialPort1.Write("-");
+                    message_sent_label.Text = (++message_sent_counter).ToString();
+                }
+
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        private void run_script_3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DIS_ACK_script3.Text == "ACK")
+                {
+                    Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT3 };
+                    serialPort1.Write("!");
+                    serialPort1.Write(msg, 0, 2);
+                    serialPort1.Write("-");
+                    serialPort1.Write("-");
+                    serialPort1.Write("-");
+                    message_sent_label.Text = (++message_sent_counter).ToString();
+                }
+
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        ///------------------------///
+        ///       Send script      ///
+        ///------------------------///
+        private void script1_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                scriptNumber = SCRIPT_MODE_STATE.SCRIPT1;
+                send_script(sender, e);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        private void script2_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                scriptNumber = SCRIPT_MODE_STATE.SCRIPT2;
+                send_script(sender, e);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+
+        private void script3_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                scriptNumber = SCRIPT_MODE_STATE.SCRIPT3;
+                send_script(sender, e);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+            }
+        }
+        private void send_script(object sender, EventArgs e)
+        {
+            try
+            {
+                byte[] writeBuffer = { };
+                if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1)
+                {
+                    const string Path1 = @"scripts\script1.txt";
+                    writeBuffer = File.ReadAllBytes(Path1);
+                }
+                else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2)
+                {
+                    const string Path2 = @"scripts\script2.txt";
+                    writeBuffer = File.ReadAllBytes(Path2);
+                }
+                else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3)
+                {
+                    const string Path3 = @"scripts\script3.txt";
+                    writeBuffer = File.ReadAllBytes(Path3);
+                }
+                
                 // number of lines
                 string message = "";
                 for (int i = 0; i < writeBuffer.Length; i++)
@@ -687,24 +786,20 @@ namespace Pneumatic_Control
                 char[] nunberOfLines_char = nunberOfLines_string.ToCharArray();
                 nunberOfLines_string = new string(nunberOfLines_char);
                 // number of bytes
-/*                int numberOfbytes = 0;
-                for (int i = 0; i < writeBuffer.Length; i++)
-                {
-                    numberOfbytes++;
-                }*/
                 string numberOfbytes_string = writeBuffer.Length.ToString();
                 char[] numberOfbytes_char = numberOfbytes_string.ToCharArray();
                 numberOfbytes_string = new string(numberOfbytes_char);
-
                 // SEND: !
                 serialPort1.Write("!");
                 // SEND: state and substate
-                Byte[] state_msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
+                Byte[] state_msg = { (byte)STATE.SCRIPT_MODE, (byte)scriptNumber };
                 serialPort1.Write(state_msg, 0, 2);
-                
-                
+                //Byte[] state_msg = { (byte)STATE.SCRIPT_MODE };
+                //serialPort1.Write(state_msg, 0, 1);
+                //string scriptNumber_str = scriptNumber.ToString();
                 // SEND: number of byts and lines
                 string numOfBytesAndLines = "";
+                //numOfBytesAndLines += "1";
                 numOfBytesAndLines += numberOfbytes_string;
                 numOfBytesAndLines += "-";
                 numOfBytesAndLines += nunberOfLines_string;
@@ -718,40 +813,6 @@ namespace Pneumatic_Control
                 }
                 message_sent_label.Text = (++message_sent_counter).ToString();
 
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-        private void script2_button_Click(object sender, EventArgs e)
-        {
-            const string Path = @"scripts \ script2.txt";
-            try
-            {
-                byte[] writeBuffer = File.ReadAllBytes(Path);
-                Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT2 };
-                serialPort1.Write("!");
-                serialPort1.Write(msg, 0, 2);
-                serialPort1.Write(writeBuffer, 0, writeBuffer.Length);
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message);
-            }
-        }
-
-        private void script3_button_Click(object sender, EventArgs e)
-        {
-            const string Path = @"scripts \ script3.txt";
-            try
-            {
-                byte[] writeBuffer = File.ReadAllBytes(Path);
-                Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT3 };
-                serialPort1.Write("!");
-                serialPort1.Write(msg, 0, 2);
-                serialPort1.Write(writeBuffer, 0, writeBuffer.Length);
             }
             catch (Exception error)
             {
@@ -803,5 +864,7 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
+
+
     }
 }

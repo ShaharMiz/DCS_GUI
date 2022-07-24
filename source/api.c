@@ -38,10 +38,8 @@ void stepper_motor_calibration(void){
 //==========================================================
 //              STATE 4 - Script Mode
 //==========================================================
-//volatile int opcode;
 void script_mode(void){
 //            -------- Variables --------
-    int script_size_counter;
     int  x_times;//, num_byte;
     unsigned long p, l, r;
     int script_lines_counter;
@@ -50,8 +48,9 @@ void script_mode(void){
 //        Get auxiliary variables to write script
 
 
-//    __bis_SR_register(LPM0_bits + GIE);
-//    s.num_script = receive_int();                               // Get script number
+    __bis_SR_register(LPM0_bits + GIE);
+    s.num_script = receive_int();                               // Get script number
+
 
 
     int cuonter = 0;
@@ -61,9 +60,8 @@ void script_mode(void){
             cuonter++;
         }
     }
-
-    s.num_script = receive_int();
-    index++;
+    ScriptNumFlg = 1; // wait for script number in Rx
+    index = 0;
 
     if(!s.written[s.num_script - 1]){                           // If Script number hasn't written yet in {0,1,2}
 
@@ -73,98 +71,85 @@ void script_mode(void){
 
 //             --------  Stage 2 --------
 //               Writing script to flash
-
+        script_idx = 0;
         write_to_flash = 1;
         script_size_counter = s.size[s.num_script - 1];         // Script size
 
         while(script_size_counter-- ){                           // Until we get all chars in script
             __bis_SR_register(LPM0_bits + GIE);                 // wait for new char in Rx
-            write_seg(s.pscript[s.num_script - 1], offset++);   // Write value (char from p_rx[0]) to flash
         }
 
-//        script_size_counter = s.size[s.num_script - 1];
-//        while(script_size_counter-- ){                           // Until we get all chars in script
-//            write_seg(s.pscript[s.num_script - 1], offset++);   // Write value (char from p_rx[0]) to flash
-//                }
+        script_size_counter = s.size[s.num_script - 1];
+        write_seg(s.pscript[s.num_script - 1]);   // Write value (char from p_rx[0]) to flash
         s.written[s.num_script - 1] = 1;                        // Mark script already written
         write_to_flash = 0;
         state_flg = 0;
-    }
 
 //             --------  Stage 3 --------
 //Send Acknowledge after finishing saving the script in memory
-        send_ack();
+                send_ack();
+    }
+
+
 //             --------  Stage 4  ---------
 //                   Executing Script
-
     offset = 0;
     opcode = 0;
     acknowledge = 0;
-    script_lines_counter = s.lines[s.num_script - 1];
-    while(script_lines_counter > 0){
-        // Get Opcode
-        opcode = read_mem(2);  // reading Opcode value
-//        num_byte = 0;
-        switch(opcode){
-            case 1:
-                x_times = get_x_value();
-//                while(read_mem(2) != 0x00) num_byte += 1;   // count the total bytes of information
-//                offset -= num_byte * 2;                     // retuen offset to read all
-//                x_times = read_mem(num_byte * 2);
-                blink_RGB(ScriptModeDelay, x_times);
-                break;
-            case 2:
-                x_times = get_x_value();
-//                while(read_mem(2) != 0x00) num_byte += 1;
-//                offset -= num_byte * 2;
-//                x_times = read_mem(num_byte * 2);
-                rlc_leds(ScriptModeDelay, x_times);
-                break;
-            case 3:
-                x_times = get_x_value();
-//                while(read_mem(2) != 0x00) num_byte += 1;
-//                offset -= num_byte * 2;
-//                x_times = read_mem(num_byte * 2);
-                rrc_leds(ScriptModeDelay, x_times);
-                break;
-            case 4:
-                ScriptModeDelay = get_x_value();   // update new delay
-//                while(read_mem(2) != 0x00) num_byte += 1;
-//                offset -= num_byte * 2;
-//                ScriptModeDelay = read_mem(num_byte * 2);
-                break;
-            case 5:
-                clear_RGB;
-                Leds_CLR;
-                break;
-            case 6:
-                p = read_mem(2);    // get pointed degree
-                scan_mode = 1;
-                stepper_deg(p);       //
-                // Show the degree and distance (dynamically) onto PC screen
-                scan_mode = 0;
-                break;
-            case 7:
-                l = read_mem(2);
-                r = read_mem(2);
-                scan_mode = 1;
-                // Show the degree and distance (dynamically) onto PC screen
-                stepper_scan(l, r);
-
-                scan_mode = 0;
-                break;
-            case 8:
-                state = sleep_mode;
-                break;
-            default:
-                //opcode = 8;
-                break;
-        }
-        if(script_lines_counter)offset+=2;      // If its not the last script line advance the '\n' char in the script
-        script_lines_counter--;
+    if (s.first_written[s.num_script - 1] == 0){
+        s.first_written[s.num_script - 1] = 1;
+    }else{
+        script_lines_counter = s.lines[s.num_script - 1];
+            while(script_lines_counter > 0){
+                // Get Opcode
+                opcode = read_mem(2);  // reading Opcode value
+                // execute function
+                switch(opcode){
+                    case 1:
+                        x_times = get_x_value();
+                        blink_RGB(ScriptModeDelay, x_times);
+                        break;
+                    case 2:
+                        x_times = get_x_value();
+                        rlc_leds(ScriptModeDelay, x_times);
+                        break;
+                    case 3:
+                        x_times = get_x_value();
+                        rrc_leds(ScriptModeDelay, x_times);
+                        break;
+                    case 4:
+                        ScriptModeDelay = get_x_value();   // update new delay
+                        break;
+                    case 5:
+                        clear_RGB;
+                        Leds_CLR;
+                        break;
+                    case 6:
+                        p = read_mem(2);    // get pointed degree
+                        scan_mode = 1;
+                        stepper_deg(p);       // Show the degree and distance (dynamically) onto PC screen
+                        scan_mode = 0;
+                        break;
+                    case 7:
+                        l = read_mem(2);
+                        r = read_mem(2);
+                        scan_mode = 1;
+                        // Show the degree and distance (dynamically) onto PC screen
+                        stepper_scan(l, r);
+                        scan_mode = 0;
+                        break;
+                    case 8:
+                        state = sleep_mode;
+                        break;
+                    default:
+                        opcode = 8;
+                        break;
+                }
+                if(script_lines_counter)offset+=2;      // If its not the last script line advance the '\n' char in the script
+                script_lines_counter--;
+            }
+            offset = 0;
     }
-    offset = 0;
-    //debug
     state = sleep_mode;
 
 }

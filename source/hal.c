@@ -7,7 +7,6 @@
 #include "../header/bsp.h"
 
 
-//
 //================================================
 //               Variables
 //================================================
@@ -56,14 +55,16 @@ volatile long Phi_tmp = 0;
 //              STATE 4 - Script Mode
 //------------------------------------------------
 volatile int opcode = 8; // default- sleep mode
-
-Scripts s = {{0}, {FLASH_INFO_SEG_B_START, FLASH_INFO_SEG_C_START, FLASH_INFO_SEG_D_START}, {0}, {0} , 1};
+volatile int ScriptNumFlg = 1;
+int script_size_counter;
+Scripts s = {{0}, {FLASH_INFO_SEG_B_START, FLASH_INFO_SEG_C_START, FLASH_INFO_SEG_D_START}, {0}, {0} , 1, {0}};
 int ScriptModeDelay = 50;
 int write_to_flash = 0;
 int offset = 0;
 int acknowledge = 0;
-volatile char to_flash[8];
-int debug_idx = 0;
+volatile char to_flash[64];
+int script_idx = 0;
+volatile char ScriptNum;
 volatile char p_rx[10];
 //volatile char p_tx[10];
 int index;
@@ -243,7 +244,7 @@ volatile int SM_Step_Right = 0x80;       //1000-0000- h-4
 volatile int SM_Step_Left = 0x10;        //0001-0000- h-1
 //volatile int SM_Half_Step_Right = 0x0C;  //1100-0000- h-C
 //volatile int SM_Half_Step_Left = 0x03;   //0011-0000- h-3
-volatile int StepperDelay = 10;         // f = MHz
+volatile int StepperDelay = 2;         // f = MHz
 
 void step_angle_update(void){
     if (state_stage==start_move_forwards){
@@ -330,6 +331,8 @@ void stepper_scan(unsigned long l, unsigned long r){
     if ((state == ScriptMode) && (scan_mode == 1)){ // maybe
         Got_to_left_flg = 1;
         enable_transmition();
+        __bis_SR_register(LPM0_bits + GIE);
+//        Timer0_A_delay_ms(50);
     }
     // if Left angle = Right angle, end of operation
     if (Left_ang == Right_ang) return;
@@ -340,7 +343,8 @@ void stepper_scan(unsigned long l, unsigned long r){
     if ((state == ScriptMode) && (scan_mode == 1)){
         Got_to_right_flg = 1;   // update PC that motor arrived to Right angle
         enable_transmition();
-        Timer0_A_delay_ms(50);
+        __bis_SR_register(LPM0_bits + GIE);
+//        Timer0_A_delay_ms(50);
 
     }
 
@@ -452,8 +456,8 @@ int get_x_value(void){
 }
 //----------------------------------------------------------
 int receive_int(void){
-    index = 0;
-    return p_rx[index];//- '0';  // TODO: check if -'0' necessary
+//    index = 0;
+    return ScriptNum;// - '0';  // TODO: check if -'0' necessary
 }
 //----------------------------------------------------------
 void receive_string(int *data){
@@ -489,11 +493,19 @@ void send_ack(void){
 
 //----------------------------------------------------------
 
-void write_seg (char* flash_ptr, int offset){
+void write_seg (char* flash_ptr){
     FCTL3 = FWKEY;                            // Clear Lock bit
+    FCTL1 = FWKEY + ERASE;                      // Set WRT bit for write operation
+    *flash_ptr = 0;
+
     FCTL1 = FWKEY + WRT;                      // Set WRT bit for write operation
-    flash_ptr[offset] = *p_rx;                // Write value to flash
-//    flash_ptr[offset] = to_flash[offset];                // Write value to flash
+    //    flash_ptr[offset] = *p_rx;                // Write value to flash
+    int n;
+    for (n=0; n<script_size_counter; n++ ){
+//       flash_ptr[offset] = to_flash[offset];
+        *flash_ptr++ = to_flash[n];
+    }
+                   // Write value to flash
     while((FCTL3 & WAIT) != WAIT);            // Wait for write to complete
     FCTL1 = FWKEY;                            // Clear WRT bit
     FCTL3 = FWKEY + LOCK;                     // Set LOCK bit
@@ -585,9 +597,7 @@ volatile int last_rotate = 0;
 
 void rlc_leds(int delay, int times){
 int rotate;
-//    if ((last_rotate == right_rotate) && (LEDs_val_P1 == 0x01)){
-//        PortNum = 1;
-//    }
+first_rotate = 1;
     while(times){
         rotate = 4;
         times --;
@@ -623,7 +633,6 @@ int rotate;
         }
 
     }
-//    last_rotate = left_rotate;
     P1OUT = 0;
     P2OUT = 0;
 }
@@ -632,10 +641,7 @@ int rotate;
 
 void rrc_leds(int delay, int times){
     int rotate;
-
-//    if ((last_rotate == left_rotate) && (LEDs_val_P1 == 0x80)){
-//        PortNum = 1;
-//    }
+    first_rotate = 1;
     while(times){
         rotate = 4;
         times --;
@@ -653,7 +659,7 @@ void rrc_leds(int delay, int times){
                 LEDs_val_P1 = 0x40;         //0100-0000 P1.6
             }else if (LEDs_val_P1 == 0x40){
                 LEDs_val_P1 = 0x01;         //0000-0001 P1.0
-                PortNum = 2;            // move to port 2 to next rotates
+                PortNum = 2;                // move to port 2 to next rotates
 
             }
 
@@ -672,7 +678,6 @@ void rrc_leds(int delay, int times){
     }
     P1OUT = 0;
     P2OUT = 0;
-//    last_rotate = right_rotate;
 
 }
 
@@ -702,7 +707,7 @@ void GatherStatusInfo(void){
     }
     Buff_index+=3;
     bufferBuilder(Phi_step);
-    bufferBuilder(Phi);
+    bufferBuilder(Phi/10);
     bufferBuilder(SM_Counter);
     bufferBuilder(Vx);
     bufferBuilder(Vy);
@@ -790,6 +795,7 @@ __interrupt void USCI0RX_ISR(void)
                 JOISTICK_MODE = none;
             }
             if ((state == JoystickPainter) || (state == ManualMotorControl)) {
+                Msg_location = 0;
                 __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
             }
         }else if ((Msg_location==2) && ((state == calibration) || (state ==move_motor_freely))){ // Get status_stage value for calibration or moving freely
@@ -797,14 +803,20 @@ __interrupt void USCI0RX_ISR(void)
             Msg_location = 0;
             state_flg = 0; // Done getting all state information
             __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
-        }else if (state ==ScriptMode) {
+        }else if (state == ScriptMode){
             Msg_location = 0;
-            while (!(IFG2&UCA0TXIFG));                // USCI_A0 TX buffer ready?
+//            while (!(IFG2&UCA0RXIFG));                // USCI_A0 TX buffer ready?
+
+//                to_flash[script_idx++] =  RxBuffer;
             if(write_to_flash){
-                p_rx[0] = RxBuffer;
-//                to_flash[debug_idx++] =  RxBuffer;
-            }else
+//                p_rx[0] = RxBuffer;
+                to_flash[script_idx++] =  RxBuffer;
+            }else if (ScriptNumFlg==1){
+                ScriptNumFlg = 0;
+                ScriptNum = RxBuffer;
+            }else if (ScriptNumFlg==0){
                 p_rx[index++] = RxBuffer;
+            }
 
             __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
         }
@@ -842,12 +854,13 @@ __interrupt void USCI0TX_ISR(void)
         GatherStatusInfo();
         Got_to_left_flg = 0;
         status_flg = 1;       // send PC current status
+        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
 
     }else if ((state == ScriptMode) && (scan_mode == 1) && (Got_to_right_flg == 1)){
         GatherStatusInfo();
         Got_to_right_flg = 0;
         status_flg = 1;       // send PC current status
-
+        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
     } else{
       IE2 &= ~UCA0TXIE;                                  // Disable TX interrupt
     }
