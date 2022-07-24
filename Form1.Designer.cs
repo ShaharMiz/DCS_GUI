@@ -58,24 +58,32 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.ManualControl_start = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.run_script_3 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.run_script_2 = new System.Windows.Forms.Button();
+            this.left_1 = new System.Windows.Forms.Label();
+            this.run_script_1 = new System.Windows.Forms.Button();
+            this.left_2 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.left_3 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.right_1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.right_2 = new System.Windows.Forms.Label();
             this.pointer_3 = new System.Windows.Forms.Label();
+            this.right_3 = new System.Windows.Forms.Label();
             this.pointer_2 = new System.Windows.Forms.Label();
             this.pointer_1 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.right_3 = new System.Windows.Forms.Label();
-            this.right_2 = new System.Windows.Forms.Label();
-            this.right_1 = new System.Windows.Forms.Label();
-            this.left_3 = new System.Windows.Forms.Label();
-            this.left_2 = new System.Windows.Forms.Label();
-            this.left_1 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.DIS_ACK_script3 = new System.Windows.Forms.Label();
-            this.DIS_ACK_script2 = new System.Windows.Forms.Label();
-            this.DIS_ACK_script1 = new System.Windows.Forms.Label();
-            this.script3_button = new System.Windows.Forms.Button();
-            this.script2_button = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.script1_button = new System.Windows.Forms.Button();
+            this.script2_button = new System.Windows.Forms.Button();
+            this.script3_button = new System.Windows.Forms.Button();
+            this.DIS_ACK_script1 = new System.Windows.Forms.Label();
+            this.DIS_ACK_script2 = new System.Windows.Forms.Label();
+            this.DIS_ACK_script3 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.stopStepMotor = new System.Windows.Forms.Button();
             this.counterClockwise = new System.Windows.Forms.Button();
@@ -97,26 +105,18 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.run_script_1 = new System.Windows.Forms.Button();
-            this.run_script_2 = new System.Windows.Forms.Button();
-            this.run_script_3 = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_open
@@ -415,6 +415,178 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Script panel";
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.label11);
+            this.groupBox11.Controls.Add(this.label9);
+            this.groupBox11.Controls.Add(this.run_script_3);
+            this.groupBox11.Controls.Add(this.label10);
+            this.groupBox11.Controls.Add(this.run_script_2);
+            this.groupBox11.Controls.Add(this.left_1);
+            this.groupBox11.Controls.Add(this.run_script_1);
+            this.groupBox11.Controls.Add(this.left_2);
+            this.groupBox11.Controls.Add(this.label16);
+            this.groupBox11.Controls.Add(this.left_3);
+            this.groupBox11.Controls.Add(this.label15);
+            this.groupBox11.Controls.Add(this.right_1);
+            this.groupBox11.Controls.Add(this.label6);
+            this.groupBox11.Controls.Add(this.right_2);
+            this.groupBox11.Controls.Add(this.pointer_3);
+            this.groupBox11.Controls.Add(this.right_3);
+            this.groupBox11.Controls.Add(this.pointer_2);
+            this.groupBox11.Controls.Add(this.pointer_1);
+            this.groupBox11.Location = new System.Drawing.Point(12, 145);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(410, 168);
+            this.groupBox11.TabIndex = 124;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Run scripts";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(181, 10);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(90, 28);
+            this.label11.TabIndex = 132;
+            this.label11.Text = "POINTER";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(274, 10);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 28);
+            this.label9.TabIndex = 124;
+            this.label9.Text = "LEFT ";
+            // 
+            // run_script_3
+            // 
+            this.run_script_3.Location = new System.Drawing.Point(109, 120);
+            this.run_script_3.Name = "run_script_3";
+            this.run_script_3.Size = new System.Drawing.Size(54, 37);
+            this.run_script_3.TabIndex = 140;
+            this.run_script_3.Text = "run";
+            this.run_script_3.UseVisualStyleBackColor = true;
+            this.run_script_3.Click += new System.EventHandler(this.run_script_3_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(339, 11);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(67, 28);
+            this.label10.TabIndex = 125;
+            this.label10.Text = "RIGHT";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // run_script_2
+            // 
+            this.run_script_2.Location = new System.Drawing.Point(109, 79);
+            this.run_script_2.Name = "run_script_2";
+            this.run_script_2.Size = new System.Drawing.Size(54, 37);
+            this.run_script_2.TabIndex = 139;
+            this.run_script_2.Text = "run";
+            this.run_script_2.UseVisualStyleBackColor = true;
+            this.run_script_2.Click += new System.EventHandler(this.run_script_2_Click);
+            // 
+            // left_1
+            // 
+            this.left_1.AutoSize = true;
+            this.left_1.Enabled = false;
+            this.left_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.left_1.Location = new System.Drawing.Point(274, 45);
+            this.left_1.Name = "left_1";
+            this.left_1.Size = new System.Drawing.Size(46, 25);
+            this.left_1.TabIndex = 126;
+            this.left_1.Text = "    --";
+            this.left_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // run_script_1
+            // 
+            this.run_script_1.Location = new System.Drawing.Point(109, 37);
+            this.run_script_1.Name = "run_script_1";
+            this.run_script_1.Size = new System.Drawing.Size(54, 37);
+            this.run_script_1.TabIndex = 138;
+            this.run_script_1.Text = "run";
+            this.run_script_1.UseVisualStyleBackColor = true;
+            this.run_script_1.Click += new System.EventHandler(this.run_script_1_Click);
+            // 
+            // left_2
+            // 
+            this.left_2.AutoSize = true;
+            this.left_2.Enabled = false;
+            this.left_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.left_2.Location = new System.Drawing.Point(274, 84);
+            this.left_2.Name = "left_2";
+            this.left_2.Size = new System.Drawing.Size(46, 25);
+            this.left_2.TabIndex = 127;
+            this.left_2.Text = "    --";
+            this.left_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(4, 119);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(80, 28);
+            this.label16.TabIndex = 137;
+            this.label16.Text = "script 3:";
+            // 
+            // left_3
+            // 
+            this.left_3.AutoSize = true;
+            this.left_3.Enabled = false;
+            this.left_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.left_3.Location = new System.Drawing.Point(274, 122);
+            this.left_3.Name = "left_3";
+            this.left_3.Size = new System.Drawing.Size(46, 25);
+            this.left_3.TabIndex = 128;
+            this.left_3.Text = "    --";
+            this.left_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(4, 80);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(80, 28);
+            this.label15.TabIndex = 136;
+            this.label15.Text = "script 2:";
+            // 
+            // right_1
+            // 
+            this.right_1.AutoSize = true;
+            this.right_1.Enabled = false;
+            this.right_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.right_1.Location = new System.Drawing.Point(339, 44);
+            this.right_1.Name = "right_1";
+            this.right_1.Size = new System.Drawing.Size(46, 25);
+            this.right_1.TabIndex = 129;
+            this.right_1.Text = "    --";
+            this.right_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(4, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 28);
+            this.label6.TabIndex = 122;
+            this.label6.Text = "script 1:";
+            // 
+            // right_2
+            // 
+            this.right_2.AutoSize = true;
+            this.right_2.Enabled = false;
+            this.right_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.right_2.Location = new System.Drawing.Point(339, 81);
+            this.right_2.Name = "right_2";
+            this.right_2.Size = new System.Drawing.Size(46, 25);
+            this.right_2.TabIndex = 130;
+            this.right_2.Text = "    --";
+            this.right_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // pointer_3
             // 
             this.pointer_3.AutoSize = true;
@@ -426,6 +598,18 @@
             this.pointer_3.TabIndex = 135;
             this.pointer_3.Text = "    --";
             this.pointer_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // right_3
+            // 
+            this.right_3.AutoSize = true;
+            this.right_3.Enabled = false;
+            this.right_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.right_3.Location = new System.Drawing.Point(339, 122);
+            this.right_3.Name = "right_3";
+            this.right_3.Size = new System.Drawing.Size(46, 25);
+            this.right_3.TabIndex = 131;
+            this.right_3.Text = "    --";
+            this.right_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pointer_2
             // 
@@ -451,127 +635,50 @@
             this.pointer_1.Text = "    --";
             this.pointer_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label11
+            // groupBox8
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(181, 10);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 28);
-            this.label11.TabIndex = 132;
-            this.label11.Text = "POINTER";
+            this.groupBox8.Controls.Add(this.script1_button);
+            this.groupBox8.Controls.Add(this.script2_button);
+            this.groupBox8.Controls.Add(this.script3_button);
+            this.groupBox8.Controls.Add(this.DIS_ACK_script1);
+            this.groupBox8.Controls.Add(this.DIS_ACK_script2);
+            this.groupBox8.Controls.Add(this.DIS_ACK_script3);
+            this.groupBox8.Location = new System.Drawing.Point(10, 24);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(410, 120);
+            this.groupBox8.TabIndex = 120;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Load scripts";
             // 
-            // right_3
+            // script1_button
             // 
-            this.right_3.AutoSize = true;
-            this.right_3.Enabled = false;
-            this.right_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.right_3.Location = new System.Drawing.Point(339, 122);
-            this.right_3.Name = "right_3";
-            this.right_3.Size = new System.Drawing.Size(46, 25);
-            this.right_3.TabIndex = 131;
-            this.right_3.Text = "    --";
-            this.right_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.script1_button.Location = new System.Drawing.Point(17, 32);
+            this.script1_button.Name = "script1_button";
+            this.script1_button.Size = new System.Drawing.Size(103, 37);
+            this.script1_button.TabIndex = 118;
+            this.script1_button.Text = "script 1";
+            this.script1_button.UseVisualStyleBackColor = true;
+            this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
             // 
-            // right_2
+            // script2_button
             // 
-            this.right_2.AutoSize = true;
-            this.right_2.Enabled = false;
-            this.right_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.right_2.Location = new System.Drawing.Point(339, 81);
-            this.right_2.Name = "right_2";
-            this.right_2.Size = new System.Drawing.Size(46, 25);
-            this.right_2.TabIndex = 130;
-            this.right_2.Text = "    --";
-            this.right_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.script2_button.Location = new System.Drawing.Point(150, 33);
+            this.script2_button.Name = "script2_button";
+            this.script2_button.Size = new System.Drawing.Size(104, 36);
+            this.script2_button.TabIndex = 119;
+            this.script2_button.Text = "script 2";
+            this.script2_button.UseVisualStyleBackColor = true;
+            this.script2_button.Click += new System.EventHandler(this.script2_button_Click);
             // 
-            // right_1
+            // script3_button
             // 
-            this.right_1.AutoSize = true;
-            this.right_1.Enabled = false;
-            this.right_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.right_1.Location = new System.Drawing.Point(339, 44);
-            this.right_1.Name = "right_1";
-            this.right_1.Size = new System.Drawing.Size(46, 25);
-            this.right_1.TabIndex = 129;
-            this.right_1.Text = "    --";
-            this.right_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // left_3
-            // 
-            this.left_3.AutoSize = true;
-            this.left_3.Enabled = false;
-            this.left_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.left_3.Location = new System.Drawing.Point(274, 122);
-            this.left_3.Name = "left_3";
-            this.left_3.Size = new System.Drawing.Size(46, 25);
-            this.left_3.TabIndex = 128;
-            this.left_3.Text = "    --";
-            this.left_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // left_2
-            // 
-            this.left_2.AutoSize = true;
-            this.left_2.Enabled = false;
-            this.left_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.left_2.Location = new System.Drawing.Point(274, 84);
-            this.left_2.Name = "left_2";
-            this.left_2.Size = new System.Drawing.Size(46, 25);
-            this.left_2.TabIndex = 127;
-            this.left_2.Text = "    --";
-            this.left_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // left_1
-            // 
-            this.left_1.AutoSize = true;
-            this.left_1.Enabled = false;
-            this.left_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.left_1.Location = new System.Drawing.Point(274, 45);
-            this.left_1.Name = "left_1";
-            this.left_1.Size = new System.Drawing.Size(46, 25);
-            this.left_1.TabIndex = 126;
-            this.left_1.Text = "    --";
-            this.left_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(339, 11);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 28);
-            this.label10.TabIndex = 125;
-            this.label10.Text = "RIGHT";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(274, 10);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 28);
-            this.label9.TabIndex = 124;
-            this.label9.Text = "LEFT ";
-            // 
-            // DIS_ACK_script3
-            // 
-            this.DIS_ACK_script3.AutoSize = true;
-            this.DIS_ACK_script3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script3.Location = new System.Drawing.Point(295, 79);
-            this.DIS_ACK_script3.Name = "DIS_ACK_script3";
-            this.DIS_ACK_script3.Size = new System.Drawing.Size(80, 25);
-            this.DIS_ACK_script3.TabIndex = 123;
-            this.DIS_ACK_script3.Text = "DIS_ACK";
-            this.DIS_ACK_script3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // DIS_ACK_script2
-            // 
-            this.DIS_ACK_script2.AutoSize = true;
-            this.DIS_ACK_script2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script2.Location = new System.Drawing.Point(155, 79);
-            this.DIS_ACK_script2.Name = "DIS_ACK_script2";
-            this.DIS_ACK_script2.Size = new System.Drawing.Size(80, 25);
-            this.DIS_ACK_script2.TabIndex = 122;
-            this.DIS_ACK_script2.Text = "DIS_ACK";
-            this.DIS_ACK_script2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.script3_button.Location = new System.Drawing.Point(285, 31);
+            this.script3_button.Name = "script3_button";
+            this.script3_button.Size = new System.Drawing.Size(95, 38);
+            this.script3_button.TabIndex = 120;
+            this.script3_button.Text = "script 3";
+            this.script3_button.UseVisualStyleBackColor = true;
+            this.script3_button.Click += new System.EventHandler(this.script3_button_Click);
             // 
             // DIS_ACK_script1
             // 
@@ -584,35 +691,27 @@
             this.DIS_ACK_script1.Text = "DIS_ACK";
             this.DIS_ACK_script1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // script3_button
+            // DIS_ACK_script2
             // 
-            this.script3_button.Location = new System.Drawing.Point(285, 31);
-            this.script3_button.Name = "script3_button";
-            this.script3_button.Size = new System.Drawing.Size(95, 38);
-            this.script3_button.TabIndex = 120;
-            this.script3_button.Text = "script 3";
-            this.script3_button.UseVisualStyleBackColor = true;
-            this.script3_button.Click += new System.EventHandler(this.script3_button_Click);
+            this.DIS_ACK_script2.AutoSize = true;
+            this.DIS_ACK_script2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DIS_ACK_script2.Location = new System.Drawing.Point(155, 79);
+            this.DIS_ACK_script2.Name = "DIS_ACK_script2";
+            this.DIS_ACK_script2.Size = new System.Drawing.Size(80, 25);
+            this.DIS_ACK_script2.TabIndex = 122;
+            this.DIS_ACK_script2.Text = "DIS_ACK";
+            this.DIS_ACK_script2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // script2_button
+            // DIS_ACK_script3
             // 
-            this.script2_button.Location = new System.Drawing.Point(150, 33);
-            this.script2_button.Name = "script2_button";
-            this.script2_button.Size = new System.Drawing.Size(104, 36);
-            this.script2_button.TabIndex = 119;
-            this.script2_button.Text = "script 2";
-            this.script2_button.UseVisualStyleBackColor = true;
-            this.script2_button.Click += new System.EventHandler(this.script2_button_Click);
-            // 
-            // script1_button
-            // 
-            this.script1_button.Location = new System.Drawing.Point(17, 32);
-            this.script1_button.Name = "script1_button";
-            this.script1_button.Size = new System.Drawing.Size(103, 37);
-            this.script1_button.TabIndex = 118;
-            this.script1_button.Text = "script 1";
-            this.script1_button.UseVisualStyleBackColor = true;
-            this.script1_button.Click += new System.EventHandler(this.script1_button_Click);
+            this.DIS_ACK_script3.AutoSize = true;
+            this.DIS_ACK_script3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DIS_ACK_script3.Location = new System.Drawing.Point(295, 79);
+            this.DIS_ACK_script3.Name = "DIS_ACK_script3";
+            this.DIS_ACK_script3.Size = new System.Drawing.Size(80, 25);
+            this.DIS_ACK_script3.TabIndex = 123;
+            this.DIS_ACK_script3.Text = "DIS_ACK";
+            this.DIS_ACK_script3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox5
             // 
@@ -823,112 +922,13 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.DimGray;
-            this.label13.Location = new System.Drawing.Point(783, 670);
+            this.label13.Location = new System.Drawing.Point(783, 663);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(494, 26);
+            this.label13.Size = new System.Drawing.Size(730, 41);
             this.label13.TabIndex = 134;
             this.label13.Text = "© Copyright: Shahar Mizrahi and Tamar Oren";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 41);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 28);
-            this.label6.TabIndex = 122;
-            this.label6.Text = "script 1:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(4, 80);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(80, 28);
-            this.label15.TabIndex = 136;
-            this.label15.Text = "script 2:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(4, 119);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 28);
-            this.label16.TabIndex = 137;
-            this.label16.Text = "script 3:";
-            // 
-            // run_script_1
-            // 
-            this.run_script_1.Location = new System.Drawing.Point(109, 37);
-            this.run_script_1.Name = "run_script_1";
-            this.run_script_1.Size = new System.Drawing.Size(54, 37);
-            this.run_script_1.TabIndex = 138;
-            this.run_script_1.Text = "run";
-            this.run_script_1.UseVisualStyleBackColor = true;
-            this.run_script_1.Click += new System.EventHandler(this.run_script_1_Click);
-            // 
-            // run_script_2
-            // 
-            this.run_script_2.Location = new System.Drawing.Point(109, 79);
-            this.run_script_2.Name = "run_script_2";
-            this.run_script_2.Size = new System.Drawing.Size(54, 37);
-            this.run_script_2.TabIndex = 139;
-            this.run_script_2.Text = "run";
-            this.run_script_2.UseVisualStyleBackColor = true;
-            this.run_script_2.Click += new System.EventHandler(this.run_script_2_Click);
-            // 
-            // run_script_3
-            // 
-            this.run_script_3.Location = new System.Drawing.Point(109, 120);
-            this.run_script_3.Name = "run_script_3";
-            this.run_script_3.Size = new System.Drawing.Size(54, 37);
-            this.run_script_3.TabIndex = 140;
-            this.run_script_3.Text = "run";
-            this.run_script_3.UseVisualStyleBackColor = true;
-            this.run_script_3.Click += new System.EventHandler(this.run_script_3_Click);
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.script1_button);
-            this.groupBox8.Controls.Add(this.script2_button);
-            this.groupBox8.Controls.Add(this.script3_button);
-            this.groupBox8.Controls.Add(this.DIS_ACK_script1);
-            this.groupBox8.Controls.Add(this.DIS_ACK_script2);
-            this.groupBox8.Controls.Add(this.DIS_ACK_script3);
-            this.groupBox8.Location = new System.Drawing.Point(10, 24);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(410, 120);
-            this.groupBox8.TabIndex = 120;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Load scripts";
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.label11);
-            this.groupBox11.Controls.Add(this.label9);
-            this.groupBox11.Controls.Add(this.run_script_3);
-            this.groupBox11.Controls.Add(this.label10);
-            this.groupBox11.Controls.Add(this.run_script_2);
-            this.groupBox11.Controls.Add(this.left_1);
-            this.groupBox11.Controls.Add(this.run_script_1);
-            this.groupBox11.Controls.Add(this.left_2);
-            this.groupBox11.Controls.Add(this.label16);
-            this.groupBox11.Controls.Add(this.left_3);
-            this.groupBox11.Controls.Add(this.label15);
-            this.groupBox11.Controls.Add(this.right_1);
-            this.groupBox11.Controls.Add(this.label6);
-            this.groupBox11.Controls.Add(this.right_2);
-            this.groupBox11.Controls.Add(this.pointer_3);
-            this.groupBox11.Controls.Add(this.right_3);
-            this.groupBox11.Controls.Add(this.pointer_2);
-            this.groupBox11.Controls.Add(this.pointer_1);
-            this.groupBox11.Location = new System.Drawing.Point(12, 145);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(410, 168);
-            this.groupBox11.TabIndex = 124;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Run scripts";
             // 
             // DCS_control
             // 
@@ -959,16 +959,16 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
