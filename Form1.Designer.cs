@@ -121,7 +121,7 @@
             // 
             // button_open
             // 
-            this.button_open.Location = new System.Drawing.Point(212, 22);
+            this.button_open.Location = new System.Drawing.Point(201, 31);
             this.button_open.Name = "button_open";
             this.button_open.Size = new System.Drawing.Size(71, 55);
             this.button_open.TabIndex = 7;
@@ -131,7 +131,7 @@
             // 
             // progressBar_statusBar
             // 
-            this.progressBar_statusBar.Location = new System.Drawing.Point(101, 104);
+            this.progressBar_statusBar.Location = new System.Drawing.Point(88, 99);
             this.progressBar_statusBar.Name = "progressBar_statusBar";
             this.progressBar_statusBar.Size = new System.Drawing.Size(55, 23);
             this.progressBar_statusBar.TabIndex = 6;
@@ -141,7 +141,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 99);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 28);
+            this.label4.Size = new System.Drawing.Size(76, 23);
             this.label4.TabIndex = 5;
             this.label4.Text = "STATUS :";
             // 
@@ -155,9 +155,9 @@
             "115200",
             "500000",
             "1000000"});
-            this.comboBox_baudRate.Location = new System.Drawing.Point(129, 62);
+            this.comboBox_baudRate.Location = new System.Drawing.Point(112, 60);
             this.comboBox_baudRate.Name = "comboBox_baudRate";
-            this.comboBox_baudRate.Size = new System.Drawing.Size(77, 36);
+            this.comboBox_baudRate.Size = new System.Drawing.Size(77, 29);
             this.comboBox_baudRate.TabIndex = 4;
             // 
             // label3
@@ -165,7 +165,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(1, 63);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 28);
+            this.label3.Size = new System.Drawing.Size(107, 23);
             this.label3.TabIndex = 3;
             this.label3.Text = "BAUD RATE :";
             // 
@@ -173,9 +173,9 @@
             // 
             this.label_status.AutoSize = true;
             this.label_status.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_status.Location = new System.Drawing.Point(14, 139);
+            this.label_status.Location = new System.Drawing.Point(157, 102);
             this.label_status.Name = "label_status";
-            this.label_status.Size = new System.Drawing.Size(142, 25);
+            this.label_status.Size = new System.Drawing.Size(118, 20);
             this.label_status.TabIndex = 2;
             this.label_status.Text = "DISCONNECTED";
             this.label_status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -184,9 +184,9 @@
             // 
             this.comboBox_comPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_comPort.FormattingEnabled = true;
-            this.comboBox_comPort.Location = new System.Drawing.Point(129, 20);
+            this.comboBox_comPort.Location = new System.Drawing.Point(112, 25);
             this.comboBox_comPort.Name = "comboBox_comPort";
-            this.comboBox_comPort.Size = new System.Drawing.Size(77, 36);
+            this.comboBox_comPort.Size = new System.Drawing.Size(77, 29);
             this.comboBox_comPort.TabIndex = 1;
             this.comboBox_comPort.Click += new System.EventHandler(this.comboBox_comPort_Click);
             // 
@@ -195,16 +195,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(2, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 28);
+            this.label1.Size = new System.Drawing.Size(104, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "COM PORT :";
             // 
             // richTextBox_textReceiver
             // 
             this.richTextBox_textReceiver.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox_textReceiver.Location = new System.Drawing.Point(0, 205);
+            this.richTextBox_textReceiver.Location = new System.Drawing.Point(3, 170);
             this.richTextBox_textReceiver.Name = "richTextBox_textReceiver";
-            this.richTextBox_textReceiver.Size = new System.Drawing.Size(272, 348);
+            this.richTextBox_textReceiver.Size = new System.Drawing.Size(272, 330);
             this.richTextBox_textReceiver.TabIndex = 2;
             this.richTextBox_textReceiver.Text = "";
             this.richTextBox_textReceiver.TextChanged += new System.EventHandler(this.richTextBox_textReceiver_TextChanged);
@@ -217,15 +217,14 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(0, 172);
+            this.label7.Location = new System.Drawing.Point(3, 137);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(153, 30);
+            this.label7.Size = new System.Drawing.Size(132, 25);
             this.label7.TabIndex = 15;
             this.label7.Text = "Received data:";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.ClearText);
             this.groupBox1.Controls.Add(this.comboBox_comPort);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label1);
@@ -239,16 +238,17 @@
             this.groupBox1.Controls.Add(this.richTextBox_textReceiver);
             this.groupBox1.Location = new System.Drawing.Point(8, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(289, 725);
+            this.groupBox1.Size = new System.Drawing.Size(281, 655);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication";
             // 
             // ClearText
             // 
-            this.ClearText.Location = new System.Drawing.Point(181, 135);
+            this.ClearText.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ClearText.Location = new System.Drawing.Point(122, 25);
             this.ClearText.Name = "ClearText";
-            this.ClearText.Size = new System.Drawing.Size(91, 42);
+            this.ClearText.Size = new System.Drawing.Size(124, 26);
             this.ClearText.TabIndex = 25;
             this.ClearText.Text = "Clear text";
             this.ClearText.UseVisualStyleBackColor = true;
@@ -256,6 +256,7 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.ClearText);
             this.groupBox10.Controls.Add(this.PingButton);
             this.groupBox10.Controls.Add(this.AutoButton);
             this.groupBox10.Controls.Add(this.reset_counter_button);
@@ -263,9 +264,9 @@
             this.groupBox10.Controls.Add(this.label14);
             this.groupBox10.Controls.Add(this.message_sent_label);
             this.groupBox10.Controls.Add(this.message_recieved_label);
-            this.groupBox10.Location = new System.Drawing.Point(1, 557);
+            this.groupBox10.Location = new System.Drawing.Point(4, 505);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(271, 162);
+            this.groupBox10.Size = new System.Drawing.Size(271, 140);
             this.groupBox10.TabIndex = 113;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Message panel";
@@ -274,9 +275,9 @@
             // 
             this.PingButton.Location = new System.Drawing.Point(6, 26);
             this.PingButton.Name = "PingButton";
-            this.PingButton.Size = new System.Drawing.Size(110, 35);
+            this.PingButton.Size = new System.Drawing.Size(110, 25);
             this.PingButton.TabIndex = 41;
-            this.PingButton.Text = "Status request";
+            this.PingButton.Text = "Status";
             this.PingButton.UseVisualStyleBackColor = true;
             this.PingButton.Click += new System.EventHandler(this.PingButton_Click);
             // 
@@ -284,7 +285,7 @@
             // 
             this.AutoButton.Location = new System.Drawing.Point(6, 56);
             this.AutoButton.Name = "AutoButton";
-            this.AutoButton.Size = new System.Drawing.Size(110, 35);
+            this.AutoButton.Size = new System.Drawing.Size(110, 27);
             this.AutoButton.TabIndex = 42;
             this.AutoButton.Text = "Press to run";
             this.AutoButton.UseVisualStyleBackColor = true;
@@ -292,9 +293,9 @@
             // 
             // reset_counter_button
             // 
-            this.reset_counter_button.Location = new System.Drawing.Point(123, 28);
+            this.reset_counter_button.Location = new System.Drawing.Point(122, 57);
             this.reset_counter_button.Name = "reset_counter_button";
-            this.reset_counter_button.Size = new System.Drawing.Size(123, 33);
+            this.reset_counter_button.Size = new System.Drawing.Size(124, 26);
             this.reset_counter_button.TabIndex = 51;
             this.reset_counter_button.Text = "Reset counter";
             this.reset_counter_button.UseVisualStyleBackColor = true;
@@ -303,36 +304,36 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 94);
+            this.label8.Location = new System.Drawing.Point(10, 88);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(55, 28);
+            this.label8.Size = new System.Drawing.Size(48, 23);
             this.label8.TabIndex = 44;
             this.label8.Text = "Sent:";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(10, 117);
+            this.label14.Location = new System.Drawing.Point(10, 111);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(93, 28);
+            this.label14.Size = new System.Drawing.Size(81, 23);
             this.label14.TabIndex = 52;
             this.label14.Text = "Received:";
             // 
             // message_sent_label
             // 
             this.message_sent_label.AutoSize = true;
-            this.message_sent_label.Location = new System.Drawing.Point(108, 94);
+            this.message_sent_label.Location = new System.Drawing.Point(108, 88);
             this.message_sent_label.Name = "message_sent_label";
-            this.message_sent_label.Size = new System.Drawing.Size(23, 28);
+            this.message_sent_label.Size = new System.Drawing.Size(19, 23);
             this.message_sent_label.TabIndex = 46;
             this.message_sent_label.Text = "0";
             // 
             // message_recieved_label
             // 
             this.message_recieved_label.AutoSize = true;
-            this.message_recieved_label.Location = new System.Drawing.Point(108, 117);
+            this.message_recieved_label.Location = new System.Drawing.Point(108, 111);
             this.message_recieved_label.Name = "message_recieved_label";
-            this.message_recieved_label.Size = new System.Drawing.Size(23, 28);
+            this.message_recieved_label.Size = new System.Drawing.Size(19, 23);
             this.message_recieved_label.TabIndex = 48;
             this.message_recieved_label.Text = "0";
             // 
@@ -348,7 +349,7 @@
             this.groupBox2.Controls.Add(this.MSG_Status);
             this.groupBox2.Location = new System.Drawing.Point(303, 75);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(453, 655);
+            this.groupBox2.Size = new System.Drawing.Size(453, 585);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Control panel";
@@ -357,18 +358,18 @@
             // 
             this.groupBox7.Controls.Add(this.clearPanel1);
             this.groupBox7.Controls.Add(this.JoystickPainter_start);
-            this.groupBox7.Location = new System.Drawing.Point(294, 189);
+            this.groupBox7.Location = new System.Drawing.Point(294, 176);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(159, 131);
+            this.groupBox7.Size = new System.Drawing.Size(153, 104);
             this.groupBox7.TabIndex = 121;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Joystick Painter";
             // 
             // clearPanel1
             // 
-            this.clearPanel1.Location = new System.Drawing.Point(15, 76);
+            this.clearPanel1.Location = new System.Drawing.Point(15, 60);
             this.clearPanel1.Name = "clearPanel1";
-            this.clearPanel1.Size = new System.Drawing.Size(110, 42);
+            this.clearPanel1.Size = new System.Drawing.Size(110, 31);
             this.clearPanel1.TabIndex = 117;
             this.clearPanel1.Text = "Clear panel";
             this.clearPanel1.UseVisualStyleBackColor = true;
@@ -376,9 +377,9 @@
             // 
             // JoystickPainter_start
             // 
-            this.JoystickPainter_start.Location = new System.Drawing.Point(15, 32);
+            this.JoystickPainter_start.Location = new System.Drawing.Point(15, 26);
             this.JoystickPainter_start.Name = "JoystickPainter_start";
-            this.JoystickPainter_start.Size = new System.Drawing.Size(110, 38);
+            this.JoystickPainter_start.Size = new System.Drawing.Size(110, 31);
             this.JoystickPainter_start.TabIndex = 119;
             this.JoystickPainter_start.Text = "start";
             this.JoystickPainter_start.UseVisualStyleBackColor = true;
@@ -387,18 +388,18 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.ManualControl_start);
-            this.groupBox6.Location = new System.Drawing.Point(135, 189);
+            this.groupBox6.Location = new System.Drawing.Point(140, 176);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(153, 131);
+            this.groupBox6.Size = new System.Drawing.Size(144, 104);
             this.groupBox6.TabIndex = 120;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Manual Motor Control";
             // 
             // ManualControl_start
             // 
-            this.ManualControl_start.Location = new System.Drawing.Point(14, 79);
+            this.ManualControl_start.Location = new System.Drawing.Point(13, 64);
             this.ManualControl_start.Name = "ManualControl_start";
-            this.ManualControl_start.Size = new System.Drawing.Size(110, 37);
+            this.ManualControl_start.Size = new System.Drawing.Size(110, 27);
             this.ManualControl_start.TabIndex = 119;
             this.ManualControl_start.Text = "start";
             this.ManualControl_start.UseVisualStyleBackColor = true;
@@ -408,9 +409,9 @@
             // 
             this.groupBox4.Controls.Add(this.groupBox11);
             this.groupBox4.Controls.Add(this.groupBox8);
-            this.groupBox4.Location = new System.Drawing.Point(6, 324);
+            this.groupBox4.Location = new System.Drawing.Point(6, 286);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(441, 324);
+            this.groupBox4.Size = new System.Drawing.Size(441, 293);
             this.groupBox4.TabIndex = 120;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Script panel";
@@ -435,7 +436,7 @@
             this.groupBox11.Controls.Add(this.right_3);
             this.groupBox11.Controls.Add(this.pointer_2);
             this.groupBox11.Controls.Add(this.pointer_1);
-            this.groupBox11.Location = new System.Drawing.Point(12, 145);
+            this.groupBox11.Location = new System.Drawing.Point(12, 119);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(410, 168);
             this.groupBox11.TabIndex = 124;
@@ -445,26 +446,26 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(181, 10);
+            this.label11.Location = new System.Drawing.Point(182, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 28);
+            this.label11.Size = new System.Drawing.Size(79, 23);
             this.label11.TabIndex = 132;
             this.label11.Text = "POINTER";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(274, 10);
+            this.label9.Location = new System.Drawing.Point(275, 16);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 28);
+            this.label9.Size = new System.Drawing.Size(49, 23);
             this.label9.TabIndex = 124;
             this.label9.Text = "LEFT ";
             // 
             // run_script_3
             // 
-            this.run_script_3.Location = new System.Drawing.Point(109, 120);
+            this.run_script_3.Location = new System.Drawing.Point(109, 119);
             this.run_script_3.Name = "run_script_3";
-            this.run_script_3.Size = new System.Drawing.Size(54, 37);
+            this.run_script_3.Size = new System.Drawing.Size(54, 30);
             this.run_script_3.TabIndex = 140;
             this.run_script_3.Text = "run";
             this.run_script_3.UseVisualStyleBackColor = true;
@@ -473,18 +474,18 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(339, 11);
+            this.label10.Location = new System.Drawing.Point(340, 17);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 28);
+            this.label10.Size = new System.Drawing.Size(58, 23);
             this.label10.TabIndex = 125;
             this.label10.Text = "RIGHT";
             this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // run_script_2
             // 
-            this.run_script_2.Location = new System.Drawing.Point(109, 79);
+            this.run_script_2.Location = new System.Drawing.Point(109, 80);
             this.run_script_2.Name = "run_script_2";
-            this.run_script_2.Size = new System.Drawing.Size(54, 37);
+            this.run_script_2.Size = new System.Drawing.Size(54, 30);
             this.run_script_2.TabIndex = 139;
             this.run_script_2.Text = "run";
             this.run_script_2.UseVisualStyleBackColor = true;
@@ -497,16 +498,16 @@
             this.left_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.left_1.Location = new System.Drawing.Point(274, 45);
             this.left_1.Name = "left_1";
-            this.left_1.Size = new System.Drawing.Size(46, 25);
+            this.left_1.Size = new System.Drawing.Size(37, 20);
             this.left_1.TabIndex = 126;
             this.left_1.Text = "    --";
             this.left_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // run_script_1
             // 
-            this.run_script_1.Location = new System.Drawing.Point(109, 37);
+            this.run_script_1.Location = new System.Drawing.Point(109, 38);
             this.run_script_1.Name = "run_script_1";
-            this.run_script_1.Size = new System.Drawing.Size(54, 37);
+            this.run_script_1.Size = new System.Drawing.Size(54, 33);
             this.run_script_1.TabIndex = 138;
             this.run_script_1.Text = "run";
             this.run_script_1.UseVisualStyleBackColor = true;
@@ -519,7 +520,7 @@
             this.left_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.left_2.Location = new System.Drawing.Point(274, 84);
             this.left_2.Name = "left_2";
-            this.left_2.Size = new System.Drawing.Size(46, 25);
+            this.left_2.Size = new System.Drawing.Size(37, 20);
             this.left_2.TabIndex = 127;
             this.left_2.Text = "    --";
             this.left_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -529,7 +530,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(4, 119);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 28);
+            this.label16.Size = new System.Drawing.Size(69, 23);
             this.label16.TabIndex = 137;
             this.label16.Text = "script 3:";
             // 
@@ -540,7 +541,7 @@
             this.left_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.left_3.Location = new System.Drawing.Point(274, 122);
             this.left_3.Name = "left_3";
-            this.left_3.Size = new System.Drawing.Size(46, 25);
+            this.left_3.Size = new System.Drawing.Size(37, 20);
             this.left_3.TabIndex = 128;
             this.left_3.Text = "    --";
             this.left_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -550,7 +551,7 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(4, 80);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(80, 28);
+            this.label15.Size = new System.Drawing.Size(69, 23);
             this.label15.TabIndex = 136;
             this.label15.Text = "script 2:";
             // 
@@ -561,7 +562,7 @@
             this.right_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.right_1.Location = new System.Drawing.Point(339, 44);
             this.right_1.Name = "right_1";
-            this.right_1.Size = new System.Drawing.Size(46, 25);
+            this.right_1.Size = new System.Drawing.Size(37, 20);
             this.right_1.TabIndex = 129;
             this.right_1.Text = "    --";
             this.right_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -571,7 +572,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(4, 41);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 28);
+            this.label6.Size = new System.Drawing.Size(69, 23);
             this.label6.TabIndex = 122;
             this.label6.Text = "script 1:";
             // 
@@ -582,7 +583,7 @@
             this.right_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.right_2.Location = new System.Drawing.Point(339, 81);
             this.right_2.Name = "right_2";
-            this.right_2.Size = new System.Drawing.Size(46, 25);
+            this.right_2.Size = new System.Drawing.Size(37, 20);
             this.right_2.TabIndex = 130;
             this.right_2.Text = "    --";
             this.right_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -594,7 +595,7 @@
             this.pointer_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pointer_3.Location = new System.Drawing.Point(194, 124);
             this.pointer_3.Name = "pointer_3";
-            this.pointer_3.Size = new System.Drawing.Size(46, 25);
+            this.pointer_3.Size = new System.Drawing.Size(37, 20);
             this.pointer_3.TabIndex = 135;
             this.pointer_3.Text = "    --";
             this.pointer_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -606,7 +607,7 @@
             this.right_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.right_3.Location = new System.Drawing.Point(339, 122);
             this.right_3.Name = "right_3";
-            this.right_3.Size = new System.Drawing.Size(46, 25);
+            this.right_3.Size = new System.Drawing.Size(37, 20);
             this.right_3.TabIndex = 131;
             this.right_3.Text = "    --";
             this.right_3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -618,7 +619,7 @@
             this.pointer_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pointer_2.Location = new System.Drawing.Point(194, 83);
             this.pointer_2.Name = "pointer_2";
-            this.pointer_2.Size = new System.Drawing.Size(46, 25);
+            this.pointer_2.Size = new System.Drawing.Size(37, 20);
             this.pointer_2.TabIndex = 134;
             this.pointer_2.Text = "    --";
             this.pointer_2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -630,7 +631,7 @@
             this.pointer_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pointer_1.Location = new System.Drawing.Point(194, 44);
             this.pointer_1.Name = "pointer_1";
-            this.pointer_1.Size = new System.Drawing.Size(46, 25);
+            this.pointer_1.Size = new System.Drawing.Size(37, 20);
             this.pointer_1.TabIndex = 133;
             this.pointer_1.Text = "    --";
             this.pointer_1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -645,16 +646,16 @@
             this.groupBox8.Controls.Add(this.DIS_ACK_script3);
             this.groupBox8.Location = new System.Drawing.Point(10, 24);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(410, 120);
+            this.groupBox8.Size = new System.Drawing.Size(410, 91);
             this.groupBox8.TabIndex = 120;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Load scripts";
             // 
             // script1_button
             // 
-            this.script1_button.Location = new System.Drawing.Point(17, 32);
+            this.script1_button.Location = new System.Drawing.Point(17, 29);
             this.script1_button.Name = "script1_button";
-            this.script1_button.Size = new System.Drawing.Size(103, 37);
+            this.script1_button.Size = new System.Drawing.Size(103, 27);
             this.script1_button.TabIndex = 118;
             this.script1_button.Text = "script 1";
             this.script1_button.UseVisualStyleBackColor = true;
@@ -662,9 +663,9 @@
             // 
             // script2_button
             // 
-            this.script2_button.Location = new System.Drawing.Point(150, 33);
+            this.script2_button.Location = new System.Drawing.Point(150, 29);
             this.script2_button.Name = "script2_button";
-            this.script2_button.Size = new System.Drawing.Size(104, 36);
+            this.script2_button.Size = new System.Drawing.Size(104, 27);
             this.script2_button.TabIndex = 119;
             this.script2_button.Text = "script 2";
             this.script2_button.UseVisualStyleBackColor = true;
@@ -672,9 +673,9 @@
             // 
             // script3_button
             // 
-            this.script3_button.Location = new System.Drawing.Point(285, 31);
+            this.script3_button.Location = new System.Drawing.Point(285, 27);
             this.script3_button.Name = "script3_button";
-            this.script3_button.Size = new System.Drawing.Size(95, 38);
+            this.script3_button.Size = new System.Drawing.Size(95, 29);
             this.script3_button.TabIndex = 120;
             this.script3_button.Text = "script 3";
             this.script3_button.UseVisualStyleBackColor = true;
@@ -684,9 +685,9 @@
             // 
             this.DIS_ACK_script1.AutoSize = true;
             this.DIS_ACK_script1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script1.Location = new System.Drawing.Point(20, 79);
+            this.DIS_ACK_script1.Location = new System.Drawing.Point(35, 62);
             this.DIS_ACK_script1.Name = "DIS_ACK_script1";
-            this.DIS_ACK_script1.Size = new System.Drawing.Size(80, 25);
+            this.DIS_ACK_script1.Size = new System.Drawing.Size(66, 20);
             this.DIS_ACK_script1.TabIndex = 26;
             this.DIS_ACK_script1.Text = "DIS_ACK";
             this.DIS_ACK_script1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -695,9 +696,9 @@
             // 
             this.DIS_ACK_script2.AutoSize = true;
             this.DIS_ACK_script2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script2.Location = new System.Drawing.Point(155, 79);
+            this.DIS_ACK_script2.Location = new System.Drawing.Point(168, 63);
             this.DIS_ACK_script2.Name = "DIS_ACK_script2";
-            this.DIS_ACK_script2.Size = new System.Drawing.Size(80, 25);
+            this.DIS_ACK_script2.Size = new System.Drawing.Size(66, 20);
             this.DIS_ACK_script2.TabIndex = 122;
             this.DIS_ACK_script2.Text = "DIS_ACK";
             this.DIS_ACK_script2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -706,9 +707,9 @@
             // 
             this.DIS_ACK_script3.AutoSize = true;
             this.DIS_ACK_script3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DIS_ACK_script3.Location = new System.Drawing.Point(295, 79);
+            this.DIS_ACK_script3.Location = new System.Drawing.Point(300, 63);
             this.DIS_ACK_script3.Name = "DIS_ACK_script3";
-            this.DIS_ACK_script3.Size = new System.Drawing.Size(80, 25);
+            this.DIS_ACK_script3.Size = new System.Drawing.Size(66, 20);
             this.DIS_ACK_script3.TabIndex = 123;
             this.DIS_ACK_script3.Text = "DIS_ACK";
             this.DIS_ACK_script3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -720,16 +721,16 @@
             this.groupBox5.Controls.Add(this.clockwise);
             this.groupBox5.Location = new System.Drawing.Point(252, 24);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(180, 164);
+            this.groupBox5.Size = new System.Drawing.Size(180, 144);
             this.groupBox5.TabIndex = 120;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Motor command";
             // 
             // stopStepMotor
             // 
-            this.stopStepMotor.Location = new System.Drawing.Point(6, 114);
+            this.stopStepMotor.Location = new System.Drawing.Point(6, 102);
             this.stopStepMotor.Name = "stopStepMotor";
-            this.stopStepMotor.Size = new System.Drawing.Size(165, 40);
+            this.stopStepMotor.Size = new System.Drawing.Size(165, 30);
             this.stopStepMotor.TabIndex = 134;
             this.stopStepMotor.Text = "stop";
             this.stopStepMotor.UseVisualStyleBackColor = true;
@@ -737,9 +738,9 @@
             // 
             // counterClockwise
             // 
-            this.counterClockwise.Location = new System.Drawing.Point(6, 70);
+            this.counterClockwise.Location = new System.Drawing.Point(6, 63);
             this.counterClockwise.Name = "counterClockwise";
-            this.counterClockwise.Size = new System.Drawing.Size(165, 41);
+            this.counterClockwise.Size = new System.Drawing.Size(165, 32);
             this.counterClockwise.TabIndex = 119;
             this.counterClockwise.Text = "counter clockwise";
             this.counterClockwise.UseVisualStyleBackColor = true;
@@ -747,11 +748,12 @@
             // 
             // clockwise
             // 
-            this.clockwise.Location = new System.Drawing.Point(6, 29);
+            this.clockwise.Location = new System.Drawing.Point(6, 27);
             this.clockwise.Name = "clockwise";
-            this.clockwise.Size = new System.Drawing.Size(165, 38);
+            this.clockwise.Size = new System.Drawing.Size(165, 30);
             this.clockwise.TabIndex = 118;
             this.clockwise.Text = "clockwise";
+            this.clockwise.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.clockwise.UseVisualStyleBackColor = true;
             this.clockwise.Click += new System.EventHandler(this.clockwise_Click);
             // 
@@ -759,18 +761,18 @@
             // 
             this.groupBox9.Controls.Add(this.stopCalib);
             this.groupBox9.Controls.Add(this.startCalib);
-            this.groupBox9.Location = new System.Drawing.Point(6, 190);
+            this.groupBox9.Location = new System.Drawing.Point(6, 177);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(123, 130);
+            this.groupBox9.Size = new System.Drawing.Size(123, 103);
             this.groupBox9.TabIndex = 112;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Calibration";
             // 
             // stopCalib
             // 
-            this.stopCalib.Location = new System.Drawing.Point(6, 80);
+            this.stopCalib.Location = new System.Drawing.Point(7, 62);
             this.stopCalib.Name = "stopCalib";
-            this.stopCalib.Size = new System.Drawing.Size(110, 36);
+            this.stopCalib.Size = new System.Drawing.Size(110, 28);
             this.stopCalib.TabIndex = 119;
             this.stopCalib.Text = "stop calib";
             this.stopCalib.UseVisualStyleBackColor = true;
@@ -778,9 +780,9 @@
             // 
             // startCalib
             // 
-            this.startCalib.Location = new System.Drawing.Point(7, 38);
+            this.startCalib.Location = new System.Drawing.Point(7, 25);
             this.startCalib.Name = "startCalib";
-            this.startCalib.Size = new System.Drawing.Size(110, 36);
+            this.startCalib.Size = new System.Drawing.Size(110, 31);
             this.startCalib.TabIndex = 118;
             this.startCalib.Text = "start calib";
             this.startCalib.UseVisualStyleBackColor = true;
@@ -807,7 +809,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 76);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 28);
+            this.label2.Size = new System.Drawing.Size(89, 23);
             this.label2.TabIndex = 132;
             this.label2.Text = "step angle";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -817,7 +819,7 @@
             this.step_angle_Label.AutoSize = true;
             this.step_angle_Label.Location = new System.Drawing.Point(138, 78);
             this.step_angle_Label.Name = "step_angle_Label";
-            this.step_angle_Label.Size = new System.Drawing.Size(23, 28);
+            this.step_angle_Label.Size = new System.Drawing.Size(19, 23);
             this.step_angle_Label.TabIndex = 133;
             this.step_angle_Label.Text = "0";
             this.step_angle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -827,7 +829,7 @@
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(6, 29);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(113, 28);
+            this.label20.Size = new System.Drawing.Size(98, 23);
             this.label20.TabIndex = 127;
             this.label20.Text = "SM counter";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -837,7 +839,7 @@
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(6, 52);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(127, 28);
+            this.label25.Size = new System.Drawing.Size(112, 23);
             this.label25.TabIndex = 129;
             this.label25.Text = "current angle";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -847,7 +849,7 @@
             this.SM_countre_Label.AutoSize = true;
             this.SM_countre_Label.Location = new System.Drawing.Point(138, 27);
             this.SM_countre_Label.Name = "SM_countre_Label";
-            this.SM_countre_Label.Size = new System.Drawing.Size(23, 28);
+            this.SM_countre_Label.Size = new System.Drawing.Size(19, 23);
             this.SM_countre_Label.TabIndex = 128;
             this.SM_countre_Label.Text = "0";
             this.SM_countre_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -857,7 +859,7 @@
             this.current_angle_Label.AutoSize = true;
             this.current_angle_Label.Location = new System.Drawing.Point(138, 53);
             this.current_angle_Label.Name = "current_angle_Label";
-            this.current_angle_Label.Size = new System.Drawing.Size(23, 28);
+            this.current_angle_Label.Size = new System.Drawing.Size(19, 23);
             this.current_angle_Label.TabIndex = 130;
             this.current_angle_Label.Text = "0";
             this.current_angle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -867,7 +869,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(25, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 28);
+            this.label5.Size = new System.Drawing.Size(60, 23);
             this.label5.TabIndex = 34;
             this.label5.Text = "Status:";
             // 
@@ -876,7 +878,7 @@
             this.MSG_Status.AutoSize = true;
             this.MSG_Status.Location = new System.Drawing.Point(95, 24);
             this.MSG_Status.Name = "MSG_Status";
-            this.MSG_Status.Size = new System.Drawing.Size(92, 28);
+            this.MSG_Status.Size = new System.Drawing.Size(80, 23);
             this.MSG_Status.TabIndex = 33;
             this.MSG_Status.Text = "WAITING";
             // 
@@ -894,13 +896,19 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
+            this.radioButton1.BackColor = System.Drawing.Color.Transparent;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(260, 248);
+            this.radioButton1.FlatAppearance.BorderSize = 0;
+            this.radioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
+            this.radioButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.radioButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black;
+            this.radioButton1.ForeColor = System.Drawing.Color.Black;
+            this.radioButton1.Location = new System.Drawing.Point(258, 248);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(21, 20);
+            this.radioButton1.Size = new System.Drawing.Size(17, 16);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.UseVisualStyleBackColor = false;
             // 
             // timer1
             // 
@@ -915,27 +923,27 @@
             this.label12.ForeColor = System.Drawing.Color.DarkOrchid;
             this.label12.Location = new System.Drawing.Point(547, 20);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(440, 45);
+            this.label12.Size = new System.Drawing.Size(376, 38);
             this.label12.TabIndex = 133;
             this.label12.Text = "DCS - Final Project GUI";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.DimGray;
-            this.label13.Location = new System.Drawing.Point(783, 663);
+            this.label13.Location = new System.Drawing.Point(762, 619);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(730, 41);
+            this.label13.Size = new System.Drawing.Size(564, 31);
             this.label13.TabIndex = 134;
             this.label13.Text = "© Copyright: Shahar Mizrahi and Tamar Oren";
             // 
             // DCS_control
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1299, 749);
+            this.ClientSize = new System.Drawing.Size(1287, 671);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.panel1);

@@ -133,14 +133,23 @@ extern void Phi_calculation(void);
 //#define FLASH_INFO_SEG_D_START     (char*)0xE000
 //#define FLASH_INFO_SEG_D_END       (char*)0xE03F
 
-#define FLASH_INFO_SEG_B_START     (char*)0x1000
-#define FLASH_INFO_SEG_B_END       (char*)0x103F
+//#define FLASH_INFO_SEG_B_START     (char*)0x1000
+//#define FLASH_INFO_SEG_B_END       (char*)0x103F
+//
+//#define FLASH_INFO_SEG_C_START     (char*)0x1040
+//#define FLASH_INFO_SEG_C_END       (char*)0x107F
+//
+//#define FLASH_INFO_SEG_D_START     (char*)0x1080
+//#define FLASH_INFO_SEG_D_END       (char*)0x10BF
 
-#define FLASH_INFO_SEG_C_START     (char*)0x1040
-#define FLASH_INFO_SEG_C_END       (char*)0x107F
+#define FLASH_INFO_SEG_B_START     (char*)0xF800
+#define FLASH_INFO_SEG_B_END       (char*)0xF9FF
 
-#define FLASH_INFO_SEG_D_START     (char*)0x1080
-#define FLASH_INFO_SEG_D_END       (char*)0x10BF
+#define FLASH_INFO_SEG_C_START     (char*)0xFA00
+#define FLASH_INFO_SEG_C_END       (char*)0xFBFF
+
+#define FLASH_INFO_SEG_D_START     (char*)0xFC00
+#define FLASH_INFO_SEG_D_END       (char*)0xFDFF
 //------------------------------------------------
 //                  Variables
 //------------------------------------------------

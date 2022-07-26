@@ -19,7 +19,7 @@ void stepper_motor_manual_control(void){
     MoveToJoyStickDiraction();
 }
 //==========================================================
-//              STATE 2 - calibration
+//              STATE 2 - joystick painter
 //==========================================================
 void Joystick_based_PC_painter(void){
 //    _BIS_SR(GIE);

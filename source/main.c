@@ -61,6 +61,7 @@ void main(void){
                 break;
 
             case move_motor_freely:
+                _BIS_SR(GIE);
                 moving_stepper_motor();
                 break;
 

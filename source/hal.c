@@ -331,8 +331,8 @@ void stepper_scan(unsigned long l, unsigned long r){
     if ((state == ScriptMode) && (scan_mode == 1)){ // maybe
         Got_to_left_flg = 1;
         enable_transmition();
-        __bis_SR_register(LPM0_bits + GIE);
-//        Timer0_A_delay_ms(50);
+//        __bis_SR_register(LPM0_bits + GIE);
+        Timer0_A_delay_ms(250);
     }
     // if Left angle = Right angle, end of operation
     if (Left_ang == Right_ang) return;
@@ -343,8 +343,8 @@ void stepper_scan(unsigned long l, unsigned long r){
     if ((state == ScriptMode) && (scan_mode == 1)){
         Got_to_right_flg = 1;   // update PC that motor arrived to Right angle
         enable_transmition();
-        __bis_SR_register(LPM0_bits + GIE);
-//        Timer0_A_delay_ms(50);
+//        __bis_SR_register(LPM0_bits + GIE);
+        Timer0_A_delay_ms(250);
 
     }
 
@@ -854,13 +854,13 @@ __interrupt void USCI0TX_ISR(void)
         GatherStatusInfo();
         Got_to_left_flg = 0;
         status_flg = 1;       // send PC current status
-        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
+//        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
 
     }else if ((state == ScriptMode) && (scan_mode == 1) && (Got_to_right_flg == 1)){
         GatherStatusInfo();
         Got_to_right_flg = 0;
         status_flg = 1;       // send PC current status
-        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
+//        __bic_SR_register_on_exit(LPM0_bits + GIE);  // Exit LPM0 on return to main
     } else{
       IE2 &= ~UCA0TXIE;                                  // Disable TX interrupt
     }

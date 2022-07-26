@@ -62,11 +62,12 @@ namespace Pneumatic_Control
         uint previous_y = 230;
         uint m_joistic_mode = 0;
         JOISTICK_MODES joistick_modes = JOISTICK_MODES.NUTRAL;
+        bool printing = true;
         /////////////////////////////////////
         //             STATE 4             //
         /////////////////////////////////////
         SCRIPT_MODE_STATE scriptNumber = SCRIPT_MODE_STATE.UNKNOWN_STATE;
-        
+        SCRIPT_MODE_STATE scriptNumber_run = SCRIPT_MODE_STATE.UNKNOWN_STATE;
 
 
 
@@ -181,9 +182,8 @@ namespace Pneumatic_Control
             /////////////////////////////////////
             //           Joistick !!!          //
             /////////////////////////////////////
-            //Ojw.CMessage.Init(txtMessage);
-            
             panel1.Controls.Add(radioButton1);
+            //radioButton1.BackColor = Color.Transparent;
             radioButton1.Location = new Point((int)m_current_x, (int)m_current_y);
 
             DIS_ACK_script1.Text = "DIS_ACK";
@@ -343,22 +343,23 @@ namespace Pneumatic_Control
             int index = 0;
 
 
-
-            richTextBox_textReceiver.Text += "------New data ------" + "\n";
-            richTextBox_textReceiver.Text += startChar.ToString() + "\t|" + Enum.GetName(typeof(MSG_TYPE), msg_type) + " message\n";
-            richTextBox_textReceiver.Text += MSG_LENGTH_string + "\t|" +  " number of bytes received\n";
-            for (int i = 0; i < msg_array.Length; i++)
+            if (printing)
             {
-                if (msg_array[i] == 0) richTextBox_textReceiver.Text += (i + 1).ToString() + ") " + "48" + "\t| " + "0" + " \n";
-                else
+                richTextBox_textReceiver.Text += "------New data ------" + "\n";
+                richTextBox_textReceiver.Text += startChar.ToString() + "\t|" + Enum.GetName(typeof(MSG_TYPE), msg_type) + " message\n";
+                richTextBox_textReceiver.Text += MSG_LENGTH_string + "\t|" + " number of bytes received\n";
+                for (int i = 0; i < msg_array.Length; i++)
                 {
-                    richTextBox_textReceiver.Text += (i + 1).ToString() + ") " + msg_array[i].ToString();
-                    if (msg_array[i] > 31 && msg_array[i] < 127) richTextBox_textReceiver.Text += "\t| " + (char)msg_array[i] + " \n";
-                    else richTextBox_textReceiver.Text += "\n";
+                    if (msg_array[i] == 0) richTextBox_textReceiver.Text += (i + 1).ToString() + ") " + "48" + "\t| " + "0" + " \n";
+                    else
+                    {
+                        richTextBox_textReceiver.Text += (i + 1).ToString() + ") " + msg_array[i].ToString();
+                        if (msg_array[i] > 31 && msg_array[i] < 127) richTextBox_textReceiver.Text += "\t| " + (char)msg_array[i] + " \n";
+                        else richTextBox_textReceiver.Text += "\n";
+                    }
                 }
+                richTextBox_textReceiver.Text += "---------------------" + "\n";
             }
-            richTextBox_textReceiver.Text += "---------------------" + "\n";
-
             if (startChar == '#' || startChar == '<' || startChar == '>' || startChar == '%')
             {
                 CRC_status = true;
@@ -396,36 +397,41 @@ namespace Pneumatic_Control
                         float m_currentAngle_float = (float)m_currentAngle / 100;
                         current_angle_Label.Text = m_currentAngle_float.ToString() + " deg";
                         SM_countre_Label.Text = m_SMcounter.ToString();
-                        
+
                         // JOISTICK
                         if (m_joistic_mode != 4)
                         {
-                            //timer1.Interval = 100;
+                            printing = false;
+                            timer1.Interval = 100;
                             if (m_joistic_mode == 1) joistick_modes = JOISTICK_MODES.NUTRAL;
                             else if (m_joistic_mode == 2) joistick_modes = JOISTICK_MODES.DRAW;
                             else joistick_modes = JOISTICK_MODES.ERASER;
                             panel1_Paint(sender, e);
                         }
-                        //else timer1.Interval = 250;
+                        else if (m_joistic_mode == 4)
+                        {
+                            printing = true;
+                            timer1.Interval = 250;
+                        }
 
                         // STATE 4
                         if (msg_type == MSG_TYPE.LEFT_SCAN)
                         {
-                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) left_1.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) left_2.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) left_3.Text = m_currentAngle_float.ToString();
+                            if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT1) left_1.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT2) left_2.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT3) left_3.Text = m_currentAngle_float.ToString();
                         }
                         else if (msg_type == MSG_TYPE.RIGHT_SCAN)
                         {
-                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) right_1.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) right_2.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) right_3.Text = m_currentAngle_float.ToString();
+                            if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT1) right_1.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT2) right_2.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT3) right_3.Text = m_currentAngle_float.ToString();
                         }
                         else if (msg_type == MSG_TYPE.POINTER_SCAN)
                         {
-                            if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1) pointer_1.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2) pointer_2.Text = m_currentAngle_float.ToString();
-                            else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3) pointer_3.Text = m_currentAngle_float.ToString();
+                            if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT1) pointer_1.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT2) pointer_2.Text = m_currentAngle_float.ToString();
+                            else if (scriptNumber_run == SCRIPT_MODE_STATE.SCRIPT3) pointer_3.Text = m_currentAngle_float.ToString();
                         }
 
                     }
@@ -543,6 +549,7 @@ namespace Pneumatic_Control
         {
             try
             {
+                printing = false; // for increasing the transmission rate
                 Byte[] msg = { (byte)STATE.JOISTICK_PAINTER };
                 serialPort1.Write("!");
                 serialPort1.Write(msg, 0, 1);
@@ -572,6 +579,7 @@ namespace Pneumatic_Control
             }
             // Pointer update
             radioButton1.Location = new Point((int)m_current_x, (int)m_current_y);
+
             // Previous point update
             previous_x = m_current_x;
             previous_y = m_current_y;
@@ -652,6 +660,7 @@ namespace Pneumatic_Control
         {
             try
             {
+                scriptNumber_run = SCRIPT_MODE_STATE.SCRIPT1;
                 if (DIS_ACK_script1.Text == "ACK")
                 {
                     Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT1 };
@@ -673,6 +682,7 @@ namespace Pneumatic_Control
         {
             try
             {
+                scriptNumber_run = SCRIPT_MODE_STATE.SCRIPT2;
                 if (DIS_ACK_script2.Text == "ACK")
                 {
                     Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT2 };
@@ -694,6 +704,7 @@ namespace Pneumatic_Control
         {
             try
             {
+                scriptNumber_run = SCRIPT_MODE_STATE.SCRIPT3;
                 if (DIS_ACK_script3.Text == "ACK")
                 {
                     Byte[] msg = { (byte)STATE.SCRIPT_MODE, (byte)SCRIPT_MODE_STATE.SCRIPT3 };
@@ -758,17 +769,17 @@ namespace Pneumatic_Control
                 byte[] writeBuffer = { };
                 if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1)
                 {
-                    const string Path1 = @"scripts\script1.txt.txt";
+                    const string Path1 = @"scripts\script1.txt";
                     writeBuffer = File.ReadAllBytes(Path1);
                 }
                 else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2)
                 {
-                    const string Path2 = @"scripts\script2.txt.txt";
+                    const string Path2 = @"scripts\script2.txt";
                     writeBuffer = File.ReadAllBytes(Path2);
                 }
                 else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3)
                 {
-                    const string Path3 = @"scripts\script3.txt.txt";
+                    const string Path3 = @"scripts\script3.txt";
                     writeBuffer = File.ReadAllBytes(Path3);
                 }
                 
@@ -794,12 +805,8 @@ namespace Pneumatic_Control
                 // SEND: state and substate
                 Byte[] state_msg = { (byte)STATE.SCRIPT_MODE, (byte)scriptNumber };
                 serialPort1.Write(state_msg, 0, 2);
-                //Byte[] state_msg = { (byte)STATE.SCRIPT_MODE };
-                //serialPort1.Write(state_msg, 0, 1);
-                //string scriptNumber_str = scriptNumber.ToString();
                 // SEND: number of byts and lines
                 string numOfBytesAndLines = "";
-                //numOfBytesAndLines += "1";
                 numOfBytesAndLines += numberOfbytes_string;
                 numOfBytesAndLines += "-";
                 numOfBytesAndLines += nunberOfLines_string;
@@ -864,7 +871,5 @@ namespace Pneumatic_Control
                 MessageBox.Show(error.Message);
             }
         }
-
-
     }
 }
