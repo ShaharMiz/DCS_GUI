@@ -1,4 +1,4 @@
-﻿namespace Pneumatic_Control
+﻿namespace DCS_Control
 {
     partial class DCS_control
     {

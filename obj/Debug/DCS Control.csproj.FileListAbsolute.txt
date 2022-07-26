@@ -8,4 +8,4 @@ C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS Control.c
 C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS Control.csproj.CoreCompileInputs.cache
 C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS_Final_Project_Tester.exe
 C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS_Final_Project_Tester.pdb
-C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\Pneumatic_Control.DCS_control.resources
+C:\Users\שחר.DESKTOP-USVAERM\Documents\GitHub\DCS_GUI\obj\Debug\DCS_Control.DCS_control.resources

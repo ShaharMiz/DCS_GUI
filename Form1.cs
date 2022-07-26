@@ -10,43 +10,15 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.IO;
 /////////////////////////////////////
-//           Joistick !!!          //
-/////////////////////////////////////
-//using OpenJigWare;
-/////////////////////////////////////
 
-
-
-
-////// Usefully things
-///
-///// Right things to text box
-/// richTextBox_textReceiver.Text += msg_checksum.ToString() + " Checksum correct!" + "\n";
-///
-///// Use this to show somthing
-/// message_error_label.Text = message_error_counter.ToString();
-
-
-
-
-
-
-
-
-
-
-namespace Pneumatic_Control
+namespace DCS_Control
 {
     public partial class DCS_control : Form //partial
     {
-        int MSG_LENGTH = 0; // 
-        const int ID_MSG_LENGTH = 70;
-        const int stringSize = 16;
+        int MSG_LENGTH = 0;
         byte[] serialDataIn;
-        byte[] clearRXBuffer;
         int message_sent_counter = 0;
         int message_received_counter = 0;
-        int message_error_counter = 0;
         private byte[] serialDataHeader;
         private byte[] numberOfReceivdByts;
         MSG_TYPE msg_type = MSG_TYPE.WAIT;
@@ -83,48 +55,6 @@ namespace Pneumatic_Control
         };
 
 
-        private enum DEVICE_STATUS : byte
-        {
-            DEVICE_UNKNOWN = 0,
-            DEVICE_OK,
-            DEVICE_ERROR,
-            DEVICE_LOW_VOLTAGE,
-            DEVICE_NO_CONFIG,
-            PROG_ID,
-        };
-
-        private enum SC_CMD : byte
-        {
-            UNDEFINED = 0,
-            STATUS,
-            AUTOMAT,
-            RELAY_OPEN,
-            RELAY_CLOSE,
-            CHARGE,
-            NOT_CHARGE,
-            CALIBRATION_VOLTAGE,
-            CALIBRATION_CURRENT
-        }
-
-        private enum SC_MSG_STATUS : byte
-        {
-            UNKNOWN_CMD = 0,
-            ACK,
-            CHARGING_RELAYOPEN,
-            CHARGING_RELAYCLOSE,
-            NOT_CHARGING_RELAYOPEN,
-            NOT_CHARGING_RELAYCLOSE,
-            ERROR,
-            ILLEGAL_OPERATION,
-            BAD_MSG,
-            CMD_CHECKSUM_ERROR,
-            CMD_SIZE_ERROR,
-            STATUS_CHECKSUM_ERROR,
-            MAINTENANCE,
-            UNIT_NOT_CONNECTED,
-            LOW_VOLTAGE,
-            RESET
-        };
         private enum STATE : byte
         {
             SLEEP = 0,
@@ -320,7 +250,6 @@ namespace Pneumatic_Control
             {
                 serialDataIn = new byte[bytes];
                 serialPort1.Read(serialDataIn, 0, MSG_LENGTH-3);
-                //clearRXBuffer = serialPort1.ReadExisting();
                 this.Invoke(new EventHandler(ShowData));
             }
             else if(msg_type == MSG_TYPE.ACK_SCAN)
@@ -339,7 +268,6 @@ namespace Pneumatic_Control
             uint m_currentAngle = 0;
             uint m_SMcounter = 0;
             bool CRC_status = false;
-            //uint m_timestamp = 0;
             int index = 0;
 
 
@@ -470,7 +398,6 @@ namespace Pneumatic_Control
             {
                 Byte[] msg = { 0, 0 ,0, 0, 0};
                 serialPort1.Write("#");
-                //serialPort1.Write(msg, 0, 5);
                 message_sent_label.Text = (++message_sent_counter).ToString();
             }
             catch (Exception error)
@@ -660,6 +587,9 @@ namespace Pneumatic_Control
         {
             try
             {
+                
+                AutoButton.Text = "Press to run";
+
                 scriptNumber_run = SCRIPT_MODE_STATE.SCRIPT1;
                 if (DIS_ACK_script1.Text == "ACK")
                 {
@@ -682,6 +612,8 @@ namespace Pneumatic_Control
         {
             try
             {
+                AutoButton.Text = "Press to run";
+
                 scriptNumber_run = SCRIPT_MODE_STATE.SCRIPT2;
                 if (DIS_ACK_script2.Text == "ACK")
                 {
@@ -704,6 +636,8 @@ namespace Pneumatic_Control
         {
             try
             {
+                AutoButton.Text = "Press to run";
+
                 scriptNumber_run = SCRIPT_MODE_STATE.SCRIPT3;
                 if (DIS_ACK_script3.Text == "ACK")
                 {

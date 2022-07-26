@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace Pneumatic_Control
+namespace DCS_Control
 {
     static class Program
     {

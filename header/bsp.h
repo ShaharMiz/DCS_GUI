@@ -49,11 +49,7 @@ extern void InitUART(void);
 #define ADC_Busy    ADC10BUSY
 #define ADC_DTC     ADC10DTC1
 #define ADC_DCT_SA  ADC10SA
-////***********************************************
-////            POT configuration
-////***********************************************
-//#define  POTPortSel     P1SEL
-//#define  POTPortDir     P1DIR
+
 //***********************************************
 //            RGB configuration
 //***********************************************
@@ -80,34 +76,4 @@ extern void InitUART(void);
                   LEDPort2OUT &= ~(BIT7 + BIT6 + BIT5 + BIT4 + BIT2);
 
 
-
-
-//***********************************************
-//            LCD data configuration
-//***********************************************
-//
-//#define LCD_DATA_WRITE       P1OUT
-//#define LCD_DATA_DIR         P1DIR
-//#define LCD_DATA_READ        P1IN
-//
-//#define LCD_DATA_OFFSET 0x04 //data pin selection offset for 4 bit mode, variable range is 0-4, default 0 - Px.0-3, no offset
-//
-//
-
-//***********************************************
-//            LCD control configuration
-//***********************************************
-//
-//#define LCD_CTRL_OUT_PORT    P2OUT
-//#define LCD_CTRL_SEL_PORT    P2SEL
-//#define LCD_CTRL_DIR_PORT    P2DIR
-//
-//#define LCD_EN(a)   (!a ? (LCD_CTRL_OUT_PORT&=~BIT5) : (LCD_CTRL_OUT_PORT|=BIT5))       // P2.5 is lcd enable pin
-//#define LCD_EN_DIR(a)   (!a ? (LCD_CTRL_DIR_PORT&=~BIT5) : (LCD_CTRL_DIR_PORT|=BIT5))   // P2.5 pin direction
-//
-//#define LCD_RS(a)   (!a ? (LCD_CTRL_OUT_PORT&=~BIT6) : (LCD_CTRL_OUT_PORT|=BIT6))       // P2.6 is lcd RS pin
-//#define LCD_RS_DIR(a)   (!a ? (LCD_CTRL_DIR_PORT&=~BIT6) : (LCD_CTRL_DIR_PORT|=BIT6))   // P2.6 pin direction
-//
-//#define LCD_RW(a)   (!a ? (LCD_CTRL_OUT_PORT&=~BIT7) : (LCD_CTRL_OUT_PORT|=BIT7))       // P2.7 is lcd RW pin
-//#define LCD_RW_DIR(a)   (!a ? (LCD_CTRL_DIR_PORT&=~BIT7) : (LCD_CTRL_DIR_PORT|=BIT7))   // P2.7 pin direction
 #endif

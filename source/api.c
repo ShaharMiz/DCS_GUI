@@ -5,9 +5,7 @@
 #include  "../header/bsp.h"
 //**********************************************************
 //                   Final Project
-//==========================================================
-//                    Variables
-//==========================================================
+//**********************************************************
 
 //==========================================================
 //              STATE 1 - manual control
@@ -22,8 +20,6 @@ void stepper_motor_manual_control(void){
 //              STATE 2 - joystick painter
 //==========================================================
 void Joystick_based_PC_painter(void){
-//    _BIS_SR(GIE);
-//    adc10_config();
 
     sampleVxy();
 }
@@ -75,7 +71,7 @@ void script_mode(void){
         write_to_flash = 1;
         script_size_counter = s.size[s.num_script - 1];         // Script size
 
-        while(script_size_counter-- ){                           // Until we get all chars in script
+        while(script_size_counter-- ){                          // Until we get all chars in script
             __bis_SR_register(LPM0_bits + GIE);                 // wait for new char in Rx
         }
 
@@ -105,34 +101,34 @@ void script_mode(void){
                 opcode = read_mem(2);  // reading Opcode value
                 // execute function
                 switch(opcode){
-                    case 1:
+                    case 1:                     // blink RGB leds x times
                         x_times = get_x_value();
                         blink_RGB(ScriptModeDelay, x_times);
                         break;
-                    case 2:
+                    case 2:                     // rotate leds left x times
                         x_times = get_x_value();
                         rlc_leds(ScriptModeDelay, x_times);
                         break;
-                    case 3:
+                    case 3:                     // rotate leds right x times
                         x_times = get_x_value();
                         rrc_leds(ScriptModeDelay, x_times);
                         break;
                     case 4:
                         ScriptModeDelay = get_x_value();   // update new delay
                         break;
-                    case 5:
+                    case 5:                     // clear all leds
                         clear_RGB;
                         Leds_CLR;
                         break;
                     case 6:
-                        p = read_mem(2);    // get pointed degree
+                        p = read_mem(2);        // get pointed degree
                         scan_mode = 1;
-                        stepper_deg(p);       // Show the degree and distance (dynamically) onto PC screen
+                        stepper_deg(p);         // Show the degree and distance (dynamically) onto PC screen
                         scan_mode = 0;
                         break;
                     case 7:
-                        l = read_mem(2);
-                        r = read_mem(2);
+                        l = read_mem(2);        // get left degree
+                        r = read_mem(2);        // get right degree
                         scan_mode = 1;
                         // Show the degree and distance (dynamically) onto PC screen
                         stepper_scan(l, r);
@@ -155,12 +151,11 @@ void script_mode(void){
 }
 
 
-
-
 //==========================================================
 //              STATE 5- move or stop motor
 //==========================================================
 void moving_stepper_motor(void){
+    _BIS_SR(GIE);
     while (state_stage==start_move_forwards){ // moving forwards until state_stage changes
         _BIS_SR(GIE);
         move_forward();
@@ -171,125 +166,10 @@ void moving_stepper_motor(void){
         move_backward();
         step_angle_update();
     }
-    if (state_stage==stop_motor){ // end of calibration
+    if (state_stage==stop_motor){   // end of calibration
         state_stage = no_action;
-        state = sleep_mode; // sleeping mode
+        state = sleep_mode;         // sleeping mode
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//**********************************************************
-
-//--------------------------------------------------
-//volatile int Out_to_RGB = 0x01;
-//==========================================================
-//                     STATE 1
-//==========================================================
-//void RGBBlink(int delay){
-//
-//    clear_RGB();
-//    while(state == 1){
-//
-//        blink_RGB(delay);
-//        _BIS_SR(GIE);
-//    }
-//}
-//==========================================================
-//                     STATE 2
-//==========================================================
-//void UpCounter(int delay){
-//
-//    unsigned int SumValTmp;
-//    char SumValTXT[20] ={'\0'};
-//    lcd_clear();
-//    while(state == 2){
-//        Timer0_A_delay_ms(delay);
-//        sum_up_value++;
-//
-//        SumValTmp = (unsigned int) sum_up_value;
-//        int2str(SumValTXT, SumValTmp);
-//        lcd_home();
-//        lcd_puts("c_up: ");
-//        lcd_puts(SumValTXT);    // print initial label 1 on LCD
-//        _BIS_SR(GIE);
-//
-//    }
-//}
-////==========================================================
-////                     STATE 3
-////==========================================================
-//void DownCounter(int delay){
-//
-//    unsigned int SumValTmp;
-//    char SumValTXT[20] ={'\0'};
-//
-//    while(state == 3){
-//        Timer0_A_delay_ms(delay);
-//        sum_down_value--;
-//
-//        SumValTmp = (unsigned int) sum_down_value;
-//        int2str(SumValTXT, sum_down_value);
-//        lcd_home();
-//        lcd_puts("c_down: ");
-//        lcd_puts(SumValTXT);    // print initial label 1 on LCD
-//        _BIS_SR(GIE);
-//
-//    }
-//    }
-//
-//
-////==========================================================
-////                     STATE 5
-////==========================================================
-//void Potentiometer(void){
-//    _BIS_SR(GIE);
-//    adc10_config();
-//    SC_from_POT();
-//    int2str(POT,ADC10MEM);   // get pot value from ADC10MEM
-//    enable_transmition();
-//}
-////==========================================================
-////                     STATE 6
-////==========================================================
-//void clear_and_initialize(void){
-//    sum_up_value = 0;
-//    sum_down_value = 65535;
-//
-//    clearing();
-//    state = 9;
-//}
-//
-////==========================================================
-////                     STATE 8
-////==========================================================
-//void Transmit_menu(void){
-//    enable_transmition();
-//}
-
-//***********************************************************
-//***********************************************************
 
