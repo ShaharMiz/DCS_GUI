@@ -758,17 +758,17 @@ namespace Pneumatic_Control
                 byte[] writeBuffer = { };
                 if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT1)
                 {
-                    const string Path1 = @"scripts\script1.txt";
+                    const string Path1 = @"scripts\script1.txt.txt";
                     writeBuffer = File.ReadAllBytes(Path1);
                 }
                 else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT2)
                 {
-                    const string Path2 = @"scripts\script2.txt";
+                    const string Path2 = @"scripts\script2.txt.txt";
                     writeBuffer = File.ReadAllBytes(Path2);
                 }
                 else if (scriptNumber == SCRIPT_MODE_STATE.SCRIPT3)
                 {
-                    const string Path3 = @"scripts\script3.txt";
+                    const string Path3 = @"scripts\script3.txt.txt";
                     writeBuffer = File.ReadAllBytes(Path3);
                 }
                 
