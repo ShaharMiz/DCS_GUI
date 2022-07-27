@@ -42,8 +42,8 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ClearText = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.ClearText = new System.Windows.Forms.Button();
             this.PingButton = new System.Windows.Forms.Button();
             this.AutoButton = new System.Windows.Forms.Button();
             this.reset_counter_button = new System.Windows.Forms.Button();
@@ -98,8 +98,6 @@
             this.label25 = new System.Windows.Forms.Label();
             this.SM_countre_Label = new System.Windows.Forms.Label();
             this.current_angle_Label = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.MSG_Status = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -243,17 +241,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Communication";
             // 
-            // ClearText
-            // 
-            this.ClearText.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ClearText.Location = new System.Drawing.Point(122, 25);
-            this.ClearText.Name = "ClearText";
-            this.ClearText.Size = new System.Drawing.Size(124, 26);
-            this.ClearText.TabIndex = 25;
-            this.ClearText.Text = "Clear text";
-            this.ClearText.UseVisualStyleBackColor = true;
-            this.ClearText.Click += new System.EventHandler(this.ClearText_Click);
-            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.ClearText);
@@ -270,6 +257,17 @@
             this.groupBox10.TabIndex = 113;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Message panel";
+            // 
+            // ClearText
+            // 
+            this.ClearText.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ClearText.Location = new System.Drawing.Point(122, 25);
+            this.ClearText.Name = "ClearText";
+            this.ClearText.Size = new System.Drawing.Size(124, 26);
+            this.ClearText.TabIndex = 25;
+            this.ClearText.Text = "Clear text";
+            this.ClearText.UseVisualStyleBackColor = true;
+            this.ClearText.Click += new System.EventHandler(this.ClearText_Click);
             // 
             // PingButton
             // 
@@ -345,8 +343,6 @@
             this.groupBox2.Controls.Add(this.groupBox5);
             this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.MSG_Status);
             this.groupBox2.Location = new System.Drawing.Point(303, 75);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(453, 585);
@@ -719,7 +715,7 @@
             this.groupBox5.Controls.Add(this.stopStepMotor);
             this.groupBox5.Controls.Add(this.counterClockwise);
             this.groupBox5.Controls.Add(this.clockwise);
-            this.groupBox5.Location = new System.Drawing.Point(252, 24);
+            this.groupBox5.Location = new System.Drawing.Point(252, 27);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(180, 144);
             this.groupBox5.TabIndex = 120;
@@ -796,7 +792,7 @@
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.Controls.Add(this.SM_countre_Label);
             this.groupBox3.Controls.Add(this.current_angle_Label);
-            this.groupBox3.Location = new System.Drawing.Point(6, 58);
+            this.groupBox3.Location = new System.Drawing.Point(6, 27);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(225, 110);
             this.groupBox3.TabIndex = 101;
@@ -863,24 +859,6 @@
             this.current_angle_Label.TabIndex = 130;
             this.current_angle_Label.Text = "0";
             this.current_angle_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 24);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 23);
-            this.label5.TabIndex = 34;
-            this.label5.Text = "Status:";
-            // 
-            // MSG_Status
-            // 
-            this.MSG_Status.AutoSize = true;
-            this.MSG_Status.Location = new System.Drawing.Point(95, 24);
-            this.MSG_Status.Name = "MSG_Status";
-            this.MSG_Status.Size = new System.Drawing.Size(80, 23);
-            this.MSG_Status.TabIndex = 33;
-            this.MSG_Status.Text = "WAITING";
             // 
             // panel1
             // 
@@ -963,7 +941,6 @@
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -997,8 +974,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button ClearText;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label MSG_Status;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button PingButton;
         private System.Windows.Forms.Button AutoButton;
         private System.Windows.Forms.Timer timer1;

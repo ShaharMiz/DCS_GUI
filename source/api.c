@@ -11,7 +11,7 @@
 //              STATE 1 - manual control
 //==========================================================
 void stepper_motor_manual_control(void){
-    while ((Vx>=radius_min_bruto && Vx<=radius_max_bruto) && (Vy>=radius_min_bruto && Vy<=radius_max_bruto)){
+    while ((Vx>=radius_min_bruto && Vx<=radius_max_bruto) && (Vy>=radius_min_bruto && Vy<=radius_max_bruto) && (state==1)){
         sampleVxy();
     }
     MoveToJoyStickDiraction();
